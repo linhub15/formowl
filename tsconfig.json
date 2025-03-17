@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "target": "ESNext",
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+
+    "paths": {
+      "@/*": ["./app/*"]
+    }
+  },
+  "include": ["./app/**/*", "*.ts"]
+}

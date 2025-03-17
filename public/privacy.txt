@@ -1,0 +1,22 @@
+Privacy Policy
+
+1. Information We Collect: a. User Information: We collect information provided
+   during onboarding process, including but not limited to name, email address,
+   and address. Also, information about how users interact with our service,
+   including log data, device information, and usage patterns.
+
+2. How We Use Your Information: a. Personalization: We may use collected data to
+   personalize user experience and improve our services.
+
+3. Sharing Your Information: a. We do not sell or share personally identifiable
+   information with third parties, except as required by law or with your
+   explicit consent.
+
+4. Security: a. We implement industry-standard security measures to protect your
+   information from unauthorized access, disclosure, alteration, and
+   destruction.
+
+5. Data Retention: a. We retain user data as long as necessary to provide our
+   services and for legitimate business purposes.
+
+6. Your Choices: a. Users can review and request their data be deleted.
