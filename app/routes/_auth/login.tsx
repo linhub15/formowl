@@ -1,7 +1,6 @@
 import { authClient } from "@/lib/auth/auth.client";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { GoogleIcon } from "../../components/icons/google_icon";
 import { z } from "zod";
 
 const searchParams = z.object({
@@ -74,7 +73,6 @@ function OAuthSection(props: { redirect?: string }) {
           type="button"
           onClick={() => signInGoogle.mutateAsync()}
         >
-          <GoogleIcon className="h-5 w-5" />
           <span className="text-sm font-semibold leading-6">
             Continue with Google
           </span>

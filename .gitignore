@@ -6,6 +6,7 @@ node_modules
 .vinxi
 .vercel
 .output
+dist
 app.config.timestamp*
 
 # Other
