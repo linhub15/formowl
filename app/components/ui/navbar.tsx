@@ -65,6 +65,7 @@ export const NavbarItem = forwardRef(function NavbarItem(
       | Omit<Headless.ButtonProps, "as" | "className">
       | Omit<LinkProps, "className">
     ),
+  ref: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>,
 ) {
   const classes = clsx(
     // Base
@@ -108,6 +109,7 @@ export const NavbarItem = forwardRef(function NavbarItem(
             {...props}
             className={clsx("cursor-default", classes)}
             data-current={current ? "true" : undefined}
+            ref={ref}
           >
             <TouchTarget>{children}</TouchTarget>
           </Headless.Button>

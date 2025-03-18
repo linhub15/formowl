@@ -54,8 +54,8 @@ export function DropdownItem({
 }:
   & { className?: string }
   & (
-    | Omit<Headless.MenuItemProps<"button">, "as" | "className">
-    | LinkProps
+    | Omit<React.ComponentProps<"button">, "className">
+    | Omit<LinkProps, "className">
   )) {
   const classes = cn(
     className,
@@ -85,12 +85,9 @@ export function DropdownItem({
       </Headless.MenuItem>
     )
     : (
-      <Headless.MenuItem
-        as="button"
-        type="button"
-        {...props}
-        className={classes}
-      />
+      <Headless.MenuItem>
+        <button type="button" {...props} className={classes} />
+      </Headless.MenuItem>
     );
 }
 
