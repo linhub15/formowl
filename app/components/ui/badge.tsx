@@ -1,8 +1,9 @@
+/** https://catalyst.tailwindui.com/docs/badge */
 import * as Headless from "@headlessui/react";
-import clsx from "clsx";
 import type React from "react";
 import { TouchTarget } from "./button";
 import { Link, type LinkProps } from "./link";
+import { cn } from "@/lib/utils/cn";
 
 const colors = {
   red:
@@ -53,7 +54,7 @@ export function Badge(
   return (
     <span
       {...props}
-      className={clsx(
+      className={cn(
         className,
         "inline-flex items-center gap-x-1.5 rounded-md px-1.5 py-0.5 text-sm/5 font-medium sm:text-xs/5 forced-colors:outline",
         colors[color],
@@ -81,7 +82,7 @@ export const BadgeButton = function BadgeButton(
       | Omit<LinkProps, "className">
     ),
 ) {
-  const classes = clsx(
+  const classes = cn(
     className,
     "group relative inline-flex rounded-md focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500",
   );

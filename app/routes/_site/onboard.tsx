@@ -6,8 +6,9 @@ import { authClient } from "@/lib/auth/auth.client";
 import { useSession } from "@/lib/auth/hooks/use_session";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import { BRANDING } from "@/lib/constants";
 
-export const Route = createFileRoute("/_auth/onboard")({
+export const Route = createFileRoute("/_site/onboard")({
   beforeLoad: async ({ location }) => {
     const session = await authClient.getSession();
     if (!session) {
@@ -58,7 +59,7 @@ function RouteComponent() {
       <Card>
         <CardBody>
           <Fieldset>
-            <Legend>Welcome to Form Owl</Legend>
+            <Legend>Welcome to {BRANDING.name}</Legend>
             <P>Are you ready to get started?</P>
           </Fieldset>
 

@@ -10,6 +10,7 @@ import { Heading } from "@/components/ui/heading";
 import { P } from "@/components/ui/text";
 import { authClient } from "@/lib/auth/auth.client";
 import { getSessionFn } from "@/lib/auth/get_session.fn";
+import { BRANDING } from "@/lib/constants";
 import { useMutation } from "@tanstack/react-query";
 import {
   createFileRoute,
@@ -22,7 +23,7 @@ const searchParams = z.object({
   redirect: z.string().optional(),
 });
 
-export const Route = createFileRoute("/_auth/login")({
+export const Route = createFileRoute("/_site/login")({
   beforeLoad: async () => {
     const session = await getSessionFn();
     if (session) {
@@ -55,7 +56,7 @@ function RouteComponent() {
         <Card>
           <CardBody>
             <div className="flex flex-col gap-6">
-              <Heading className="text-center">Form Owl</Heading>
+              <Heading className="text-center">{BRANDING.name}</Heading>
               <P className="text-center">
                 Login providers
               </P>
@@ -100,7 +101,7 @@ function GithubOAuthButton(props: OAuthButtonProps) {
       type="button"
       onClick={props.login}
     >
-      <GithubIcon />
+      <GithubIcon className="size-5 fill-[#24292F]" aria-hidden="true" />
       <span className="text-sm/6 font-semibold">GitHub</span>
     </button>
   );

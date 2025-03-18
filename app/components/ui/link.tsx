@@ -1,5 +1,6 @@
-// createLink with third party libraries
-// https://tanstack.com/router/latest/docs/framework/react/guide/custom-link#createlink-with-third-party-libraries
+/** Custom made to interact with Tailwind Catalyst UI
+ * https://tanstack.com/router/latest/docs/framework/react/guide/custom-link#createlink-with-third-party-libraries
+ */
 import * as Headless from "@headlessui/react";
 import {
   Link as TanstackLink,

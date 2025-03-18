@@ -1,8 +1,9 @@
+/** https://catalyst.tailwindui.com/docs/avatar */
 import * as Headless from "@headlessui/react";
-import clsx from "clsx";
 import type React from "react";
 import { TouchTarget } from "./button";
 import { Link, type LinkProps } from "./link";
+import { cn } from "@/lib/utils/cn";
 
 type AvatarProps = {
   src?: string | null;
@@ -26,7 +27,7 @@ export function Avatar({
     <span
       data-slot="avatar"
       {...props}
-      className={clsx(
+      className={cn(
         className,
         // Basic layout
         "inline-grid shrink-0 align-middle [--avatar-radius:20%] [--ring-opacity:20%] *:col-start-1 *:row-start-1",
@@ -79,7 +80,7 @@ export const AvatarButton = (
       | LinkProps
     ),
 ) => {
-  const classes = clsx(
+  const classes = cn(
     className,
     square ? "rounded-[20%]" : "rounded-full",
     "relative inline-grid focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500",

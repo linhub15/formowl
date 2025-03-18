@@ -1,3 +1,4 @@
+/** https://catalyst.tailwindui.com/docs/stacked-layout */
 import * as Headless from "@headlessui/react";
 import type React from "react";
 import { useState } from "react";

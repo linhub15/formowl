@@ -11,16 +11,23 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SiteImport } from './routes/_site'
 import { Route as DashboardRouteImport } from './routes/dashboard/route'
-import { Route as IndexImport } from './routes/index'
+import { Route as SiteIndexImport } from './routes/_site/index'
 import { Route as DashboardProfileImport } from './routes/dashboard/profile'
 import { Route as DashboardGetStartedImport } from './routes/dashboard/get-started'
-import { Route as AuthOnboardImport } from './routes/_auth/onboard'
-import { Route as AuthLoginImport } from './routes/_auth/login'
+import { Route as SitePricingImport } from './routes/_site/pricing'
+import { Route as SiteOnboardImport } from './routes/_site/onboard'
+import { Route as SiteLoginImport } from './routes/_site/login'
 import { Route as DashboardFormsCreateImport } from './routes/dashboard/forms/create'
 import { Route as DashboardFormsFormIdImport } from './routes/dashboard/forms/$formId'
 
 // Create/Update Routes
+
+const SiteRoute = SiteImport.update({
+  id: '/_site',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const DashboardRouteRoute = DashboardRouteImport.update({
   id: '/dashboard',
@@ -28,10 +35,10 @@ const DashboardRouteRoute = DashboardRouteImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
+const SiteIndexRoute = SiteIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => SiteRoute,
 } as any)
 
 const DashboardProfileRoute = DashboardProfileImport.update({
@@ -46,16 +53,22 @@ const DashboardGetStartedRoute = DashboardGetStartedImport.update({
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
-const AuthOnboardRoute = AuthOnboardImport.update({
-  id: '/_auth/onboard',
-  path: '/onboard',
-  getParentRoute: () => rootRoute,
+const SitePricingRoute = SitePricingImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => SiteRoute,
 } as any)
 
-const AuthLoginRoute = AuthLoginImport.update({
-  id: '/_auth/login',
+const SiteOnboardRoute = SiteOnboardImport.update({
+  id: '/onboard',
+  path: '/onboard',
+  getParentRoute: () => SiteRoute,
+} as any)
+
+const SiteLoginRoute = SiteLoginImport.update({
+  id: '/login',
   path: '/login',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => SiteRoute,
 } as any)
 
 const DashboardFormsCreateRoute = DashboardFormsCreateImport.update({
@@ -74,13 +87,6 @@ const DashboardFormsFormIdRoute = DashboardFormsFormIdImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -88,19 +94,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRoute
     }
-    '/_auth/login': {
-      id: '/_auth/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof AuthLoginImport
+    '/_site': {
+      id: '/_site'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof SiteImport
       parentRoute: typeof rootRoute
     }
-    '/_auth/onboard': {
-      id: '/_auth/onboard'
+    '/_site/login': {
+      id: '/_site/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof SiteLoginImport
+      parentRoute: typeof SiteImport
+    }
+    '/_site/onboard': {
+      id: '/_site/onboard'
       path: '/onboard'
       fullPath: '/onboard'
-      preLoaderRoute: typeof AuthOnboardImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof SiteOnboardImport
+      parentRoute: typeof SiteImport
+    }
+    '/_site/pricing': {
+      id: '/_site/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof SitePricingImport
+      parentRoute: typeof SiteImport
     }
     '/dashboard/get-started': {
       id: '/dashboard/get-started'
@@ -115,6 +135,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/profile'
       preLoaderRoute: typeof DashboardProfileImport
       parentRoute: typeof DashboardRouteImport
+    }
+    '/_site/': {
+      id: '/_site/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof SiteIndexImport
+      parentRoute: typeof SiteImport
     }
     '/dashboard/forms/$formId': {
       id: '/dashboard/forms/$formId'
@@ -153,36 +180,57 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
   DashboardRouteRouteChildren,
 )
 
+interface SiteRouteChildren {
+  SiteLoginRoute: typeof SiteLoginRoute
+  SiteOnboardRoute: typeof SiteOnboardRoute
+  SitePricingRoute: typeof SitePricingRoute
+  SiteIndexRoute: typeof SiteIndexRoute
+}
+
+const SiteRouteChildren: SiteRouteChildren = {
+  SiteLoginRoute: SiteLoginRoute,
+  SiteOnboardRoute: SiteOnboardRoute,
+  SitePricingRoute: SitePricingRoute,
+  SiteIndexRoute: SiteIndexRoute,
+}
+
+const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
+
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/login': typeof AuthLoginRoute
-  '/onboard': typeof AuthOnboardRoute
+  '': typeof SiteRouteWithChildren
+  '/login': typeof SiteLoginRoute
+  '/onboard': typeof SiteOnboardRoute
+  '/pricing': typeof SitePricingRoute
   '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/': typeof SiteIndexRoute
   '/dashboard/forms/$formId': typeof DashboardFormsFormIdRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/login': typeof AuthLoginRoute
-  '/onboard': typeof AuthOnboardRoute
+  '/login': typeof SiteLoginRoute
+  '/onboard': typeof SiteOnboardRoute
+  '/pricing': typeof SitePricingRoute
   '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/': typeof SiteIndexRoute
   '/dashboard/forms/$formId': typeof DashboardFormsFormIdRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/_auth/login': typeof AuthLoginRoute
-  '/_auth/onboard': typeof AuthOnboardRoute
+  '/_site': typeof SiteRouteWithChildren
+  '/_site/login': typeof SiteLoginRoute
+  '/_site/onboard': typeof SiteOnboardRoute
+  '/_site/pricing': typeof SitePricingRoute
   '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/_site/': typeof SiteIndexRoute
   '/dashboard/forms/$formId': typeof DashboardFormsFormIdRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
 }
@@ -190,49 +238,50 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/dashboard'
+    | ''
     | '/login'
     | '/onboard'
+    | '/pricing'
     | '/dashboard/get-started'
     | '/dashboard/profile'
+    | '/'
     | '/dashboard/forms/$formId'
     | '/dashboard/forms/create'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/dashboard'
     | '/login'
     | '/onboard'
+    | '/pricing'
     | '/dashboard/get-started'
     | '/dashboard/profile'
+    | '/'
     | '/dashboard/forms/$formId'
     | '/dashboard/forms/create'
   id:
     | '__root__'
-    | '/'
     | '/dashboard'
-    | '/_auth/login'
-    | '/_auth/onboard'
+    | '/_site'
+    | '/_site/login'
+    | '/_site/onboard'
+    | '/_site/pricing'
     | '/dashboard/get-started'
     | '/dashboard/profile'
+    | '/_site/'
     | '/dashboard/forms/$formId'
     | '/dashboard/forms/create'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
-  AuthLoginRoute: typeof AuthLoginRoute
-  AuthOnboardRoute: typeof AuthOnboardRoute
+  SiteRoute: typeof SiteRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
-  AuthLoginRoute: AuthLoginRoute,
-  AuthOnboardRoute: AuthOnboardRoute,
+  SiteRoute: SiteRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -245,14 +294,9 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
         "/dashboard",
-        "/_auth/login",
-        "/_auth/onboard"
+        "/_site"
       ]
-    },
-    "/": {
-      "filePath": "index.tsx"
     },
     "/dashboard": {
       "filePath": "dashboard/route.tsx",
@@ -263,11 +307,26 @@ export const routeTree = rootRoute
         "/dashboard/forms/create"
       ]
     },
-    "/_auth/login": {
-      "filePath": "_auth/login.tsx"
+    "/_site": {
+      "filePath": "_site.tsx",
+      "children": [
+        "/_site/login",
+        "/_site/onboard",
+        "/_site/pricing",
+        "/_site/"
+      ]
     },
-    "/_auth/onboard": {
-      "filePath": "_auth/onboard.tsx"
+    "/_site/login": {
+      "filePath": "_site/login.tsx",
+      "parent": "/_site"
+    },
+    "/_site/onboard": {
+      "filePath": "_site/onboard.tsx",
+      "parent": "/_site"
+    },
+    "/_site/pricing": {
+      "filePath": "_site/pricing.tsx",
+      "parent": "/_site"
     },
     "/dashboard/get-started": {
       "filePath": "dashboard/get-started.tsx",
@@ -276,6 +335,10 @@ export const routeTree = rootRoute
     "/dashboard/profile": {
       "filePath": "dashboard/profile.tsx",
       "parent": "/dashboard"
+    },
+    "/_site/": {
+      "filePath": "_site/index.tsx",
+      "parent": "/_site"
     },
     "/dashboard/forms/$formId": {
       "filePath": "dashboard/forms/$formId.tsx",

@@ -1,4 +1,6 @@
-import clsx from "clsx";
+/** https://catalyst.tailwindui.com/docs/heading */
+
+import { cn } from "@/lib/utils/cn";
 
 type HeadingProps =
   & { level?: 1 | 2 | 3 | 4 | 5 | 6 }
@@ -12,7 +14,7 @@ export function Heading({ className, level = 1, ...props }: HeadingProps) {
   return (
     <Element
       {...props}
-      className={clsx(
+      className={cn(
         className,
         "text-2xl/8 font-semibold text-zinc-950 sm:text-xl/8 dark:text-white",
       )}
@@ -26,7 +28,7 @@ export function Subheading({ className, level = 2, ...props }: HeadingProps) {
   return (
     <Element
       {...props}
-      className={clsx(
+      className={cn(
         className,
         "text-base/7 font-semibold text-zinc-950 sm:text-sm/6 dark:text-white",
       )}

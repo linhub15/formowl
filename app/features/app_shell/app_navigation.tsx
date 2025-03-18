@@ -15,7 +15,7 @@ import {
   SidebarSection,
   SidebarSpacer,
 } from "@/components/ui/sidebar";
-import { SidebarLayout } from "@/components/ui/sidebar-layout";
+import { SidebarLayout } from "@/components/ui/sidebar_layout";
 import {
   BookOpenIcon,
   DocumentTextIcon,
@@ -25,7 +25,7 @@ import {
 } from "@heroicons/react/20/solid";
 import type { PropsWithChildren } from "react";
 import { UserMenu } from "./user_menu";
-import { Button } from "@/components/ui/button";
+import { BRANDING } from "@/lib/constants";
 
 type Props = {
   email?: string;
@@ -54,7 +54,7 @@ export function AppNavigation(props: Props) {
         <Sidebar>
           <SidebarHeader>
             <SidebarSection className="max-lg:hidden">
-              <SidebarHeading>Form Owl</SidebarHeading>
+              <SidebarHeading>{BRANDING.name}</SidebarHeading>
               <SidebarItem
                 to="/dashboard/get-started"
                 current={props.pathname === "/dashboard/get-started"}

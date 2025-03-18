@@ -1,7 +1,9 @@
+/** https://catalyst.tailwindui.com/docs/sidebar-layout */
 import * as Headless from "@headlessui/react";
 import type React from "react";
 import { useState } from "react";
 import { NavbarItem } from "./navbar";
+import { BRANDING } from "@/lib/constants";
 
 function OpenMenuIcon() {
   return (
@@ -40,7 +42,7 @@ function MobileSidebar(
               <CloseMenuIcon />
             </Headless.CloseButton>
             <div className="text-xs/6 font-medium text-zinc-500 dark:text-zinc-400">
-              Form Owl
+              {BRANDING.name}
             </div>
           </div>
           {children}
