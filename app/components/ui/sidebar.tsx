@@ -2,7 +2,7 @@ import * as Headless from "@headlessui/react";
 import clsx from "clsx";
 import { LayoutGroup, motion } from "framer-motion";
 import type React from "react";
-import { forwardRef, useId } from "react";
+import { type Ref, useId } from "react";
 import { TouchTarget } from "./button";
 import { Link, type LinkProps } from "./link";
 
@@ -115,19 +115,24 @@ export function SidebarHeading(
   );
 }
 
-export const SidebarItem = forwardRef(function SidebarItem(
+export function SidebarItem(
   {
     current,
     className,
     children,
+    ref,
     ...props
   }:
-    & { current?: boolean; className?: string; children: React.ReactNode }
+    & {
+      current?: boolean;
+      className?: string;
+      children: React.ReactNode;
+      ref?: Ref<HTMLAnchorElement | HTMLButtonElement>;
+    }
     & (
       | Omit<Headless.ButtonProps, "as" | "className">
-      | LinkProps
+      | (Omit<Headless.CloseButtonProps<"a">, "as" | "className"> & LinkProps)
     ),
-  ref: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>,
 ) {
   const classes = clsx(
     // Base
@@ -161,15 +166,19 @@ export const SidebarItem = forwardRef(function SidebarItem(
       )}
       {"to" in props
         ? (
-          <Headless.CloseButton data-current={current ? "true" : undefined}>
-            <Link {...props} className={classes}>
-              <TouchTarget>{children}</TouchTarget>
-            </Link>
+          <Headless.CloseButton
+            as={Link as unknown as "a"}
+            {...props as LinkProps}
+            className={classes}
+            data-current={current ? "true" : undefined}
+            ref={ref as React.Ref<HTMLAnchorElement>}
+          >
+            <TouchTarget>{children}</TouchTarget>
           </Headless.CloseButton>
         )
         : (
           <Headless.Button
-            {...props}
+            {...props as Headless.ButtonProps}
             className={clsx("cursor-default", classes)}
             data-current={current ? "true" : undefined}
             ref={ref}
@@ -179,7 +188,7 @@ export const SidebarItem = forwardRef(function SidebarItem(
         )}
     </span>
   );
-});
+}
 
 export function SidebarLabel(
   { className, ...props }: React.ComponentPropsWithoutRef<"span">,

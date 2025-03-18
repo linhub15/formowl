@@ -17,31 +17,34 @@ import {
 } from "@/components/ui/sidebar";
 import { SidebarLayout } from "@/components/ui/sidebar-layout";
 import {
-  Cog6ToothIcon,
-  HomeIcon,
-  InboxIcon,
-  MegaphoneIcon,
+  BookOpenIcon,
+  DocumentTextIcon,
+  PlusIcon,
   QuestionMarkCircleIcon,
   SparklesIcon,
-  Square2StackIcon,
-  TicketIcon,
 } from "@heroicons/react/20/solid";
 import type { PropsWithChildren } from "react";
 import { UserMenu } from "./user_menu";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   email?: string;
+  pathname?: string;
 } & PropsWithChildren;
 
-export function Layout(props: Props) {
+export function AppNavigation(props: Props) {
   return (
     <SidebarLayout
       navbar={
         <Navbar>
           <NavbarSpacer />
           <NavbarSection>
-            <NavbarItem href="/inbox" aria-label="Inbox">
-              <InboxIcon />
+            <NavbarItem
+              to="/dashboard/get-started"
+              aria-label="Get started"
+              current={props.pathname === "/dashboard/get-started"}
+            >
+              <BookOpenIcon />
             </NavbarItem>
             <UserMenu email={props.email} type="navbar" />
           </NavbarSection>
@@ -50,45 +53,45 @@ export function Layout(props: Props) {
       sidebar={
         <Sidebar>
           <SidebarHeader>
-            <SidebarHeading>Form Owl</SidebarHeading>
             <SidebarSection className="max-lg:hidden">
-              <SidebarItem href="/inbox">
-                <InboxIcon />
-                <SidebarLabel>Inbox</SidebarLabel>
+              <SidebarHeading>Form Owl</SidebarHeading>
+              <SidebarItem
+                to="/dashboard/get-started"
+                current={props.pathname === "/dashboard/get-started"}
+              >
+                <BookOpenIcon />
+                <SidebarLabel>Get Started</SidebarLabel>
               </SidebarItem>
             </SidebarSection>
           </SidebarHeader>
           <SidebarBody>
             <SidebarSection>
-              <SidebarItem href="/">
-                <HomeIcon />
-                <SidebarLabel>Home</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/events">
-                <Square2StackIcon />
-                <SidebarLabel>Events</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/orders">
-                <TicketIcon />
-                <SidebarLabel>Orders</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/settings">
-                <Cog6ToothIcon />
-                <SidebarLabel>Settings</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/broadcasts">
-                <MegaphoneIcon />
-                <SidebarLabel>Broadcasts</SidebarLabel>
+              <div className="flex items-center justify-between">
+                <SidebarHeading>Forms</SidebarHeading>
+                <SidebarItem to="/dashboard/forms/create">
+                  <PlusIcon />
+                  New form
+                </SidebarItem>
+              </div>
+
+              <SidebarItem
+                to="/dashboard/forms/$formId"
+                params={{ formId: "a" }}
+              >
+                {/* todo: create & list forms here */}
+                <DocumentTextIcon />
+                <SidebarLabel>Forms</SidebarLabel>
               </SidebarItem>
             </SidebarSection>
 
             <SidebarSpacer />
+
             <SidebarSection>
-              <SidebarItem href="/support">
+              <SidebarItem href="/">
                 <QuestionMarkCircleIcon />
                 <SidebarLabel>Support</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/changelog">
+              <SidebarItem href="/">
                 <SparklesIcon />
                 <SidebarLabel>Changelog</SidebarLabel>
               </SidebarItem>

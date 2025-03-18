@@ -1,7 +1,6 @@
 import * as Headless from "@headlessui/react";
 import clsx from "clsx";
 import type React from "react";
-import { forwardRef } from "react";
 
 export function InputGroup(
   { children }: React.ComponentPropsWithoutRef<"span">,
@@ -25,9 +24,10 @@ export function InputGroup(
 const dateTypes = ["date", "datetime-local", "month", "time", "week"];
 type DateType = (typeof dateTypes)[number];
 
-export const Input = forwardRef(function Input(
+export const Input = function Input(
   {
     className,
+    ref,
     ...props
   }: {
     className?: string;
@@ -40,8 +40,8 @@ export const Input = forwardRef(function Input(
       | "text"
       | "url"
       | DateType;
+    ref?: React.Ref<HTMLInputElement>;
   } & Omit<Headless.InputProps, "as" | "className">,
-  ref: React.ForwardedRef<HTMLInputElement>,
 ) {
   return (
     <span
@@ -50,7 +50,7 @@ export const Input = forwardRef(function Input(
         className,
         // Basic layout
         "relative block w-full",
-        // Background color + shadow applied to inset pseudo element, so shadow blends with border in light mode
+        // Background color + `shadow` applied to inset pseudo element, so `shadow` blends with border in light mode
         "before:absolute before:inset-px before:rounded-[calc(var(--radius-lg)-1px)] before:bg-white before:shadow-sm",
         // Background color is moved to control and shadow is removed in dark mode so hide `before` pseudo
         "dark:before:hidden",
@@ -102,4 +102,4 @@ export const Input = forwardRef(function Input(
       />
     </span>
   );
-});
+};

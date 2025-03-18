@@ -13,11 +13,11 @@ import {
   DropdownItem,
   DropdownLabel,
   DropdownMenu,
-} from "./ui/dropdown";
-import { SidebarItem } from "./ui/sidebar";
+} from "@/components/ui/dropdown";
+import { SidebarItem } from "@/components/ui/sidebar";
 import { useSignOut } from "@/lib/auth/hooks/use_sign_out";
-import { Avatar } from "./ui/avatar";
-import { NavbarItem } from "./ui/navbar";
+import { Avatar } from "@/components/ui/avatar";
+import { NavbarItem } from "@/components/ui/navbar";
 
 type Props = {
   type: "navbar" | "sidebar";

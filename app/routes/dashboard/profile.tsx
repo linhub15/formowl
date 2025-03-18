@@ -1,6 +1,11 @@
 import { GoogleIcon } from "@/components/icons/google_icon";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardBody, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+} from "@/components/layout/card";
 import { Field, Label } from "@/components/ui/fieldset";
 import { P } from "@/components/ui/text";
 import { Heading } from "@/components/ui/heading";

@@ -1,6 +1,11 @@
 import { GithubIcon } from "@/components/icons/github_icon";
 import { GoogleIcon } from "@/components/icons/google_icon";
-import { Card, CardBody, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+} from "@/components/layout/card";
 import { Heading } from "@/components/ui/heading";
 import { P } from "@/components/ui/text";
 import { authClient } from "@/lib/auth/auth.client";

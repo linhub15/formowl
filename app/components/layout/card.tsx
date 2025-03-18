@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import { Subheading } from "./heading";
+import { Subheading } from "../ui/heading";
 
 export function Card({ children }: PropsWithChildren) {
   return (

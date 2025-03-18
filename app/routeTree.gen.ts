@@ -14,8 +14,11 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as DashboardRouteImport } from './routes/dashboard/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as DashboardProfileImport } from './routes/dashboard/profile'
+import { Route as DashboardGetStartedImport } from './routes/dashboard/get-started'
 import { Route as AuthOnboardImport } from './routes/_auth/onboard'
 import { Route as AuthLoginImport } from './routes/_auth/login'
+import { Route as DashboardFormsCreateImport } from './routes/dashboard/forms/create'
+import { Route as DashboardFormsFormIdImport } from './routes/dashboard/forms/$formId'
 
 // Create/Update Routes
 
@@ -37,6 +40,12 @@ const DashboardProfileRoute = DashboardProfileImport.update({
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
+const DashboardGetStartedRoute = DashboardGetStartedImport.update({
+  id: '/get-started',
+  path: '/get-started',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
 const AuthOnboardRoute = AuthOnboardImport.update({
   id: '/_auth/onboard',
   path: '/onboard',
@@ -47,6 +56,18 @@ const AuthLoginRoute = AuthLoginImport.update({
   id: '/_auth/login',
   path: '/login',
   getParentRoute: () => rootRoute,
+} as any)
+
+const DashboardFormsCreateRoute = DashboardFormsCreateImport.update({
+  id: '/forms/create',
+  path: '/forms/create',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardFormsFormIdRoute = DashboardFormsFormIdImport.update({
+  id: '/forms/$formId',
+  path: '/forms/$formId',
+  getParentRoute: () => DashboardRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -81,11 +102,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthOnboardImport
       parentRoute: typeof rootRoute
     }
+    '/dashboard/get-started': {
+      id: '/dashboard/get-started'
+      path: '/get-started'
+      fullPath: '/dashboard/get-started'
+      preLoaderRoute: typeof DashboardGetStartedImport
+      parentRoute: typeof DashboardRouteImport
+    }
     '/dashboard/profile': {
       id: '/dashboard/profile'
       path: '/profile'
       fullPath: '/dashboard/profile'
       preLoaderRoute: typeof DashboardProfileImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/forms/$formId': {
+      id: '/dashboard/forms/$formId'
+      path: '/forms/$formId'
+      fullPath: '/dashboard/forms/$formId'
+      preLoaderRoute: typeof DashboardFormsFormIdImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/forms/create': {
+      id: '/dashboard/forms/create'
+      path: '/forms/create'
+      fullPath: '/dashboard/forms/create'
+      preLoaderRoute: typeof DashboardFormsCreateImport
       parentRoute: typeof DashboardRouteImport
     }
   }
@@ -94,11 +136,17 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface DashboardRouteRouteChildren {
+  DashboardGetStartedRoute: typeof DashboardGetStartedRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
+  DashboardFormsFormIdRoute: typeof DashboardFormsFormIdRoute
+  DashboardFormsCreateRoute: typeof DashboardFormsCreateRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardGetStartedRoute: DashboardGetStartedRoute,
   DashboardProfileRoute: DashboardProfileRoute,
+  DashboardFormsFormIdRoute: DashboardFormsFormIdRoute,
+  DashboardFormsCreateRoute: DashboardFormsCreateRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
@@ -110,7 +158,10 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/login': typeof AuthLoginRoute
   '/onboard': typeof AuthOnboardRoute
+  '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/forms/$formId': typeof DashboardFormsFormIdRoute
+  '/dashboard/forms/create': typeof DashboardFormsCreateRoute
 }
 
 export interface FileRoutesByTo {
@@ -118,7 +169,10 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/login': typeof AuthLoginRoute
   '/onboard': typeof AuthOnboardRoute
+  '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/forms/$formId': typeof DashboardFormsFormIdRoute
+  '/dashboard/forms/create': typeof DashboardFormsCreateRoute
 }
 
 export interface FileRoutesById {
@@ -127,21 +181,43 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/onboard': typeof AuthOnboardRoute
+  '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/forms/$formId': typeof DashboardFormsFormIdRoute
+  '/dashboard/forms/create': typeof DashboardFormsCreateRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/login' | '/onboard' | '/dashboard/profile'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/onboard'
+    | '/dashboard/get-started'
+    | '/dashboard/profile'
+    | '/dashboard/forms/$formId'
+    | '/dashboard/forms/create'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/login' | '/onboard' | '/dashboard/profile'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/onboard'
+    | '/dashboard/get-started'
+    | '/dashboard/profile'
+    | '/dashboard/forms/$formId'
+    | '/dashboard/forms/create'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
     | '/_auth/login'
     | '/_auth/onboard'
+    | '/dashboard/get-started'
     | '/dashboard/profile'
+    | '/dashboard/forms/$formId'
+    | '/dashboard/forms/create'
   fileRoutesById: FileRoutesById
 }
 
@@ -181,7 +257,10 @@ export const routeTree = rootRoute
     "/dashboard": {
       "filePath": "dashboard/route.tsx",
       "children": [
-        "/dashboard/profile"
+        "/dashboard/get-started",
+        "/dashboard/profile",
+        "/dashboard/forms/$formId",
+        "/dashboard/forms/create"
       ]
     },
     "/_auth/login": {
@@ -190,8 +269,20 @@ export const routeTree = rootRoute
     "/_auth/onboard": {
       "filePath": "_auth/onboard.tsx"
     },
+    "/dashboard/get-started": {
+      "filePath": "dashboard/get-started.tsx",
+      "parent": "/dashboard"
+    },
     "/dashboard/profile": {
       "filePath": "dashboard/profile.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/forms/$formId": {
+      "filePath": "dashboard/forms/$formId.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/forms/create": {
+      "filePath": "dashboard/forms/create.tsx",
       "parent": "/dashboard"
     }
   }

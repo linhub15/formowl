@@ -69,9 +69,11 @@ export const AvatarButton = (
     initials,
     alt,
     className,
+    ref,
     ...props
   }:
     & AvatarProps
+    & { ref?: React.Ref<HTMLAnchorElement | HTMLButtonElement> }
     & (
       | Omit<Headless.ButtonProps, "as" | "className">
       | LinkProps
@@ -88,6 +90,7 @@ export const AvatarButton = (
       <Link
         {...props}
         className={classes}
+        ref={ref as React.Ref<HTMLAnchorElement>}
       >
         <TouchTarget>
           <Avatar src={src} square={square} initials={initials} alt={alt} />
@@ -95,7 +98,7 @@ export const AvatarButton = (
       </Link>
     )
     : (
-      <Headless.Button {...props} className={classes}>
+      <Headless.Button {...props} className={classes} ref={ref}>
         <TouchTarget>
           <Avatar src={src} square={square} initials={initials} alt={alt} />
         </TouchTarget>

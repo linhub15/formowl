@@ -2,7 +2,7 @@ import * as Headless from "@headlessui/react";
 import clsx from "clsx";
 import { LayoutGroup, motion } from "framer-motion";
 import type React from "react";
-import { forwardRef, useId } from "react";
+import { useId } from "react";
 import { TouchTarget } from "./button";
 import { Link, type LinkProps } from "./link";
 
@@ -53,19 +53,24 @@ export function NavbarSpacer(
   );
 }
 
-export const NavbarItem = forwardRef(function NavbarItem(
+export function NavbarItem(
   {
     current,
     className,
     children,
+    ref,
     ...props
   }:
-    & { current?: boolean; className?: string; children: React.ReactNode }
+    & {
+      current?: boolean;
+      className?: string;
+      children: React.ReactNode;
+      ref?: React.Ref<HTMLButtonElement | HTMLAnchorElement>;
+    }
     & (
       | Omit<Headless.ButtonProps, "as" | "className">
       | Omit<LinkProps, "className">
     ),
-  ref: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>,
 ) {
   const classes = clsx(
     // Base
@@ -91,7 +96,7 @@ export const NavbarItem = forwardRef(function NavbarItem(
       {current && (
         <motion.span
           layoutId="current-indicator"
-          className="absolute inset-x-2 -bottom-2.5 h-0.5 rounded-full bg-zinc-950 dark:bg-white"
+          className="absolute inset-x-2 -bottom-2 h-0.5 rounded-full bg-zinc-950 dark:bg-white"
         />
       )}
       {"to" in props
@@ -100,6 +105,7 @@ export const NavbarItem = forwardRef(function NavbarItem(
             {...props}
             className={classes}
             data-current={current ? "true" : undefined}
+            ref={ref as React.Ref<HTMLAnchorElement>}
           >
             <TouchTarget>{children}</TouchTarget>
           </Link>
@@ -116,7 +122,7 @@ export const NavbarItem = forwardRef(function NavbarItem(
         )}
     </span>
   );
-});
+}
 
 export function NavbarLabel(
   { className, ...props }: React.ComponentPropsWithoutRef<"span">,

@@ -1,8 +1,8 @@
-import { Layout } from "@/components/layout";
+import { AppNavigation } from "@/features/app_shell/app_navigation";
 import { AnalyticsProvider } from "@/lib/analytics/analytics.provider";
 import { authGuard } from "@/lib/auth/auth.guard";
 import { useSession } from "@/lib/auth/hooks/use_session";
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard")({
   beforeLoad: async ({ location }) => {
@@ -13,11 +13,12 @@ export const Route = createFileRoute("/dashboard")({
 
 function RouteComponent() {
   const { data } = useSession();
+  const location = useLocation();
   return (
     <AnalyticsProvider>
-      <Layout email={data?.user.email}>
+      <AppNavigation email={data?.user.email} pathname={location.pathname}>
         <Outlet />
-      </Layout>
+      </AppNavigation>
     </AnalyticsProvider>
   );
 }

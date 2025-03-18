@@ -1,5 +1,5 @@
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Card, CardBody, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardBody, CardFooter } from "@/components/layout/card";
 import { Fieldset, Legend } from "@/components/ui/fieldset";
 import { P } from "@/components/ui/text";
 import { authClient } from "@/lib/auth/auth.client";
@@ -63,10 +63,7 @@ function RouteComponent() {
           </Fieldset>
 
           <div className="pt-8">
-            <Button
-              className={buttonVariants({ style: "solid" })}
-              onClick={() => onboard.mutateAsync()}
-            >
+            <Button onClick={() => onboard.mutateAsync()}>
               Let's go!
             </Button>
           </div>
