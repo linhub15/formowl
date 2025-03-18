@@ -9,6 +9,14 @@ export const authMiddleware = createMiddleware().server(
       throw new Error("No session found");
     }
 
-    return await next({ context: { session } });
+    const orgId = session.session.activeOrganizationId;
+
+    if (!orgId) {
+      throw new Error(
+        "Not found: expected `session.activeOrganizationId` to have a value",
+      );
+    }
+
+    return await next({ context: { session, organizationId: orgId } });
   },
 );

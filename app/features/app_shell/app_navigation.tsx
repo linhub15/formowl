@@ -26,6 +26,7 @@ import {
 import type { PropsWithChildren } from "react";
 import { UserMenu } from "./user_menu";
 import { BRANDING } from "@/lib/constants";
+import { useListForms } from "../form_management/hooks/use_list_forms";
 
 type Props = {
   email?: string;
@@ -33,6 +34,7 @@ type Props = {
 } & PropsWithChildren;
 
 export function AppNavigation(props: Props) {
+  const forms = useListForms();
   return (
     <SidebarLayout
       navbar={
@@ -74,14 +76,16 @@ export function AppNavigation(props: Props) {
                 </SidebarItem>
               </div>
 
-              <SidebarItem
-                to="/dashboard/forms/$formId"
-                params={{ formId: "a" }}
-              >
-                {/* todo: create & list forms here */}
-                <DocumentTextIcon />
-                <SidebarLabel>Forms</SidebarLabel>
-              </SidebarItem>
+              {forms.data?.map((f) => (
+                <SidebarItem
+                  to="/dashboard/forms/$formSlug"
+                  params={{ formSlug: f.slug }}
+                  key={f.slug}
+                >
+                  <DocumentTextIcon />
+                  <SidebarLabel>{f.title}</SidebarLabel>
+                </SidebarItem>
+              ))}
             </SidebarSection>
 
             <SidebarSpacer />

@@ -23,8 +23,9 @@ import { Route as DashboardGetStartedImport } from './routes/dashboard/get-start
 import { Route as SitePricingImport } from './routes/_site/pricing'
 import { Route as SiteOnboardImport } from './routes/_site/onboard'
 import { Route as SiteLoginImport } from './routes/_site/login'
+import { Route as DashboardFormsIndexImport } from './routes/dashboard/forms/index'
 import { Route as DashboardFormsCreateImport } from './routes/dashboard/forms/create'
-import { Route as DashboardFormsFormIdImport } from './routes/dashboard/forms/$formId'
+import { Route as DashboardFormsFormSlugImport } from './routes/dashboard/forms/$formSlug'
 
 // Create/Update Routes
 
@@ -75,15 +76,21 @@ const SiteLoginRoute = SiteLoginImport.update({
   getParentRoute: () => SiteRoute,
 } as any)
 
+const DashboardFormsIndexRoute = DashboardFormsIndexImport.update({
+  id: '/forms/',
+  path: '/forms/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
 const DashboardFormsCreateRoute = DashboardFormsCreateImport.update({
   id: '/forms/create',
   path: '/forms/create',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
-const DashboardFormsFormIdRoute = DashboardFormsFormIdImport.update({
-  id: '/forms/$formId',
-  path: '/forms/$formId',
+const DashboardFormsFormSlugRoute = DashboardFormsFormSlugImport.update({
+  id: '/forms/$formSlug',
+  path: '/forms/$formSlug',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
@@ -147,11 +154,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteIndexImport
       parentRoute: typeof SiteImport
     }
-    '/dashboard/forms/$formId': {
-      id: '/dashboard/forms/$formId'
-      path: '/forms/$formId'
-      fullPath: '/dashboard/forms/$formId'
-      preLoaderRoute: typeof DashboardFormsFormIdImport
+    '/dashboard/forms/$formSlug': {
+      id: '/dashboard/forms/$formSlug'
+      path: '/forms/$formSlug'
+      fullPath: '/dashboard/forms/$formSlug'
+      preLoaderRoute: typeof DashboardFormsFormSlugImport
       parentRoute: typeof DashboardRouteImport
     }
     '/dashboard/forms/create': {
@@ -159,6 +166,13 @@ declare module '@tanstack/react-router' {
       path: '/forms/create'
       fullPath: '/dashboard/forms/create'
       preLoaderRoute: typeof DashboardFormsCreateImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/forms/': {
+      id: '/dashboard/forms/'
+      path: '/forms'
+      fullPath: '/dashboard/forms'
+      preLoaderRoute: typeof DashboardFormsIndexImport
       parentRoute: typeof DashboardRouteImport
     }
   }
@@ -169,15 +183,17 @@ declare module '@tanstack/react-router' {
 interface DashboardRouteRouteChildren {
   DashboardGetStartedRoute: typeof DashboardGetStartedRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
-  DashboardFormsFormIdRoute: typeof DashboardFormsFormIdRoute
+  DashboardFormsFormSlugRoute: typeof DashboardFormsFormSlugRoute
   DashboardFormsCreateRoute: typeof DashboardFormsCreateRoute
+  DashboardFormsIndexRoute: typeof DashboardFormsIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardGetStartedRoute: DashboardGetStartedRoute,
   DashboardProfileRoute: DashboardProfileRoute,
-  DashboardFormsFormIdRoute: DashboardFormsFormIdRoute,
+  DashboardFormsFormSlugRoute: DashboardFormsFormSlugRoute,
   DashboardFormsCreateRoute: DashboardFormsCreateRoute,
+  DashboardFormsIndexRoute: DashboardFormsIndexRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
@@ -209,8 +225,9 @@ export interface FileRoutesByFullPath {
   '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
-  '/dashboard/forms/$formId': typeof DashboardFormsFormIdRoute
+  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
+  '/dashboard/forms': typeof DashboardFormsIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -221,8 +238,9 @@ export interface FileRoutesByTo {
   '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
-  '/dashboard/forms/$formId': typeof DashboardFormsFormIdRoute
+  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
+  '/dashboard/forms': typeof DashboardFormsIndexRoute
 }
 
 export interface FileRoutesById {
@@ -235,8 +253,9 @@ export interface FileRoutesById {
   '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/_site/': typeof SiteIndexRoute
-  '/dashboard/forms/$formId': typeof DashboardFormsFormIdRoute
+  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
+  '/dashboard/forms/': typeof DashboardFormsIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -250,8 +269,9 @@ export interface FileRouteTypes {
     | '/dashboard/get-started'
     | '/dashboard/profile'
     | '/'
-    | '/dashboard/forms/$formId'
+    | '/dashboard/forms/$formSlug'
     | '/dashboard/forms/create'
+    | '/dashboard/forms'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/dashboard'
@@ -261,8 +281,9 @@ export interface FileRouteTypes {
     | '/dashboard/get-started'
     | '/dashboard/profile'
     | '/'
-    | '/dashboard/forms/$formId'
+    | '/dashboard/forms/$formSlug'
     | '/dashboard/forms/create'
+    | '/dashboard/forms'
   id:
     | '__root__'
     | '/dashboard'
@@ -273,8 +294,9 @@ export interface FileRouteTypes {
     | '/dashboard/get-started'
     | '/dashboard/profile'
     | '/_site/'
-    | '/dashboard/forms/$formId'
+    | '/dashboard/forms/$formSlug'
     | '/dashboard/forms/create'
+    | '/dashboard/forms/'
   fileRoutesById: FileRoutesById
 }
 
@@ -307,8 +329,9 @@ export const routeTree = rootRoute
       "children": [
         "/dashboard/get-started",
         "/dashboard/profile",
-        "/dashboard/forms/$formId",
-        "/dashboard/forms/create"
+        "/dashboard/forms/$formSlug",
+        "/dashboard/forms/create",
+        "/dashboard/forms/"
       ]
     },
     "/_site": {
@@ -344,12 +367,16 @@ export const routeTree = rootRoute
       "filePath": "_site/index.tsx",
       "parent": "/_site"
     },
-    "/dashboard/forms/$formId": {
-      "filePath": "dashboard/forms/$formId.tsx",
+    "/dashboard/forms/$formSlug": {
+      "filePath": "dashboard/forms/$formSlug.tsx",
       "parent": "/dashboard"
     },
     "/dashboard/forms/create": {
       "filePath": "dashboard/forms/create.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/forms/": {
+      "filePath": "dashboard/forms/index.tsx",
       "parent": "/dashboard"
     }
   }

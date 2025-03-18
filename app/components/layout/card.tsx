@@ -1,9 +1,19 @@
 import type { PropsWithChildren } from "react";
 import { Subheading } from "../ui/heading";
+import { cn } from "@/lib/utils/cn";
 
-export function Card({ children }: PropsWithChildren) {
+type Styleable = {
+  className?: string;
+};
+
+export function Card({ children, className }: PropsWithChildren & Styleable) {
   return (
-    <div className="divide-y divide-zinc-950/15 dark:divide-white/15 overflow-hidden rounded-lg border border-zinc-950/15 dark:border-white/15">
+    <div
+      className={cn(
+        "divide-y divide-zinc-950/15 dark:divide-white/15 overflow-hidden rounded-lg border border-zinc-950/15 dark:border-white/15",
+        className,
+      )}
+    >
       {children}
     </div>
   );
