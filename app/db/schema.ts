@@ -1,6 +1,5 @@
 import { nanoid } from "@/lib/utils/nanoid";
 import { jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
-import { idText } from "typescript";
 import type { UploadedFileData } from "uploadthing/types";
 
 /// Helpers

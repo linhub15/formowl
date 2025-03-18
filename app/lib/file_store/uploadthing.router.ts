@@ -29,10 +29,10 @@ export const uploadRouter = {
 
       return { userId: session.user.id, input };
     })
-    .onUploadError(async ({ error, fileKey }) => {
+    .onUploadError(({ error, fileKey }) => {
       console.error("Error uploading file:", error, fileKey);
     })
-    .onUploadComplete(async ({ metadata, file }) => {
+    .onUploadComplete(async ({ file }) => {
       await db.transaction(async (t) => {
         const inserted = await t
           .insert(blob)

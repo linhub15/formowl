@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardBody, CardFooter } from "@/components/layout/card";
+import { Card, CardBody } from "@/components/layout/card";
 import { Fieldset, Legend } from "@/components/ui/fieldset";
 import { P } from "@/components/ui/text";
 import { authClient } from "@/lib/auth/auth.client";

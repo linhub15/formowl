@@ -1,11 +1,6 @@
 import { GithubIcon } from "@/components/icons/github_icon";
 import { GoogleIcon } from "@/components/icons/google_icon";
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-} from "@/components/layout/card";
+import { Card, CardBody, CardFooter } from "@/components/layout/card";
 import { Heading } from "@/components/ui/heading";
 import { P } from "@/components/ui/text";
 import { authClient } from "@/lib/auth/auth.client";
@@ -41,7 +36,7 @@ function RouteComponent() {
 
   const login = useMutation({
     mutationFn: async (args: { provider: "google" | "github" }) => {
-      authClient.signIn.social({
+      await authClient.signIn.social({
         provider: args.provider,
         callbackURL: redirect,
         newUserCallbackURL: "/onboard" satisfies LinkProps["to"],
