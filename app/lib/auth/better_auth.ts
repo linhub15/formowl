@@ -1,5 +1,7 @@
 import {
   account,
+  invitation,
+  member,
   organization as Organization,
   session,
   user as User,
@@ -20,15 +22,20 @@ export const auth = betterAuth({
       account: account,
       verification: verification,
       organization: Organization,
+      member: member,
+      invitation: invitation,
     },
   }),
-  plugins: [organization()],
+  plugins: [organization({
+    organizationLimit: 1,
+  })],
   socialProviders: {
     google: {
       enabled: true,
       clientId: process.env.GOOGLE_OAUTH_ID,
       clientSecret: process.env.GOOGLE_OAUTH_SECRET,
     },
+    github: undefined, // todo: future
   },
   session: {
     cookieCache: {
@@ -43,7 +50,27 @@ export const auth = betterAuth({
     user: {
       create: {
         after: async (user) => {
-          // todo: after user creation
+          // Email user created
+        },
+      },
+    },
+    session: {
+      create: {
+        before: async (session) => {
+          const organization = await db.query.organization.findFirst({
+            with: {
+              members: {
+                where: (member, { eq }) => eq(member.userId, session.userId),
+              },
+            },
+          });
+
+          return {
+            data: {
+              ...session,
+              activeOrganizationId: organization?.id ?? null,
+            },
+          };
         },
       },
     },

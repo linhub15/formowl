@@ -1,26 +1,23 @@
+import { Layout } from "@/components/layout";
 import { AnalyticsProvider } from "@/lib/analytics/analytics.provider";
-import { getSessionFn } from "@/lib/auth/get_session.fn";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { authGuard } from "@/lib/auth/auth.guard";
+import { useSession } from "@/lib/auth/hooks/use_session";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard")({
   beforeLoad: async ({ location }) => {
-    // todo: this is called on every navigation consider optimizing this by using a cache to reduce web requests
-    // maybe stale time?
-    const session = await getSessionFn();
-    if (!session) {
-      throw redirect({
-        to: "/login",
-        search: { redirect: location.href },
-      });
-    }
+    await authGuard({ location });
   },
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const { data } = useSession();
   return (
     <AnalyticsProvider>
-      <div>Dashboard</div>
+      <Layout email={data?.user.email}>
+        <Outlet />
+      </Layout>
     </AnalyticsProvider>
   );
 }

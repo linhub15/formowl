@@ -13,6 +13,8 @@
     "better-auth:gen": "pnpx @better-auth/cli@latest generate --config ./app/lib/auth/better_auth.ts --output ./app/db/auth_schema.ts"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^2.2.0",
     "@react-email/components": "^0.0.33",
     "@tanstack/react-form": "^1.1.0",
     "@tanstack/react-query": "^5.68.0",
@@ -25,6 +27,8 @@
     "cva": "1.0.0-beta.3",
     "drizzle-orm": "^0.40.0",
     "drizzle-zod": "^0.7.0",
+    "framer-motion": "^12.5.0",
+    "nanoid": "^5.1.4",
     "nodemailer": "^6.10.0",
     "postgres": "^3.4.5",
     "posthog-js": "^1.231.0",
@@ -49,7 +53,6 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "concurrently": "^9.1.2",
-    "dotenv": "^16.4.7",
     "drizzle-kit": "^0.30.5",
     "maildev": "^2.2.1",
     "react-email": "^3.0.7",
