@@ -26,6 +26,7 @@ export const getFormFn = createServerFn({ method: "GET" })
       : eq(form.slug, data.formSlug);
 
     const result = await db.query.form.findFirst({
+      with: { submissions: true },
       where: (f, { eq, and }) =>
         and(
           whereClause,
@@ -33,5 +34,18 @@ export const getFormFn = createServerFn({ method: "GET" })
         ),
     });
 
-    return result;
+    if (!result) {
+      return;
+    }
+
+    const serializable = {
+      ...result,
+      submissions: result?.submissions.map((s) => ({
+        ...s,
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        data: s.data as Record<string, any>,
+      })),
+    };
+
+    return serializable;
   });

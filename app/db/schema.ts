@@ -2,6 +2,7 @@ import { nanoid } from "@/lib/utils/nanoid";
 import { jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import type { UploadedFileData } from "uploadthing/types";
 import { organization } from "./auth_schema";
+import { relations } from "drizzle-orm";
 
 /// Helpers
 export const defaultColumns = {
@@ -31,3 +32,25 @@ export const form = pgTable("form", {
   ...defaultColumns,
   ...organizationColumns,
 });
+
+export const formRelations = relations(form, ({ one, many }) => ({
+  organization: one(organization, {
+    fields: [form.organizationId],
+    references: [organization.id],
+  }),
+  submissions: many(formSubmission),
+}));
+
+export const formSubmission = pgTable("form_submission", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  formId: uuid("form_id").notNull().references(() => form.id),
+  data: jsonb("data").notNull(),
+  ...defaultColumns,
+});
+
+export const formSubmissionRelations = relations(formSubmission, ({ one }) => ({
+  form: one(form, {
+    fields: [formSubmission.formId],
+    references: [form.id],
+  }),
+}));

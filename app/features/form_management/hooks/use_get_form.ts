@@ -7,7 +7,6 @@ export function useGetForm(args: GetFormRequest) {
   return useQuery({
     queryKey: ["forms", args],
     queryFn: async () => {
-      console.log("here");
       return await getForm({ data: args });
     },
   });

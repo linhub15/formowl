@@ -1,3 +1,4 @@
+import { FolderClosed, FolderOpen } from "lucide-react";
 import {
   Navbar,
   NavbarItem,
@@ -19,9 +20,8 @@ import { SidebarLayout } from "@/components/ui/sidebar_layout";
 import {
   BookOpenIcon,
   DocumentTextIcon,
+  LinkIcon,
   PlusIcon,
-  QuestionMarkCircleIcon,
-  SparklesIcon,
 } from "@heroicons/react/20/solid";
 import type { PropsWithChildren } from "react";
 import { UserMenu } from "./user_menu";
@@ -64,6 +64,31 @@ export function AppNavigation(props: Props) {
                 <BookOpenIcon />
                 <SidebarLabel>Get Started</SidebarLabel>
               </SidebarItem>
+
+              <SidebarItem
+                to="/dashboard/forms"
+                current={props.pathname === "/dashboard/forms"}
+              >
+                {props.pathname === "/dashboard/forms"
+                  // I'm trying to be fancy here. Feel free to remove.
+                  ? (
+                    <FolderOpen
+                      size={20}
+                      data-slot="icon"
+                      strokeWidth="1px"
+                      className="dark:stroke-black stroke-white"
+                    />
+                  )
+                  : (
+                    <FolderClosed
+                      size={20}
+                      data-slot="icon"
+                      strokeWidth="1px"
+                      className="dark:stroke-black stroke-white"
+                    />
+                  )}
+                <SidebarLabel>Forms</SidebarLabel>
+              </SidebarItem>
             </SidebarSection>
           </SidebarHeader>
           <SidebarBody>
@@ -91,13 +116,9 @@ export function AppNavigation(props: Props) {
             <SidebarSpacer />
 
             <SidebarSection>
-              <SidebarItem href="/">
-                <QuestionMarkCircleIcon />
-                <SidebarLabel>Support</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/">
-                <SparklesIcon />
-                <SidebarLabel>Changelog</SidebarLabel>
+              <SidebarItem to="/">
+                <LinkIcon />
+                <SidebarLabel>Homepage</SidebarLabel>
               </SidebarItem>
             </SidebarSection>
           </SidebarBody>
