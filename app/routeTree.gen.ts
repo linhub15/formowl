@@ -25,7 +25,11 @@ import { Route as SiteOnboardImport } from './routes/_site/onboard'
 import { Route as SiteLoginImport } from './routes/_site/login'
 import { Route as DashboardFormsIndexImport } from './routes/dashboard/forms/index'
 import { Route as DashboardFormsCreateImport } from './routes/dashboard/forms/create'
-import { Route as DashboardFormsFormSlugImport } from './routes/dashboard/forms/$formSlug'
+import { Route as DashboardFormsFormSlugRouteImport } from './routes/dashboard/forms/$formSlug/route'
+import { Route as DashboardFormsFormSlugIndexImport } from './routes/dashboard/forms/$formSlug/index'
+import { Route as DashboardFormsFormSlugSubmissionsImport } from './routes/dashboard/forms/$formSlug/submissions'
+import { Route as DashboardFormsFormSlugSettingsImport } from './routes/dashboard/forms/$formSlug/settings'
+import { Route as DashboardFormsFormSlugExampleImport } from './routes/dashboard/forms/$formSlug/example'
 
 // Create/Update Routes
 
@@ -88,11 +92,40 @@ const DashboardFormsCreateRoute = DashboardFormsCreateImport.update({
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
-const DashboardFormsFormSlugRoute = DashboardFormsFormSlugImport.update({
-  id: '/forms/$formSlug',
-  path: '/forms/$formSlug',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
+const DashboardFormsFormSlugRouteRoute =
+  DashboardFormsFormSlugRouteImport.update({
+    id: '/forms/$formSlug',
+    path: '/forms/$formSlug',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
+
+const DashboardFormsFormSlugIndexRoute =
+  DashboardFormsFormSlugIndexImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => DashboardFormsFormSlugRouteRoute,
+  } as any)
+
+const DashboardFormsFormSlugSubmissionsRoute =
+  DashboardFormsFormSlugSubmissionsImport.update({
+    id: '/submissions',
+    path: '/submissions',
+    getParentRoute: () => DashboardFormsFormSlugRouteRoute,
+  } as any)
+
+const DashboardFormsFormSlugSettingsRoute =
+  DashboardFormsFormSlugSettingsImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => DashboardFormsFormSlugRouteRoute,
+  } as any)
+
+const DashboardFormsFormSlugExampleRoute =
+  DashboardFormsFormSlugExampleImport.update({
+    id: '/example',
+    path: '/example',
+    getParentRoute: () => DashboardFormsFormSlugRouteRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -158,7 +191,7 @@ declare module '@tanstack/react-router' {
       id: '/dashboard/forms/$formSlug'
       path: '/forms/$formSlug'
       fullPath: '/dashboard/forms/$formSlug'
-      preLoaderRoute: typeof DashboardFormsFormSlugImport
+      preLoaderRoute: typeof DashboardFormsFormSlugRouteImport
       parentRoute: typeof DashboardRouteImport
     }
     '/dashboard/forms/create': {
@@ -175,15 +208,64 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardFormsIndexImport
       parentRoute: typeof DashboardRouteImport
     }
+    '/dashboard/forms/$formSlug/example': {
+      id: '/dashboard/forms/$formSlug/example'
+      path: '/example'
+      fullPath: '/dashboard/forms/$formSlug/example'
+      preLoaderRoute: typeof DashboardFormsFormSlugExampleImport
+      parentRoute: typeof DashboardFormsFormSlugRouteImport
+    }
+    '/dashboard/forms/$formSlug/settings': {
+      id: '/dashboard/forms/$formSlug/settings'
+      path: '/settings'
+      fullPath: '/dashboard/forms/$formSlug/settings'
+      preLoaderRoute: typeof DashboardFormsFormSlugSettingsImport
+      parentRoute: typeof DashboardFormsFormSlugRouteImport
+    }
+    '/dashboard/forms/$formSlug/submissions': {
+      id: '/dashboard/forms/$formSlug/submissions'
+      path: '/submissions'
+      fullPath: '/dashboard/forms/$formSlug/submissions'
+      preLoaderRoute: typeof DashboardFormsFormSlugSubmissionsImport
+      parentRoute: typeof DashboardFormsFormSlugRouteImport
+    }
+    '/dashboard/forms/$formSlug/': {
+      id: '/dashboard/forms/$formSlug/'
+      path: '/'
+      fullPath: '/dashboard/forms/$formSlug/'
+      preLoaderRoute: typeof DashboardFormsFormSlugIndexImport
+      parentRoute: typeof DashboardFormsFormSlugRouteImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface DashboardFormsFormSlugRouteRouteChildren {
+  DashboardFormsFormSlugExampleRoute: typeof DashboardFormsFormSlugExampleRoute
+  DashboardFormsFormSlugSettingsRoute: typeof DashboardFormsFormSlugSettingsRoute
+  DashboardFormsFormSlugSubmissionsRoute: typeof DashboardFormsFormSlugSubmissionsRoute
+  DashboardFormsFormSlugIndexRoute: typeof DashboardFormsFormSlugIndexRoute
+}
+
+const DashboardFormsFormSlugRouteRouteChildren: DashboardFormsFormSlugRouteRouteChildren =
+  {
+    DashboardFormsFormSlugExampleRoute: DashboardFormsFormSlugExampleRoute,
+    DashboardFormsFormSlugSettingsRoute: DashboardFormsFormSlugSettingsRoute,
+    DashboardFormsFormSlugSubmissionsRoute:
+      DashboardFormsFormSlugSubmissionsRoute,
+    DashboardFormsFormSlugIndexRoute: DashboardFormsFormSlugIndexRoute,
+  }
+
+const DashboardFormsFormSlugRouteRouteWithChildren =
+  DashboardFormsFormSlugRouteRoute._addFileChildren(
+    DashboardFormsFormSlugRouteRouteChildren,
+  )
+
 interface DashboardRouteRouteChildren {
   DashboardGetStartedRoute: typeof DashboardGetStartedRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
-  DashboardFormsFormSlugRoute: typeof DashboardFormsFormSlugRoute
+  DashboardFormsFormSlugRouteRoute: typeof DashboardFormsFormSlugRouteRouteWithChildren
   DashboardFormsCreateRoute: typeof DashboardFormsCreateRoute
   DashboardFormsIndexRoute: typeof DashboardFormsIndexRoute
 }
@@ -191,7 +273,8 @@ interface DashboardRouteRouteChildren {
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardGetStartedRoute: DashboardGetStartedRoute,
   DashboardProfileRoute: DashboardProfileRoute,
-  DashboardFormsFormSlugRoute: DashboardFormsFormSlugRoute,
+  DashboardFormsFormSlugRouteRoute:
+    DashboardFormsFormSlugRouteRouteWithChildren,
   DashboardFormsCreateRoute: DashboardFormsCreateRoute,
   DashboardFormsIndexRoute: DashboardFormsIndexRoute,
 }
@@ -225,9 +308,13 @@ export interface FileRoutesByFullPath {
   '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
-  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRoute
+  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
   '/dashboard/forms': typeof DashboardFormsIndexRoute
+  '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
+  '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
+  '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsRoute
+  '/dashboard/forms/$formSlug/': typeof DashboardFormsFormSlugIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -238,9 +325,12 @@ export interface FileRoutesByTo {
   '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
-  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
   '/dashboard/forms': typeof DashboardFormsIndexRoute
+  '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
+  '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
+  '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsRoute
+  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugIndexRoute
 }
 
 export interface FileRoutesById {
@@ -253,9 +343,13 @@ export interface FileRoutesById {
   '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/_site/': typeof SiteIndexRoute
-  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRoute
+  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
   '/dashboard/forms/': typeof DashboardFormsIndexRoute
+  '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
+  '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
+  '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsRoute
+  '/dashboard/forms/$formSlug/': typeof DashboardFormsFormSlugIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -272,6 +366,10 @@ export interface FileRouteTypes {
     | '/dashboard/forms/$formSlug'
     | '/dashboard/forms/create'
     | '/dashboard/forms'
+    | '/dashboard/forms/$formSlug/example'
+    | '/dashboard/forms/$formSlug/settings'
+    | '/dashboard/forms/$formSlug/submissions'
+    | '/dashboard/forms/$formSlug/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/dashboard'
@@ -281,9 +379,12 @@ export interface FileRouteTypes {
     | '/dashboard/get-started'
     | '/dashboard/profile'
     | '/'
-    | '/dashboard/forms/$formSlug'
     | '/dashboard/forms/create'
     | '/dashboard/forms'
+    | '/dashboard/forms/$formSlug/example'
+    | '/dashboard/forms/$formSlug/settings'
+    | '/dashboard/forms/$formSlug/submissions'
+    | '/dashboard/forms/$formSlug'
   id:
     | '__root__'
     | '/dashboard'
@@ -297,6 +398,10 @@ export interface FileRouteTypes {
     | '/dashboard/forms/$formSlug'
     | '/dashboard/forms/create'
     | '/dashboard/forms/'
+    | '/dashboard/forms/$formSlug/example'
+    | '/dashboard/forms/$formSlug/settings'
+    | '/dashboard/forms/$formSlug/submissions'
+    | '/dashboard/forms/$formSlug/'
   fileRoutesById: FileRoutesById
 }
 
@@ -368,8 +473,14 @@ export const routeTree = rootRoute
       "parent": "/_site"
     },
     "/dashboard/forms/$formSlug": {
-      "filePath": "dashboard/forms/$formSlug.tsx",
-      "parent": "/dashboard"
+      "filePath": "dashboard/forms/$formSlug/route.tsx",
+      "parent": "/dashboard",
+      "children": [
+        "/dashboard/forms/$formSlug/example",
+        "/dashboard/forms/$formSlug/settings",
+        "/dashboard/forms/$formSlug/submissions",
+        "/dashboard/forms/$formSlug/"
+      ]
     },
     "/dashboard/forms/create": {
       "filePath": "dashboard/forms/create.tsx",
@@ -378,6 +489,22 @@ export const routeTree = rootRoute
     "/dashboard/forms/": {
       "filePath": "dashboard/forms/index.tsx",
       "parent": "/dashboard"
+    },
+    "/dashboard/forms/$formSlug/example": {
+      "filePath": "dashboard/forms/$formSlug/example.tsx",
+      "parent": "/dashboard/forms/$formSlug"
+    },
+    "/dashboard/forms/$formSlug/settings": {
+      "filePath": "dashboard/forms/$formSlug/settings.tsx",
+      "parent": "/dashboard/forms/$formSlug"
+    },
+    "/dashboard/forms/$formSlug/submissions": {
+      "filePath": "dashboard/forms/$formSlug/submissions.tsx",
+      "parent": "/dashboard/forms/$formSlug"
+    },
+    "/dashboard/forms/$formSlug/": {
+      "filePath": "dashboard/forms/$formSlug/index.tsx",
+      "parent": "/dashboard/forms/$formSlug"
     }
   }
 }

@@ -38,14 +38,5 @@ export const getFormFn = createServerFn({ method: "GET" })
       return;
     }
 
-    const serializable = {
-      ...result,
-      submissions: result?.submissions.map((s) => ({
-        ...s,
-        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-        data: s.data as Record<string, any>,
-      })),
-    };
-
-    return serializable;
+    return result;
   });

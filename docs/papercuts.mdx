@@ -7,3 +7,11 @@ Things that get annoying when developing with this stack.
 When querying complex data from a serverFn, like `jsonb` the handler will throw
 an error that's not clear. You will need to type cast the data, or map it to a 
 serializable format before returning it to the client.
+
+#### Solution / workaround
+
+Add a type to `jsonb` columns.
+
+```ts
+jsonb("column_name").$type<Record<string, any>>();
+```
