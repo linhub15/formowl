@@ -42,11 +42,11 @@ export function AppNavigation(props: Props) {
           <NavbarSpacer />
           <NavbarSection>
             <NavbarItem
-              to="/dashboard/get-started"
-              aria-label="Get started"
-              current={props.pathname === "/dashboard/get-started"}
+              to="/dashboard/forms"
+              aria-label="Forms"
+              current={props.pathname === "/dashboard/forms"}
             >
-              <BookOpenIcon />
+              <FormsIcon open={props.pathname === "/dashboard/forms"} />
             </NavbarItem>
             <UserMenu email={props.email} type="navbar" />
           </NavbarSection>
@@ -57,36 +57,12 @@ export function AppNavigation(props: Props) {
           <SidebarHeader>
             <SidebarSection className="max-lg:hidden">
               <SidebarHeading>{BRANDING.name}</SidebarHeading>
-              <SidebarItem
-                to="/dashboard/get-started"
-                current={props.pathname === "/dashboard/get-started"}
-              >
-                <BookOpenIcon />
-                <SidebarLabel>Get Started</SidebarLabel>
-              </SidebarItem>
 
               <SidebarItem
                 to="/dashboard/forms"
                 current={props.pathname === "/dashboard/forms"}
               >
-                {props.pathname === "/dashboard/forms"
-                  // I'm trying to be fancy here. Feel free to remove.
-                  ? (
-                    <FolderOpen
-                      size={20}
-                      data-slot="icon"
-                      strokeWidth="1px"
-                      className="dark:stroke-black stroke-white"
-                    />
-                  )
-                  : (
-                    <FolderClosed
-                      size={20}
-                      data-slot="icon"
-                      strokeWidth="1px"
-                      className="dark:stroke-black stroke-white"
-                    />
-                  )}
+                <FormsIcon open={props.pathname === "/dashboard/forms"} />
                 <SidebarLabel>Forms</SidebarLabel>
               </SidebarItem>
             </SidebarSection>
@@ -131,4 +107,24 @@ export function AppNavigation(props: Props) {
       {props.children}
     </SidebarLayout>
   );
+}
+
+function FormsIcon(props: { open: boolean }) {
+  return props.open
+    ? (
+      <FolderOpen
+        size={20}
+        data-slot="icon"
+        strokeWidth="1px"
+        className="dark:stroke-black stroke-white"
+      />
+    )
+    : (
+      <FolderClosed
+        size={20}
+        data-slot="icon"
+        strokeWidth="1px"
+        className="dark:stroke-black stroke-white"
+      />
+    );
 }

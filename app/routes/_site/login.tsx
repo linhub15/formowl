@@ -2,6 +2,7 @@ import { GithubIcon } from "@/components/icons/github_icon";
 import { GoogleIcon } from "@/components/icons/google_icon";
 import { Card, CardBody, CardFooter } from "@/components/layout/card";
 import { Heading } from "@/components/ui/heading";
+import { LoadingSpinner } from "@/components/ui/loading_spinner";
 import { P } from "@/components/ui/text";
 import { authClient } from "@/lib/auth/auth.client";
 import { getSessionFn } from "@/lib/auth/get_session.fn";
@@ -12,6 +13,7 @@ import {
   type LinkProps,
   redirect,
 } from "@tanstack/react-router";
+import { useState } from "react";
 import { z } from "zod";
 
 const searchParams = z.object({
@@ -33,20 +35,25 @@ export const Route = createFileRoute("/_site/login")({
 
 function RouteComponent() {
   const { redirect } = Route.useSearch();
+  const [pending, setPending] = useState(false);
 
   const login = useMutation({
     mutationFn: async (args: { provider: "google" | "github" }) => {
-      await authClient.signIn.social({
+      const { data } = await authClient.signIn.social({
         provider: args.provider,
-        callbackURL: redirect,
+        callbackURL: redirect ?? "/dashboard" satisfies LinkProps["to"],
         newUserCallbackURL: "/onboard" satisfies LinkProps["to"],
         scopes: [],
       });
+
+      if (data?.redirect) {
+        setPending(true);
+      }
     },
   });
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="flex flex-1 flex-col justify-center py-32 lg:py-52 px-4 sm:px-6 lg:px-8">
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
         <Card>
           <CardBody>
@@ -57,6 +64,7 @@ function RouteComponent() {
               </P>
               <GoogleOAuthButton
                 login={() => login.mutateAsync({ provider: "google" })}
+                pending={login.isPending || pending}
               />
               {/* <GithubOAuthButton */}
             </div>
@@ -74,17 +82,23 @@ function RouteComponent() {
 
 type OAuthButtonProps = {
   login: () => Promise<void> | void;
+  pending?: boolean;
 };
 
-function GoogleOAuthButton(props: OAuthButtonProps) {
+function GoogleOAuthButton({ login, pending }: OAuthButtonProps) {
   return (
     <button
       className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 focus-visible:ring-transparent cursor-pointer"
       type="button"
-      onClick={props.login}
+      onClick={login}
+      disabled={pending}
     >
-      <GoogleIcon />
-      <span className="text-sm/6 font-semibold">Google</span>
+      {pending ? <LoadingSpinner /> : (
+        <>
+          <GoogleIcon />
+          <span className="text-sm/6 font-semibold">Google</span>
+        </>
+      )}
     </button>
   );
 }

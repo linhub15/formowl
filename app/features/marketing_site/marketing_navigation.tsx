@@ -35,7 +35,16 @@ export function MarketingNav(props: Props) {
           <NavbarSection>
             {isAuthenticated
               ? <Button to="/dashboard" outline>Dashboard</Button>
-              : <Button to="/login" outline>Get started</Button>}
+              : (
+                <Button
+                  className="data-[current=true]:invisible"
+                  to="/login"
+                  outline
+                  data-current={pathname === "/login"}
+                >
+                  Get started
+                </Button>
+              )}
           </NavbarSection>
         </Navbar>
       </div>

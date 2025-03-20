@@ -12,4 +12,10 @@ export async function authGuard({ location }: { location: { href: string } }) {
       search: { redirect: location.href },
     });
   }
+
+  if (!session.session.activeOrganizationId) {
+    throw redirect({
+      to: "/onboard",
+    });
+  }
 }
