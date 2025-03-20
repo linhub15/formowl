@@ -17,9 +17,9 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as SiteImport } from './routes/_site'
 import { Route as DashboardRouteImport } from './routes/dashboard/route'
+import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as SiteIndexImport } from './routes/_site/index'
 import { Route as DashboardProfileImport } from './routes/dashboard/profile'
-import { Route as DashboardGetStartedImport } from './routes/dashboard/get-started'
 import { Route as SitePricingImport } from './routes/_site/pricing'
 import { Route as SiteOnboardImport } from './routes/_site/onboard'
 import { Route as SiteLoginImport } from './routes/_site/login'
@@ -44,6 +44,12 @@ const DashboardRouteRoute = DashboardRouteImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const DashboardIndexRoute = DashboardIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
 const SiteIndexRoute = SiteIndexImport.update({
   id: '/',
   path: '/',
@@ -53,12 +59,6 @@ const SiteIndexRoute = SiteIndexImport.update({
 const DashboardProfileRoute = DashboardProfileImport.update({
   id: '/profile',
   path: '/profile',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
-
-const DashboardGetStartedRoute = DashboardGetStartedImport.update({
-  id: '/get-started',
-  path: '/get-started',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
@@ -166,13 +166,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitePricingImport
       parentRoute: typeof SiteImport
     }
-    '/dashboard/get-started': {
-      id: '/dashboard/get-started'
-      path: '/get-started'
-      fullPath: '/dashboard/get-started'
-      preLoaderRoute: typeof DashboardGetStartedImport
-      parentRoute: typeof DashboardRouteImport
-    }
     '/dashboard/profile': {
       id: '/dashboard/profile'
       path: '/profile'
@@ -186,6 +179,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof SiteIndexImport
       parentRoute: typeof SiteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexImport
+      parentRoute: typeof DashboardRouteImport
     }
     '/dashboard/forms/$formSlug': {
       id: '/dashboard/forms/$formSlug'
@@ -263,16 +263,16 @@ const DashboardFormsFormSlugRouteRouteWithChildren =
   )
 
 interface DashboardRouteRouteChildren {
-  DashboardGetStartedRoute: typeof DashboardGetStartedRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
   DashboardFormsFormSlugRouteRoute: typeof DashboardFormsFormSlugRouteRouteWithChildren
   DashboardFormsCreateRoute: typeof DashboardFormsCreateRoute
   DashboardFormsIndexRoute: typeof DashboardFormsIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
-  DashboardGetStartedRoute: DashboardGetStartedRoute,
   DashboardProfileRoute: DashboardProfileRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
   DashboardFormsFormSlugRouteRoute:
     DashboardFormsFormSlugRouteRouteWithChildren,
   DashboardFormsCreateRoute: DashboardFormsCreateRoute,
@@ -305,9 +305,9 @@ export interface FileRoutesByFullPath {
   '/login': typeof SiteLoginRoute
   '/onboard': typeof SiteOnboardRoute
   '/pricing': typeof SitePricingRoute
-  '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
   '/dashboard/forms': typeof DashboardFormsIndexRoute
@@ -318,13 +318,12 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
-  '/dashboard': typeof DashboardRouteRouteWithChildren
   '/login': typeof SiteLoginRoute
   '/onboard': typeof SiteOnboardRoute
   '/pricing': typeof SitePricingRoute
-  '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
+  '/dashboard': typeof DashboardIndexRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
   '/dashboard/forms': typeof DashboardFormsIndexRoute
   '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
@@ -340,9 +339,9 @@ export interface FileRoutesById {
   '/_site/login': typeof SiteLoginRoute
   '/_site/onboard': typeof SiteOnboardRoute
   '/_site/pricing': typeof SitePricingRoute
-  '/dashboard/get-started': typeof DashboardGetStartedRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/_site/': typeof SiteIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
   '/dashboard/forms/': typeof DashboardFormsIndexRoute
@@ -360,9 +359,9 @@ export interface FileRouteTypes {
     | '/login'
     | '/onboard'
     | '/pricing'
-    | '/dashboard/get-started'
     | '/dashboard/profile'
     | '/'
+    | '/dashboard/'
     | '/dashboard/forms/$formSlug'
     | '/dashboard/forms/create'
     | '/dashboard/forms'
@@ -372,13 +371,12 @@ export interface FileRouteTypes {
     | '/dashboard/forms/$formSlug/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/dashboard'
     | '/login'
     | '/onboard'
     | '/pricing'
-    | '/dashboard/get-started'
     | '/dashboard/profile'
     | '/'
+    | '/dashboard'
     | '/dashboard/forms/create'
     | '/dashboard/forms'
     | '/dashboard/forms/$formSlug/example'
@@ -392,9 +390,9 @@ export interface FileRouteTypes {
     | '/_site/login'
     | '/_site/onboard'
     | '/_site/pricing'
-    | '/dashboard/get-started'
     | '/dashboard/profile'
     | '/_site/'
+    | '/dashboard/'
     | '/dashboard/forms/$formSlug'
     | '/dashboard/forms/create'
     | '/dashboard/forms/'
@@ -432,8 +430,8 @@ export const routeTree = rootRoute
     "/dashboard": {
       "filePath": "dashboard/route.tsx",
       "children": [
-        "/dashboard/get-started",
         "/dashboard/profile",
+        "/dashboard/",
         "/dashboard/forms/$formSlug",
         "/dashboard/forms/create",
         "/dashboard/forms/"
@@ -460,10 +458,6 @@ export const routeTree = rootRoute
       "filePath": "_site/pricing.tsx",
       "parent": "/_site"
     },
-    "/dashboard/get-started": {
-      "filePath": "dashboard/get-started.tsx",
-      "parent": "/dashboard"
-    },
     "/dashboard/profile": {
       "filePath": "dashboard/profile.tsx",
       "parent": "/dashboard"
@@ -471,6 +465,10 @@ export const routeTree = rootRoute
     "/_site/": {
       "filePath": "_site/index.tsx",
       "parent": "/_site"
+    },
+    "/dashboard/": {
+      "filePath": "dashboard/index.tsx",
+      "parent": "/dashboard"
     },
     "/dashboard/forms/$formSlug": {
       "filePath": "dashboard/forms/$formSlug/route.tsx",

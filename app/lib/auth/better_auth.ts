@@ -57,18 +57,15 @@ export const auth = betterAuth({
     session: {
       create: {
         before: async (session) => {
-          const organization = await db.query.organization.findFirst({
-            with: {
-              members: {
-                where: (member, { eq }) => eq(member.userId, session.userId),
-              },
-            },
+          const result = await db.query.member.findFirst({
+            columns: { organizationId: true },
+            where: (m, { eq }) => eq(m.userId, session.userId),
           });
 
           return {
             data: {
               ...session,
-              activeOrganizationId: organization?.id ?? null,
+              activeOrganizationId: result?.organizationId ?? null,
             },
           };
         },

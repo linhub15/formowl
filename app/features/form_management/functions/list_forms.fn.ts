@@ -12,7 +12,7 @@ export const listFormsFn = createServerFn({ method: "GET" })
       submissionsCount: db.$count(formSubmission).as("submissionsCount"),
     })
       .from(form)
-      .innerJoin(formSubmission, eq(formSubmission.formId, form.id))
+      .leftJoin(formSubmission, eq(formSubmission.formId, form.id))
       .where(eq(form.organizationId, context.organizationId))
       .groupBy(form.id);
 

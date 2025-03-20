@@ -4,11 +4,7 @@ import { json } from "@tanstack/react-start";
 import { createAPIFileRoute } from "@tanstack/react-start/api";
 
 export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
-  GET: async ({ params }) => {
-    return json({ message: "Hello" });
-  },
   POST: async ({ request, params }) => {
-    console.log("start");
     const form = await db.query.form.findFirst({
       where: (form, { eq }) => eq(form.slug, params.formSlug),
     });
@@ -21,9 +17,10 @@ export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
 
     await db.insert(formSubmission).values({
       formId: form.id,
-      data: JSON.stringify(Object.fromEntries(data)),
+      data: Object.fromEntries(data),
     });
 
+    // todo: show a link for the user to go back to
     return new Response(
       "🎉 Submission received! You can go back on your browser.",
       {
