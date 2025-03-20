@@ -18,7 +18,7 @@ export const listSubmisisonsFn = createServerFn({ method: "GET" })
       where: (f, { eq, and }) =>
         and(
           eq(f.slug, data.formSlug),
-          eq(f.organizationId, context.organizationId),
+          eq(f.organizationId, context.activeOrgId),
         ),
     });
 

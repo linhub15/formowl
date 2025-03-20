@@ -6,7 +6,7 @@ import { createInsertSchema } from "drizzle-zod";
 import type { z } from "zod";
 
 const request = createInsertSchema(form).pick({
-  title: true,
+  name: true,
 });
 
 export type CreateFormRequest = z.infer<typeof request>;
@@ -17,7 +17,7 @@ export const createFormFn = createServerFn({ method: "POST" })
   .handler(async ({ context, data }) => {
     const result = await db.insert(form).values({
       ...data,
-      organizationId: context.organizationId,
+      organizationId: context.activeOrgId,
     }).returning();
 
     return result.at(0);

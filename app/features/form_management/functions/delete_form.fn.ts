@@ -18,7 +18,7 @@ export const deleteFormFn = createServerFn({ method: "POST" })
     await db.delete(form).where(
       and(
         eq(form.id, data.formId),
-        eq(form.organizationId, context.organizationId),
+        eq(form.organizationId, context.activeOrgId),
       ),
     );
   });

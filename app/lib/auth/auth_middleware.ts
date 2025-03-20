@@ -17,6 +17,6 @@ export const authMiddleware = createMiddleware().server(
       );
     }
 
-    return await next({ context: { session, organizationId: orgId } });
+    return await next({ context: { session, activeOrgId: orgId } });
   },
 );

@@ -13,7 +13,7 @@ export const listFormsFn = createServerFn({ method: "GET" })
     })
       .from(form)
       .leftJoin(formSubmission, eq(formSubmission.formId, form.id))
-      .where(eq(form.organizationId, context.organizationId))
+      .where(eq(form.organizationId, context.activeOrgId))
       .groupBy(form.id);
 
     return result;

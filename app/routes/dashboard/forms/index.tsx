@@ -26,7 +26,7 @@ function RouteComponent() {
             to="/dashboard/forms/$formSlug"
             params={{ formSlug: form.slug }}
           >
-            <Subheading>{form.title}</Subheading>
+            <Subheading>{form.name}</Subheading>
             <div className="text-sm">
               {form.submissionsCount}{" "}
               submission{form.submissionsCount === 0 ? "" : "s"}

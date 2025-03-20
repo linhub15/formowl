@@ -84,7 +84,7 @@ export function AppNavigation(props: Props) {
                   key={f.slug}
                 >
                   <DocumentTextIcon />
-                  <SidebarLabel>{f.title}</SidebarLabel>
+                  <SidebarLabel>{f.name}</SidebarLabel>
                 </SidebarItem>
               ))}
             </SidebarSection>

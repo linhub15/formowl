@@ -16,7 +16,7 @@ export function CreateForm() {
     },
     onSubmit: async ({ value }) => {
       const result = await mutation.mutateAsync({
-        title: value.formName,
+        name: value.formName,
       });
 
       if (!result?.slug) {

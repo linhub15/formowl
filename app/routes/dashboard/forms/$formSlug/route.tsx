@@ -39,7 +39,7 @@ function RouteComponent() {
   return (
     <div>
       <SectionHeader
-        heading={form.title}
+        heading={form.name}
         actions={
           <Button onClick={deleteForm}>
             Delete

@@ -30,7 +30,7 @@ export const getFormFn = createServerFn({ method: "GET" })
       where: (f, { eq, and }) =>
         and(
           whereClause,
-          eq(f.organizationId, context.organizationId),
+          eq(f.organizationId, context.activeOrgId),
         ),
     });
 

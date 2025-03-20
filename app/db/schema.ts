@@ -27,7 +27,7 @@ export const blob = pgTable("blob", {
 
 export const form = pgTable("form", {
   id: uuid("id").primaryKey().defaultRandom(),
-  title: text("title").notNull(),
+  name: text("name").notNull(),
   slug: text("slug").notNull().unique().$default(() => nanoid(6)),
   ...defaultColumns,
   ...organizationColumns,
