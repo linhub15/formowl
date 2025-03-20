@@ -43,7 +43,9 @@ export const formRelations = relations(form, ({ one, many }) => ({
 
 export const formSubmission = pgTable("form_submission", {
   id: uuid("id").primaryKey().defaultRandom(),
-  formId: uuid("form_id").notNull().references(() => form.id),
+  formId: uuid("form_id").notNull().references(() => form.id, {
+    onDelete: "cascade",
+  }),
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   data: jsonb("data").$type<Record<string, any>>().notNull(),
   ...defaultColumns,
