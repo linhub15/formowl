@@ -49,6 +49,7 @@ export const formSubmission = pgTable("form_submission", {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   data: jsonb("data").$type<Record<string, any>>().notNull(),
   ...defaultColumns,
+  ...organizationColumns,
 });
 
 export const formSubmissionRelations = relations(formSubmission, ({ one }) => ({

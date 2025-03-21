@@ -5,16 +5,17 @@ import { z } from "zod";
 
 const request = z.object({
   formSlug: z.string(),
+  limit: z.number().optional(),
 });
 
 type ListSubmissionsRequest = z.infer<typeof request>;
 
-export const listSubmisisonsFn = createServerFn({ method: "GET" })
+export const listSubmissionsFn = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
   .validator((data: ListSubmissionsRequest) => request.parse(data))
   .handler(async ({ data, context }) => {
-    // Enforce the form belongs to this organization
     const form = await db.query.form.findFirst({
+      columns: { id: true },
       where: (f, { eq, and }) =>
         and(
           eq(f.slug, data.formSlug),
@@ -28,7 +29,13 @@ export const listSubmisisonsFn = createServerFn({ method: "GET" })
     }
 
     const submissions = await db.query.formSubmission.findMany({
-      where: (submission, { eq }) => eq(submission.formId, form.id),
+      where: (submission, { and, eq }) =>
+        and(
+          eq(submission.formId, form.id),
+          eq(submission.organizationId, context.activeOrgId),
+        ),
+      orderBy: (submission, { desc }) => desc(submission.createdAt),
+      limit: data.limit ?? 10,
     });
 
     return submissions;

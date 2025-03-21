@@ -53,6 +53,7 @@ function RouteComponent() {
           },
           current: !!matchRoute({
             to: SubmissionRoute.to,
+            fuzzy: true,
           }),
         }, {
           name: "Settings",

@@ -179,13 +179,13 @@ export function Button(
   { color, outline, plain, className, children, ref, ...props }: ButtonProps,
 ) {
   const classes = cn(
-    className,
     styles.base,
     outline
       ? styles.outline
       : plain
       ? styles.plain
       : cn(styles.solid, styles.colors[color ?? "dark/zinc"]),
+    className,
   );
 
   return "to" in props

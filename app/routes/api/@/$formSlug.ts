@@ -18,6 +18,7 @@ export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
     await db.insert(formSubmission).values({
       formId: form.id,
       data: Object.fromEntries(data),
+      organizationId: form.organizationId,
     });
 
     // todo: show a link for the user to go back to
