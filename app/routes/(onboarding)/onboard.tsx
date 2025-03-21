@@ -54,6 +54,7 @@ function RouteComponent() {
   if (session?.session.activeOrganizationId) {
     navigate({
       to: "/dashboard",
+      replace: true,
     });
   }
 

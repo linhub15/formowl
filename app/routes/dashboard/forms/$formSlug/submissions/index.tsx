@@ -19,6 +19,7 @@ export function RouteComponent() {
       <Navigate
         to="/dashboard/forms/$formSlug/submissions/$id"
         params={{ ...params, id: first.id }}
+        replace={true}
       />
     );
   }
