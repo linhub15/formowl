@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { LoadingSpinner } from "@/components/ui/loading_spinner";
 import {
   Navbar,
   NavbarItem,
@@ -6,6 +7,7 @@ import {
   NavbarSection,
   NavbarSpacer,
 } from "@/components/ui/navbar";
+import { MatchRoute } from "@tanstack/react-router";
 
 type Props = {
   pathname?: string;
@@ -34,16 +36,40 @@ export function MarketingNav(props: Props) {
           <NavbarSpacer />
           <NavbarSection>
             {isAuthenticated
-              ? <Button to="/dashboard" outline>Dashboard</Button>
+              ? (
+                <MatchRoute to="/dashboard" pending>
+                  {(match) => (
+                    match
+                      ? (
+                        <Button outline>
+                          <LoadingSpinner className="text-white" />
+                        </Button>
+                      )
+                      : <Button to="/dashboard" outline>Dashboard</Button>
+                  )}
+                </MatchRoute>
+              )
               : (
-                <Button
-                  className="data-[current=true]:invisible"
-                  to="/login"
-                  outline
-                  data-current={pathname === "/login"}
-                >
-                  Get started
-                </Button>
+                <MatchRoute to="/login" pending>
+                  {(match) => (
+                    match
+                      ? (
+                        <Button outline>
+                          <LoadingSpinner />
+                        </Button>
+                      )
+                      : (
+                        <Button
+                          className="data-[current=true]:invisible"
+                          to="/login"
+                          outline
+                          data-current={pathname === "/login"}
+                        >
+                          Get started
+                        </Button>
+                      )
+                  )}
+                </MatchRoute>
               )}
           </NavbarSection>
         </Navbar>
