@@ -2,6 +2,7 @@ import { SectionHeader } from "@/components/layout/section_header";
 import { Subheading } from "@/components/ui/heading";
 import { useListForms } from "@/features/form_management/hooks/use_list_forms";
 import { cn } from "@/lib/utils/cn";
+import { DocumentTextIcon } from "@heroicons/react/20/solid";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/forms/")({
@@ -14,7 +15,7 @@ function RouteComponent() {
   return (
     <div>
       <SectionHeader heading="Forms" />
-      <div className="py-8">
+      <div className="py-8 space-y-3">
         {forms.data?.map((form) => (
           <Link
             className={cn(
@@ -26,10 +27,15 @@ function RouteComponent() {
             to="/dashboard/forms/$formSlug"
             params={{ formSlug: form.slug }}
           >
-            <Subheading>{form.name}</Subheading>
-            <div className="text-sm">
-              {form.submissionsCount}{" "}
-              submission{form.submissionsCount === 0 ? "" : "s"}
+            <div className="flex items-center gap-3">
+              <DocumentTextIcon className="size-6" />
+              <div>
+                <Subheading>{form.name}</Subheading>
+                <div className="text-sm">
+                  {form.submissionsCount}{" "}
+                  submission{form.submissionsCount === 1 ? "" : "s"}
+                </div>
+              </div>
             </div>
           </Link>
         ))}

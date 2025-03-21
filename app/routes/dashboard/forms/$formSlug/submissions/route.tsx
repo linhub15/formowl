@@ -11,6 +11,11 @@ function RouteComponent() {
   const params = Route.useParams();
 
   const submissions = useListSubmissions({ formSlug: params.formSlug });
+
+  if (!submissions?.data?.length) {
+    return <Outlet />;
+  }
+
   return (
     <div>
       <div className="flex gap-4">

@@ -27,7 +27,6 @@ function RouteComponent() {
           linkProps: {
             to: SubmissionRoute.to,
             params: { formSlug: params.formSlug },
-            disabled: form.submissionsCount === 0,
           },
           current: !!matchRoute({
             to: SubmissionRoute.to,
