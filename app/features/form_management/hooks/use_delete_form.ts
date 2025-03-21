@@ -4,6 +4,7 @@ import {
   type DeleteFormRequest,
 } from "../functions/delete_form.fn";
 import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
 
 export function useDeleteForm() {
   const deleteForm = useServerFn(deleteFormFn);
@@ -15,6 +16,7 @@ export function useDeleteForm() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["forms"] });
+      toast.success("Form deleted");
     },
   });
 }

@@ -1,6 +1,6 @@
+import tailwind from "@/main.css?url";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import tailwind from "@/main.css?url";
 import {
   CatchBoundary,
   createRootRouteWithContext,
@@ -9,6 +9,7 @@ import {
   type ReactNode,
   Scripts,
 } from "@tanstack/react-router";
+import { Toaster } from "sonner";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
@@ -31,6 +32,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootComponent() {
   return (
     <RootDocument>
+      <Toaster theme="system" />
       <CatchBoundary
         getResetKey={() => "reset"}
         onCatch={(error) => console.error(error)}
