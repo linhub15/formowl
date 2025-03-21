@@ -76,17 +76,18 @@ export function AppNavigation(props: Props) {
                   New form
                 </SidebarItem>
               </div>
-
-              {forms.data?.map((f) => (
-                <SidebarItem
-                  to="/dashboard/forms/$formSlug"
-                  params={{ formSlug: f.slug }}
-                  key={f.slug}
-                >
-                  <DocumentTextIcon />
-                  <SidebarLabel>{f.name}</SidebarLabel>
-                </SidebarItem>
-              ))}
+              <div className="flex flex-col gap-1 py-2">
+                {forms.data?.map((f) => (
+                  <SidebarItem
+                    to="/dashboard/forms/$formSlug"
+                    params={{ formSlug: f.slug }}
+                    key={f.slug}
+                  >
+                    <DocumentTextIcon />
+                    <SidebarLabel>{f.name}</SidebarLabel>
+                  </SidebarItem>
+                ))}
+              </div>
             </SidebarSection>
 
             <SidebarSpacer />
