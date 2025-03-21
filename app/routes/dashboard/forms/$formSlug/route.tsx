@@ -4,15 +4,38 @@ import { createFileRoute, Outlet, useMatchRoute } from "@tanstack/react-router";
 import { Route as SubmissionRoute } from "./submissions";
 import { Route as SettingsRoute } from "./settings";
 import { Route as FormExampleRoute } from "./example";
+import { Button } from "@/components/ui/button";
+import { useSetFormName } from "@/features/form_management/hooks/use_set_form_name";
+import { useForm } from "@tanstack/react-form";
+import { useState } from "react";
+import { LoadingSpinner } from "@/components/ui/loading_spinner";
 
 export const Route = createFileRoute("/dashboard/forms/$formSlug")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const setFormName = useSetFormName();
   const params = Route.useParams();
   const matchRoute = useMatchRoute();
   const { data: form } = useGetForm({ formSlug: params.formSlug });
+
+  const [editName, setEditName] = useState(false);
+
+  /**
+   * todo:
+   *
+   * refactoring:
+   *  • move the form and component logic
+   */
+
+  let nameForm = useForm({
+    defaultValues: { name: form?.name },
+    onSubmit: ({ value }) => {
+      setEditName(false);
+      setFormName.mutateAsync({ name: value.name, formId: form?.id });
+    },
+  });
 
   if (!form) {
     return;
@@ -21,7 +44,49 @@ function RouteComponent() {
   return (
     <div>
       <SectionHeader
-        heading={form.name}
+        heading={editName
+          ? (
+            <nameForm.Field name="name">
+              {(field) => (
+                <>
+                  <input
+                    type="text"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                  />
+                  <Button
+                    onClick={nameForm.handleSubmit}
+                    disabled={field.state.value === form.name}
+                  >
+                    {setFormName.isPending
+                      ? <LoadingSpinner data-slot="icon"></LoadingSpinner>
+                      : "Save"}
+                  </Button>
+                </>
+              )}
+            </nameForm.Field>
+          )
+          : form.name}
+        actions={!editName
+          ? (
+            <Button
+              onClick={() => {
+                setEditName(true);
+              }}
+            >
+              Rename
+            </Button>
+          )
+          : (
+            <Button
+              onClick={() => {
+                setEditName(false);
+                nameForm.reset();
+              }}
+            >
+              Cancel
+            </Button>
+          )}
         tabs={[{
           name: "Submissions",
           linkProps: {

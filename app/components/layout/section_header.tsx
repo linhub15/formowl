@@ -9,6 +9,7 @@ import {
   DropdownMenu,
 } from "../ui/dropdown";
 import type { ReactNode } from "react";
+import React from "react";
 
 type Tab = {
   name: ReactNode;
@@ -17,7 +18,7 @@ type Tab = {
 };
 
 type Props = {
-  heading: string;
+  heading: React.ReactNode;
   actions?: React.ReactNode;
   tabs?: Tab[];
 };

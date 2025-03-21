@@ -32,7 +32,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootComponent() {
   return (
     <RootDocument>
-      <Toaster theme="system" />
+      <Toaster theme="system" position="bottom-center" />
       <CatchBoundary
         getResetKey={() => "reset"}
         onCatch={(error) => console.error(error)}
