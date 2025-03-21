@@ -15,21 +15,17 @@ export const Route = createFileRoute("/dashboard/forms/$formSlug")({
 });
 
 function RouteComponent() {
-  const setFormName = useSetFormName();
   const params = Route.useParams();
   const matchRoute = useMatchRoute();
   const { data: form } = useGetForm({ formSlug: params.formSlug });
 
-  const [editName, setEditName] = useState(false);
-
   /**
    * todo:
-   *
-   * refactoring:
-   *  • move the form and component logic
    */
 
-  let nameForm = useForm({
+  const setFormName = useSetFormName();
+  const [editName, setEditName] = useState(false);
+  const nameForm = useForm({
     defaultValues: { name: form?.name },
     onSubmit: ({ value }) => {
       setEditName(false);
@@ -59,14 +55,14 @@ function RouteComponent() {
                     disabled={field.state.value === form.name}
                   >
                     {setFormName.isPending
-                      ? <LoadingSpinner data-slot="icon"></LoadingSpinner>
+                      ? <LoadingSpinner data-slot="icon" />
                       : "Save"}
                   </Button>
                 </>
               )}
             </nameForm.Field>
           )
-          : form.name}
+          : <div>{form.name}</div>}
         actions={!editName
           ? (
             <Button

@@ -1,5 +1,12 @@
 import { nanoid } from "@/lib/utils/nanoid";
-import { jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  jsonb,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+} from "drizzle-orm/pg-core";
 import type { UploadedFileData } from "uploadthing/types";
 import { organization } from "./auth_schema";
 import { relations } from "drizzle-orm";
@@ -29,6 +36,9 @@ export const form = pgTable("form", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
   slug: text("slug").notNull().unique().$default(() => nanoid(6)),
+  isSubmissionsPaused: boolean("is_submissions_paused").notNull().default(
+    false,
+  ),
   ...defaultColumns,
   ...organizationColumns,
 });

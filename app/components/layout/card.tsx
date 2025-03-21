@@ -22,7 +22,10 @@ export function Card({ children, className }: PropsWithChildren & Styleable) {
 export function CardHeader({ children }: PropsWithChildren) {
   return (
     <div className="px-4 py-5 sm:px-6">
-      <Subheading level={2}>
+      <Subheading
+        level={2}
+        className="text-zinc-950/75 dark:text-white/75 font-semibold"
+      >
         {children}
       </Subheading>
     </div>

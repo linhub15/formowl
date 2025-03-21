@@ -9,7 +9,7 @@ export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
       where: (form, { eq }) => eq(form.slug, params.formSlug),
     });
 
-    if (!form) {
+    if (!form || form.isSubmissionsPaused) {
       return json({ message: "Form not found" }, { status: 404 });
     }
 
