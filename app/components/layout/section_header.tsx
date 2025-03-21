@@ -8,9 +8,10 @@ import {
   DropdownItem,
   DropdownMenu,
 } from "../ui/dropdown";
+import type { ReactNode } from "react";
 
 type Tab = {
-  name: string;
+  name: ReactNode;
   linkProps: LinkProps;
   current: boolean;
 };
@@ -41,7 +42,7 @@ export function SectionHeader({ heading, actions, tabs = [] }: Props) {
                 </DropdownButton>
                 <DropdownMenu>
                   {tabs.map((tab) => (
-                    <DropdownItem key={tab.name} {...tab.linkProps}>
+                    <DropdownItem key={tab.linkProps.to} {...tab.linkProps}>
                       {tab.name}
                     </DropdownItem>
                   ))}
@@ -53,7 +54,7 @@ export function SectionHeader({ heading, actions, tabs = [] }: Props) {
               <Tabbar>
                 {tabs.map((tab) => (
                   <TabbarItem
-                    key={tab.name}
+                    key={tab.linkProps.to}
                     current={tab.current}
                     {...tab.linkProps}
                   >

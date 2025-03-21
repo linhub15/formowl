@@ -22,4 +22,11 @@ export function RouteComponent() {
       />
     );
   }
+
+  return (
+    <Navigate
+      to="/dashboard/forms/$formSlug/example"
+      params={{ ...params }}
+    />
+  );
 }

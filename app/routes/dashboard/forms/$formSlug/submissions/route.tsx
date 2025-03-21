@@ -14,7 +14,7 @@ function RouteComponent() {
   return (
     <div>
       <div className="flex gap-4">
-        <div className="w-[200px] -ml-2 space-y-4">
+        <div className="w-[200px]  space-y-4">
           {submissions.data?.map((s) => (
             <Button
               className="font-normal"

@@ -38,10 +38,7 @@ function RouteComponent() {
         <Heading>Profile</Heading>
       </div>
       <Card>
-        <CardHeader>
-          Your email
-        </CardHeader>
-
+        <CardHeader>Your email</CardHeader>
         <CardBody>
           <Field>
             <Label className="space-x-2">
