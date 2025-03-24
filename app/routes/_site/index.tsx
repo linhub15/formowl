@@ -24,7 +24,7 @@ function RouteComponent() {
             <Badge className="rounded-full" color="green">
               Coming Soon
             </Badge>
-            <Heading className="text-5xl lg:text-7xl tracking-tight py-6 font-medium">
+            <Heading className="text-5xl sm:text:6xl lg:text-7xl tracking-tight py-6 font-medium">
               Form API
               <br />for static sites
             </Heading>

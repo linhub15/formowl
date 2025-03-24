@@ -10,7 +10,7 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
     }
 
     posthog.init(key, {
-      api_host: import.meta.env.VITE_POSTHOG_PUBLIC_KEY ||
+      api_host: import.meta.env.VITE_POSTHOG_HOST ||
         "https://us.i.posthog.com",
     });
   }, []);
