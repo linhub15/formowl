@@ -1,9 +1,9 @@
-import Spline from "@splinetool/react-spline";
 import { Container } from "@/components/layout/container";
 import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Heading } from "@/components/ui/heading";
+import { SpinningPyramid } from "@/components/spinning_pyramid";
 
 export const Route = createFileRoute("/_site/")({
   component: RouteComponent,
@@ -12,12 +12,9 @@ export const Route = createFileRoute("/_site/")({
 function RouteComponent() {
   return (
     <Container>
-      <section className="flex flex-col lg:grid grid-cols-2 items-center justify-between h-[456px] gap-8 max-w-5xl mx-auto">
-        <div className="h-full flex items-center justify-center">
-          <Spline
-            className="max-h-60 size-full"
-            scene="https://prod.spline.design/wt5t9EKstXGagppe/scene.splinecode"
-          />
+      <section className="flex flex-col lg:grid grid-cols-2 items-center justify-between min-h-[456px] gap-8 max-w-5xl mx-auto">
+        <div className="flex items-center justify-center">
+          <SpinningPyramid />
         </div>
         <div className="space-y-6 lg:order-first">
           <div>

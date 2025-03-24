@@ -11,7 +11,20 @@ export const Route = createFileRoute("/_site/pricing")({
 
 const tiers: PricingCardProps[] = [
   {
-    name: "",
+    name: "Freelancer",
+    id: "tier-hobby",
+    to: new URL("/waitlist", import.meta.env.VITE_APP_URL),
+    priceMonthly: "$10",
+    features: [
+      "Unlimited forms",
+      "Unlimited submissions",
+      "Bring your own SMTP",
+      "Anti-spam honeypot (coming soon)",
+      "Cloudflare turnstile (coming soon)",
+    ],
+  },
+  {
+    name: "Team",
     id: "tier-business",
     to: new URL("/waitlist", import.meta.env.VITE_APP_URL),
     priceMonthly: "$100",
@@ -21,6 +34,7 @@ const tiers: PricingCardProps[] = [
       "25,000 email notifications",
       "Anti-spam honeypot (coming soon)",
       "Cloudflare turnstile (coming soon)",
+      "10 team members",
     ],
   },
 ];
@@ -30,7 +44,7 @@ function RouteComponent() {
     <Container>
       <section className="space-y-16">
         <Heading className="text-center">Pricing</Heading>
-        <div className="mx-auto max-w-sm">
+        <div className="grid sm:grid-cols-2 mx-auto max-w-3xl gap-8">
           {tiers.map((tier) => <PricingCard key={tier.id} {...tier} />)}
         </div>
       </section>
@@ -51,36 +65,40 @@ function PricingCard(
 ) {
   return (
     <Card className="rounded-2xl">
-      <div className="flex flex-col justify-between rounded-3xl p-8 sm:p-10 gap-8">
-        <Subheading className="text-base/7 font-semibold" id={id}>
-          {name}
-        </Subheading>
-        <div className="flex items-baseline gap-x-2">
-          <span className="text-5xl font-semibold tracking-tight text-zinc-950 dark:text-white/90">
-            {priceMonthly}
-          </span>
-          <span className="text-base/7 font-semibold">
-            /month
-          </span>
+      <div className="flex flex-col justify-between h-full rounded-3xl p-8 sm:p-10">
+        <div className="space-y-8">
+          <Subheading className="text-base/7 font-semibold" id={id}>
+            {name}
+          </Subheading>
+          <div className="flex items-baseline flex-1 gap-x-2">
+            <span className="text-5xl font-semibold tracking-tight text-zinc-950 dark:text-white/90">
+              {priceMonthly}
+            </span>
+            <span className="text-base/7 font-semibold">
+              /month
+            </span>
+          </div>
+          <ul className="space-y-4 text-sm/6">
+            {features.map((feature) => (
+              <li className="flex gap-x-3" key={feature}>
+                <CheckCircleIcon
+                  aria-hidden="true"
+                  className="h-6 w-5 flex-none text-emerald-600"
+                />
+                {feature}
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className="space-y-4 text-sm/6">
-          {features.map((feature) => (
-            <li className="flex gap-x-3" key={feature}>
-              <CheckCircleIcon
-                aria-hidden="true"
-                className="h-6 w-5 flex-none text-emerald-600"
-              />
-              {feature}
-            </li>
-          ))}
-        </ul>
-        <Button
-          className="mt-4"
-          href={to.pathname}
-          aria-describedby={id}
-        >
-          Get started
-        </Button>
+        <div className="w-full mt-6">
+          <Button
+            className="mt-4 w-full"
+            href={to.pathname}
+            aria-describedby={id}
+          >
+            Get started
+          </Button>
+        </div>
       </div>
     </Card>
   );
