@@ -20,6 +20,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard/route'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as SiteIndexImport } from './routes/_site/index'
 import { Route as DashboardProfileImport } from './routes/dashboard/profile'
+import { Route as SiteWaitlistImport } from './routes/_site/waitlist'
 import { Route as SitePricingImport } from './routes/_site/pricing'
 import { Route as SiteLoginImport } from './routes/_site/login'
 import { Route as onboardingOnboardImport } from './routes/(onboarding)/onboard'
@@ -62,6 +63,12 @@ const DashboardProfileRoute = DashboardProfileImport.update({
   id: '/profile',
   path: '/profile',
   getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const SiteWaitlistRoute = SiteWaitlistImport.update({
+  id: '/waitlist',
+  path: '/waitlist',
+  getParentRoute: () => SiteRoute,
 } as any)
 
 const SitePricingRoute = SitePricingImport.update({
@@ -180,6 +187,13 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof SitePricingImport
+      parentRoute: typeof SiteImport
+    }
+    '/_site/waitlist': {
+      id: '/_site/waitlist'
+      path: '/waitlist'
+      fullPath: '/waitlist'
+      preLoaderRoute: typeof SiteWaitlistImport
       parentRoute: typeof SiteImport
     }
     '/dashboard/profile': {
@@ -334,12 +348,14 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
 interface SiteRouteChildren {
   SiteLoginRoute: typeof SiteLoginRoute
   SitePricingRoute: typeof SitePricingRoute
+  SiteWaitlistRoute: typeof SiteWaitlistRoute
   SiteIndexRoute: typeof SiteIndexRoute
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
   SiteLoginRoute: SiteLoginRoute,
   SitePricingRoute: SitePricingRoute,
+  SiteWaitlistRoute: SiteWaitlistRoute,
   SiteIndexRoute: SiteIndexRoute,
 }
 
@@ -351,6 +367,7 @@ export interface FileRoutesByFullPath {
   '/onboard': typeof onboardingOnboardRoute
   '/login': typeof SiteLoginRoute
   '/pricing': typeof SitePricingRoute
+  '/waitlist': typeof SiteWaitlistRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -369,6 +386,7 @@ export interface FileRoutesByTo {
   '/onboard': typeof onboardingOnboardRoute
   '/login': typeof SiteLoginRoute
   '/pricing': typeof SitePricingRoute
+  '/waitlist': typeof SiteWaitlistRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
   '/dashboard': typeof DashboardIndexRoute
@@ -388,6 +406,7 @@ export interface FileRoutesById {
   '/(onboarding)/onboard': typeof onboardingOnboardRoute
   '/_site/login': typeof SiteLoginRoute
   '/_site/pricing': typeof SitePricingRoute
+  '/_site/waitlist': typeof SiteWaitlistRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/_site/': typeof SiteIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -410,6 +429,7 @@ export interface FileRouteTypes {
     | '/onboard'
     | '/login'
     | '/pricing'
+    | '/waitlist'
     | '/dashboard/profile'
     | '/'
     | '/dashboard/'
@@ -427,6 +447,7 @@ export interface FileRouteTypes {
     | '/onboard'
     | '/login'
     | '/pricing'
+    | '/waitlist'
     | '/dashboard/profile'
     | '/'
     | '/dashboard'
@@ -444,6 +465,7 @@ export interface FileRouteTypes {
     | '/(onboarding)/onboard'
     | '/_site/login'
     | '/_site/pricing'
+    | '/_site/waitlist'
     | '/dashboard/profile'
     | '/_site/'
     | '/dashboard/'
@@ -501,6 +523,7 @@ export const routeTree = rootRoute
       "children": [
         "/_site/login",
         "/_site/pricing",
+        "/_site/waitlist",
         "/_site/"
       ]
     },
@@ -513,6 +536,10 @@ export const routeTree = rootRoute
     },
     "/_site/pricing": {
       "filePath": "_site/pricing.tsx",
+      "parent": "/_site"
+    },
+    "/_site/waitlist": {
+      "filePath": "_site/waitlist.tsx",
       "parent": "/_site"
     },
     "/dashboard/profile": {

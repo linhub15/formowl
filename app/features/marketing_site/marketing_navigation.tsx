@@ -7,6 +7,7 @@ import {
   NavbarSection,
   NavbarSpacer,
 } from "@/components/ui/navbar";
+import { BRANDING } from "@/lib/constants";
 import { MatchRoute } from "@tanstack/react-router";
 
 type Props = {
@@ -20,6 +21,11 @@ export function MarketingNav(props: Props) {
     <header className="flex items-center px-4">
       <div className="min-w-0 flex-1">
         <Navbar>
+          <NavbarItem className="hidden sm:block" disabled>
+            <span className="text-base leading-tight font-semibold">
+              {BRANDING.name}
+            </span>
+          </NavbarItem>
           <NavbarSpacer className="hidden lg:flex" />
           <NavbarSection>
             <NavbarItem to="/" current={pathname === "/"}>

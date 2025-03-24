@@ -4,9 +4,9 @@
  */
 
 import tailwindcss from "@tailwindcss/vite";
+import type { UserConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 
-/** @type {import('vite').UserConfig} */
 export default {
   plugins: [
     tsConfigPaths({
@@ -14,7 +14,4 @@ export default {
     }),
     tailwindcss(),
   ],
-  define: {
-    VITE_APP_VERSION: JSON.stringify(process.env.npm_package_version),
-  },
-};
+} satisfies UserConfig;

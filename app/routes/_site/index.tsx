@@ -2,6 +2,8 @@ import Spline from "@splinetool/react-spline";
 import { Container } from "@/components/layout/container";
 import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Heading } from "@/components/ui/heading";
 
 export const Route = createFileRoute("/_site/")({
   component: RouteComponent,
@@ -19,16 +21,21 @@ function RouteComponent() {
         </div>
         <div className="space-y-6 lg:order-first">
           <div>
-            <h1 className="text-5xl lg:text-7xl font-medium text-white/90 tracking-tight py-6">
+            <Badge className="rounded-full" color="green">
+              Coming Soon
+            </Badge>
+            <Heading className="text-5xl lg:text-7xl tracking-tight py-6 font-medium">
               Form API
               <br />for static sites
-            </h1>
-            <p>The best form backend for static websites.</p>
-            <p>No server required.</p>
+            </Heading>
+            <p>
+              Simple form submission backend for staticly generated websites.
+            </p>
+            <p>Built for developers.</p>
           </div>
 
           <div>
-            <Button to="/login">Get started</Button>
+            <Button to="/waitlist">Get started</Button>
           </div>
         </div>
       </section>

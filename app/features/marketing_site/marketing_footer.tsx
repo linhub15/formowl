@@ -1,6 +1,8 @@
 import { Container } from "@/components/layout/container";
+import { Subheading } from "@/components/ui/heading";
+import { P, TextLink } from "@/components/ui/text";
 import { BRANDING } from "@/lib/constants";
-import { Link, type LinkProps } from "@tanstack/react-router";
+import type { LinkProps } from "@tanstack/react-router";
 
 type Nav = Record<string, Array<{ name: string; to: LinkProps["to"] }>>;
 const navigation: Nav = {
@@ -31,51 +33,26 @@ export function MarketingFooter() {
           <div className="max-w-lg grid grid-cols-2 gap-8 xl:col-span-2">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm/6 font-semibold text-white">
-                  Product
-                </h3>
+                <Subheading className="text-sm/6">Product</Subheading>
                 <ul className="mt-6 space-y-4">
                   {navigation.product.map((item) => (
                     <li key={item.name}>
-                      <Link
-                        to={item.to}
-                        className="text-sm/6 text-gray-400 hover:text-white"
-                      >
+                      <TextLink className="text-sm/6 no-underline" to={item.to}>
                         {item.name}
-                      </Link>
+                      </TextLink>
                     </li>
                   ))}
                 </ul>
               </div>
-              {
-                /* <div className="mt-10 md:mt-0">
-                <h3 className="text-sm/6 font-semibold text-white">Guides</h3>
-                <ul className="mt-6 space-y-4">
-                  {navigation.guides.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        to={item.to}
-                        className="text-sm/6 text-gray-400 hover:text-white"
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div> */
-              }
             </div>
             <div>
-              <h3 className="text-sm/6 font-semibold text-white">Legal</h3>
+              <Subheading className="text-sm/6">Legal</Subheading>
               <ul className="mt-6 space-y-4">
                 {navigation.legal.map((item) => (
                   <li key={item.name}>
-                    <Link
-                      to={item.to}
-                      className="text-sm/6 text-gray-400 hover:text-white"
-                    >
+                    <TextLink className="text-sm/6 no-underline" to={item.to}>
                       {item.name}
-                    </Link>
+                    </TextLink>
                   </li>
                 ))}
               </ul>
@@ -83,10 +60,11 @@ export function MarketingFooter() {
           </div>
         </div>
         <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 md:flex md:items-center md:justify-between lg:mt-24">
-          <p className="mt-8 text-sm/6 text-gray-400 md:order-1 md:mt-0">
-            &copy; {BRANDING.established} 🇨🇦 {BRANDING.company}{" "}
-            All rights reserved.
-          </p>
+          <P className="text-sm/6 md:order-1">
+            {BRANDING.name} &copy; {BRANDING.established} 🇨🇦 {BRANDING.company}
+            {" "}
+            <span className="inline-block">All rights reserved.</span>
+          </P>
         </div>
       </Container>
     </footer>

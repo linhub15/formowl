@@ -188,7 +188,7 @@ export function Button(
     className,
   );
 
-  return "to" in props
+  return "to" in props || "href" in props
     ? (
       <Link
         {...props}
