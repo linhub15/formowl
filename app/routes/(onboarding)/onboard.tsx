@@ -33,7 +33,7 @@ function RouteComponent() {
 
   const onboard = useMutation({
     mutationFn: async () => {
-      const slug = `${session?.user.email}_${nanoid(8)}`;
+      const slug = nanoid(8);
       await authClient.organization.create({
         name: "default",
         slug: slug,

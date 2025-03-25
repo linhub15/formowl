@@ -23,12 +23,11 @@ function RouteComponent() {
             </Badge>
             <Heading className="text-5xl sm:text-6xl lg:text-7xl tracking-tight py-6 font-medium">
               Form API
-              <br />for static sites
+              <br />for startups
             </Heading>
             <p>
-              Simple form submission backend for staticly generated websites.
+              Perfect for waitlists, user feedback and contact forms.
             </p>
-            <p>Built for developers.</p>
           </div>
 
           <div className="flex gap-4">
