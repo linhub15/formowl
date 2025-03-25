@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogActions,
   DialogBody,
+  DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Field, FieldGroup, Label } from "@/components/ui/fieldset";
@@ -53,7 +54,11 @@ export function TurnstileFormDialog() {
             form.handleSubmit();
           }}
         >
-          <DialogTitle>Update Cloudflare Turnstile</DialogTitle>
+          <DialogTitle>Organization Cloudflare Turnstile Widget</DialogTitle>
+          <DialogDescription>
+            Cloudflare Turnstile keys are shared between all forms that have
+            turnstile enabled. Changing this will impact all the forms.
+          </DialogDescription>
 
           <DialogBody>
             <FieldGroup>

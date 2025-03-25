@@ -22,8 +22,10 @@ export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
       return json({ message: "not found" }, { status: 404 });
     }
 
-    if (response === "turnstile_failed") {
-      return json({ message: "turnstile_failed" }, { status: 401 });
+    if (
+      response === "turnstile_failed" || response === "turnstile_missing_token"
+    ) {
+      return json({ message: response }, { status: 401 });
     }
 
     if (response === "ok") {

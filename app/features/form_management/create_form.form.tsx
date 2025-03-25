@@ -20,7 +20,7 @@ export function CreateForm() {
       });
 
       if (!result?.slug) {
-        alert("form created but, failed to get the form sluggg");
+        alert("form created but, failed to get the form slug");
         return;
       }
 

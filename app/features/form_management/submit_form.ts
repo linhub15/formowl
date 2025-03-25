@@ -12,13 +12,17 @@ export const submitFormRequest = z.object({
 });
 
 type Request = z.infer<typeof submitFormRequest>;
-type Response = "ok" | "not_found" | "turnstile_failed";
+type Response =
+  | "ok"
+  | "not_found"
+  | "turnstile_missing_token"
+  | "turnstile_failed";
 
 export async function submitForm(args: Request): Promise<Response> {
   const form = await db.query.form.findFirst({
     columns: { id: true, isSubmissionsPaused: true, organizationId: true },
     where: (form, { eq }) => eq(form.slug, args.formSlug),
-    with: { cloudflareTurnstile: { columns: { secretKey: true } } },
+    with: { cloudflareTurnstile: true },
   });
 
   if (!form || form.isSubmissionsPaused) {
@@ -31,7 +35,7 @@ export async function submitForm(args: Request): Promise<Response> {
   args.formData.delete(CF_TURNSTILE_RESPONSE_KEY);
 
   if (cfTurnstileSecretKey && !cfTurnstileToken) {
-    return "turnstile_failed";
+    return "turnstile_missing_token";
   }
 
   if (cfTurnstileSecretKey && cfTurnstileToken) {

@@ -1,5 +1,5 @@
 import { db } from "@/db/database";
-import { cloudflareTurnstile } from "@/db/schema";
+import { cloudflareTurnstile, form } from "@/db/schema";
 import { authMiddleware } from "@/lib/auth/auth_middleware";
 import { createServerFn } from "@tanstack/react-start";
 import { and, eq } from "drizzle-orm";
@@ -37,13 +37,15 @@ export const upsertTurnstileFn = createServerFn({ method: "POST" })
       return;
     }
 
-    await db.transaction(async (t) => {
-      await t.insert(cloudflareTurnstile)
+    await db.transaction(async (transaction) => {
+      const inserted = await transaction
+        .insert(cloudflareTurnstile)
         .values({
           id: data.turnstileId,
           organizationId: context.activeOrgId,
           siteKey: data.siteKey,
           secretKey: data.secretKey,
-        });
+        })
+        .returning({ id: cloudflareTurnstile.id });
     });
   });

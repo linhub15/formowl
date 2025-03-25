@@ -5,29 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form tester</title>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 </head>
 
 <body>
     <div id="container">
-
-        <form action="http://localhost:3000/api/@/fjGGRu" method="POST">
+        <form action="https://localhost:3000/api/@/fjGGRu" method="POST">
             <label for="name">Name</label>
             <input name="name" id="name" type="text" />
+            <!-- this key needs to match the one in your form settings DB-->
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAANYkea6QUqhduSc"></div>
             <button type="submit">Submit</button>
-            <div className="cf-turnstile" data-sitekey="0x4AAAAAAANYkea6QUqhduSc" data-callback="javascriptCallback" />
         </form>
     </div>
-    <script>
-        window.onloadTurnstileCallback = function () {
-            turnstile.render("#container", {
-                sitekey: "0x4AAAAAAANYkea6QUqhduSc",
-                callback: function (token) {
-                    console.log(`Challenge Success ${token}`);
-                },
-            });
-        };
-    </script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 import { Card, CardBody, CardHeader } from "@/components/layout/card";
 import { Badge } from "@/components/ui/badge";
-import { Field, Label } from "@/components/ui/fieldset";
+import { Field, FieldGroup, Label } from "@/components/ui/fieldset";
 import { Subheading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { A, P } from "@/components/ui/text";
@@ -8,6 +8,7 @@ import { useGetTurnstile } from "@/features/cloudflare_turnstile/hooks/use_get_t
 import { TurnstileFormDialog } from "@/features/cloudflare_turnstile/turnstile_form_dialog";
 import { DeleteFormButton } from "@/features/form_management/delete_form_button";
 import { FormSubmissionToggler } from "@/features/form_management/form_submission_toggler";
+import { FormTurnstileToggler } from "@/features/form_management/form_turnstile_toggler";
 import { useGetForm } from "@/features/form_management/hooks/use_get_form";
 import { useSession } from "@/lib/auth/hooks/use_session";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -88,15 +89,18 @@ function RouteComponent() {
               </div>
             </div>
             <div className="w-xs">
-              <Field>
-                <Label>
-                  Cloudflare Turnstile Site Key{" "}
-                </Label>
-                <div className="flex gap-2" data-slot="control">
-                  <Input type="text" value={turnstile?.siteKey} disabled />
-                  <TurnstileFormDialog />
-                </div>
-              </Field>
+              <FieldGroup>
+                <Field>
+                  <Label>Account Site Key</Label>
+                  <div className="flex gap-2" data-slot="control">
+                    <Input type="text" value={turnstile?.siteKey} disabled />
+                    <TurnstileFormDialog />
+                  </div>
+                </Field>
+                <Field>
+                  <FormTurnstileToggler formSlug={form.slug} />
+                </Field>
+              </FieldGroup>
             </div>
           </div>
         </CardBody>
