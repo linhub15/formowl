@@ -3,7 +3,6 @@ import { Card, CardBody } from "@/components/layout/card";
 import { Fieldset, Legend } from "@/components/ui/fieldset";
 import { P } from "@/components/ui/text";
 import { authClient } from "@/lib/auth/auth.client";
-import { useSession } from "@/lib/auth/hooks/use_session";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { BRANDING } from "@/lib/constants";
@@ -29,14 +28,14 @@ export const Route = createFileRoute("/(onboarding)/onboard")({
 });
 
 function RouteComponent() {
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
   const navigate = useNavigate();
 
   const onboard = useMutation({
     mutationFn: async () => {
-      const slug = nanoid(10);
+      const slug = `${session?.user.email}_${nanoid(8)}`;
       await authClient.organization.create({
-        name: `${session?.user.email}-org`,
+        name: "default",
         slug: slug,
       });
 
@@ -48,6 +47,12 @@ function RouteComponent() {
       await navigate({
         to: "/dashboard",
       });
+    },
+    onError: async (error) => {
+      console.error("Something went wrong:", error);
+      if (session?.session.token) {
+        await authClient.revokeSession({ token: session?.session.token });
+      }
     },
   });
 

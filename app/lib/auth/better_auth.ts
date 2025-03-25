@@ -9,8 +9,9 @@ import {
 } from "@/db/auth_schema";
 import { db } from "@/db/database";
 import { betterAuth } from "better-auth";
-import { organization } from "better-auth/plugins";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { organization } from "better-auth/plugins";
+import { emails } from "../email/mailer";
 
 export const auth = betterAuth({
   secret: process.env.AUTH_SECRET,
@@ -50,7 +51,10 @@ export const auth = betterAuth({
     user: {
       create: {
         after: async (user) => {
-          // Email user created
+          await emails.welcome({
+            to: user.email,
+            dashboardUrl: new URL("/dashboard", process.env.VITE_APP_URL),
+          });
         },
       },
     },
