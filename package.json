@@ -10,6 +10,7 @@
     "dev:smtp": "maildev --smtp 2465 --mail-directory=./maildev",
     "dev:emails": "email dev --port 3001 --dir app/lib/email/templates",
     "dev:storybook": "storybook dev --port 6006 --no-open --disable-telemetry",
+    "dev:form": "pnpx http-server ./sample_form",
     "better-auth:gen": "pnpx @better-auth/cli@latest generate --config ./app/lib/auth/better_auth.ts --output ./app/db/auth_schema.ts"
   },
   "dependencies": {

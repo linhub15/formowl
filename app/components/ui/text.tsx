@@ -24,8 +24,23 @@ export function TextLink(
     <Link
       {...props}
       className={cn(
-        "text-zinc-950 underline decoration-zinc-950/50 dark:text-white dark:decoration-white/50",
+        "text-base/6 sm:text-sm/6 text-zinc-950 underline decoration-zinc-950/50 dark:text-white/80 dark:decoration-white/50",
         "data-hover:text-zinc-950/70 dark:data-hover:text-white/80 data-hover:decoration-zinc-950 dark:data-hover:decoration-white",
+        className,
+      )}
+    />
+  );
+}
+
+export function A(
+  { className, ...props }: React.ComponentPropsWithoutRef<"a">,
+) {
+  return (
+    <a
+      {...props}
+      className={cn(
+        "text-base/6 sm:text-sm/6 text-zinc-500 underline decoration-zinc-950/50 dark:text-zinc-400 dark:decoration-white/50",
+        "hover:text-zinc-950/70 dark:hover:text-white/80 hover:decoration-zinc-950/70 dark:hover:decoration-white/80",
         className,
       )}
     />

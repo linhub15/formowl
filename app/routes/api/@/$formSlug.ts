@@ -1,32 +1,39 @@
-import { db } from "@/db/database";
-import { formSubmission } from "@/db/schema";
+import {
+  submitForm,
+  submitFormRequest,
+} from "@/features/form_management/submit_form";
 import { json } from "@tanstack/react-start";
 import { createAPIFileRoute } from "@tanstack/react-start/api";
+import { getRequestIP } from "@tanstack/react-start/server";
 
 export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
   POST: async ({ request, params }) => {
-    const form = await db.query.form.findFirst({
-      where: (form, { eq }) => eq(form.slug, params.formSlug),
+    const ip = getRequestIP();
+
+    const req = submitFormRequest.parse({
+      formSlug: params.formSlug,
+      formData: await request.formData(),
+      requestIpAddress: ip,
     });
 
-    if (!form || form.isSubmissionsPaused) {
-      return json({ message: "Form not found" }, { status: 404 });
+    const response = await submitForm(req);
+
+    if (response === "not_found") {
+      return json({ message: "not found" }, { status: 404 });
     }
 
-    const data = await request.formData();
+    if (response === "turnstile_failed") {
+      return json({ message: "turnstile_failed" }, { status: 401 });
+    }
 
-    await db.insert(formSubmission).values({
-      formId: form.id,
-      data: Object.fromEntries(data),
-      organizationId: form.organizationId,
-    });
+    if (response === "ok") {
+      // todo: show a link for the user to go back to
+      return new Response(
+        "🎉 Submission received! You can go back on your browser.",
+        { status: 200 },
+      );
+    }
 
-    // todo: show a link for the user to go back to
-    return new Response(
-      "🎉 Submission received! You can go back on your browser.",
-      {
-        status: 200,
-      },
-    );
+    return json({ message: "not found" }, { status: 404 });
   },
 });

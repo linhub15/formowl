@@ -9,6 +9,7 @@ import { useSetFormName } from "@/features/form_management/hooks/use_set_form_na
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { LoadingSpinner } from "@/components/ui/loading_spinner";
+import { Badge } from "@/components/ui/badge";
 
 export const Route = createFileRoute("/dashboard/forms/$formSlug")({
   component: RouteComponent,
@@ -62,7 +63,11 @@ function RouteComponent() {
               )}
             </nameForm.Field>
           )
-          : <div>{form.name}</div>}
+          : (
+            <div>
+              {form.name} {form.isSubmissionsPaused && <Badge>Paused</Badge>}
+            </div>
+          )}
         actions={!editName
           ? (
             <Button

@@ -1,13 +1,16 @@
 import { Card, CardBody, CardHeader } from "@/components/layout/card";
 import { Badge } from "@/components/ui/badge";
+import { Field, Label } from "@/components/ui/fieldset";
 import { Subheading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
-import { P } from "@/components/ui/text";
+import { A, P } from "@/components/ui/text";
+import { useGetTurnstile } from "@/features/cloudflare_turnstile/hooks/use_get_turnstile";
+import { TurnstileFormDialog } from "@/features/cloudflare_turnstile/turnstile_form_dialog";
 import { DeleteFormButton } from "@/features/form_management/delete_form_button";
 import { FormSubmissionToggler } from "@/features/form_management/form_submission_toggler";
 import { useGetForm } from "@/features/form_management/hooks/use_get_form";
 import { useSession } from "@/lib/auth/hooks/use_session";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/forms/$formSlug/settings")({
   component: RouteComponent,
@@ -17,6 +20,7 @@ function RouteComponent() {
   const { data: session } = useSession();
   const params = Route.useParams();
   const { data: form } = useGetForm({ formSlug: params.formSlug });
+  const { data: turnstile } = useGetTurnstile();
 
   if (!form || !session) {
     return;
@@ -35,7 +39,7 @@ function RouteComponent() {
               </P>
             </div>
             <div>
-              <div className="relative w-3xs">
+              <div className="relative w-xs">
                 <Badge
                   className="absolute right-0 mr-2 inset-y-2"
                   color="green"
@@ -62,6 +66,37 @@ function RouteComponent() {
                 formId={form.id}
                 isPaused={form.isSubmissionsPaused}
               />
+            </div>
+          </div>
+        </CardBody>
+
+        <CardBody>
+          <div className="flex justify-between">
+            <div className="space-y-2">
+              <Subheading>Cloudflare Turnstile</Subheading>
+              <div>
+                <P>Protect your forms from spam bots.</P>
+                <P>
+                  Learn how to get your site key and secret key here{" "}
+                  <A
+                    href="https://developers.cloudflare.com/turnstile/get-started/"
+                    target="_blank"
+                  >
+                    Cloudflare Turnstile
+                  </A>
+                </P>
+              </div>
+            </div>
+            <div className="w-xs">
+              <Field>
+                <Label>
+                  Cloudflare Turnstile Site Key{" "}
+                </Label>
+                <div className="flex gap-2" data-slot="control">
+                  <Input type="text" value={turnstile?.siteKey} disabled />
+                  <TurnstileFormDialog />
+                </div>
+              </Field>
             </div>
           </div>
         </CardBody>

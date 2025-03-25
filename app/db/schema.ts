@@ -39,6 +39,9 @@ export const form = pgTable("form", {
   isSubmissionsPaused: boolean("is_submissions_paused").notNull().default(
     false,
   ),
+  cloudflareTurnstileId: uuid("cloudflare_turnstile_id").references(
+    () => cloudflareTurnstile.id,
+  ),
   ...defaultColumns,
   ...organizationColumns,
 });
@@ -47,6 +50,10 @@ export const formRelations = relations(form, ({ one, many }) => ({
   organization: one(organization, {
     fields: [form.organizationId],
     references: [organization.id],
+  }),
+  cloudflareTurnstile: one(cloudflareTurnstile, {
+    fields: [form.cloudflareTurnstileId],
+    references: [cloudflareTurnstile.id],
   }),
   submissions: many(formSubmission),
 }));
@@ -68,3 +75,11 @@ export const formSubmissionRelations = relations(formSubmission, ({ one }) => ({
     references: [form.id],
   }),
 }));
+
+export const cloudflareTurnstile = pgTable("cloudflare_turnstile", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  siteKey: text("site_key").notNull(),
+  secretKey: text("secret_key").notNull(),
+  ...defaultColumns,
+  ...organizationColumns,
+});
