@@ -1,8 +1,8 @@
 Privacy Policy
 
 1. Information We Collect: a. User Information: We collect information provided
-   during onboarding process, including but not limited to name, email address,
-   and address. Also, information about how users interact with our service,
+   during onboarding process, including but not limited to name, and email address,
+   Also, information about how users interact with our service,
    including log data, device information, and usage patterns.
 
 2. How We Use Your Information: a. Personalization: We may use collected data to
@@ -19,4 +19,4 @@ Privacy Policy
 5. Data Retention: a. We retain user data as long as necessary to provide our
    services and for legitimate business purposes.
 
-6. Your Choices: a. Users can review and request their data be deleted.
+6. Your Choices: a. Users can review and request their data be deleted through email.

@@ -71,7 +71,7 @@ export function MarketingNav(props: Props) {
                           outline
                           data-current={pathname === "/login"}
                         >
-                          Get started
+                          Try the Alpha
                         </Button>
                       )
                   )}

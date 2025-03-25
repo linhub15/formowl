@@ -19,8 +19,8 @@ const navigation: Nav = {
     // { name: "React", to: "/" },
   ],
   legal: [
-    { name: "Terms of service", to: "/" },
-    { name: "Privacy policy", to: "/" },
+    { name: "Terms of service", to: "/terms" },
+    { name: "Privacy policy", to: "/privacy" },
     // { name: "GDPR", to: "#" },
   ],
 };

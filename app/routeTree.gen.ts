@@ -21,6 +21,8 @@ import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as SiteIndexImport } from './routes/_site/index'
 import { Route as DashboardProfileImport } from './routes/dashboard/profile'
 import { Route as SiteWaitlistImport } from './routes/_site/waitlist'
+import { Route as SiteTermsImport } from './routes/_site/terms'
+import { Route as SitePrivacyImport } from './routes/_site/privacy'
 import { Route as SitePricingImport } from './routes/_site/pricing'
 import { Route as SiteLoginImport } from './routes/_site/login'
 import { Route as onboardingOnboardImport } from './routes/(onboarding)/onboard'
@@ -68,6 +70,18 @@ const DashboardProfileRoute = DashboardProfileImport.update({
 const SiteWaitlistRoute = SiteWaitlistImport.update({
   id: '/waitlist',
   path: '/waitlist',
+  getParentRoute: () => SiteRoute,
+} as any)
+
+const SiteTermsRoute = SiteTermsImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => SiteRoute,
+} as any)
+
+const SitePrivacyRoute = SitePrivacyImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => SiteRoute,
 } as any)
 
@@ -187,6 +201,20 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof SitePricingImport
+      parentRoute: typeof SiteImport
+    }
+    '/_site/privacy': {
+      id: '/_site/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof SitePrivacyImport
+      parentRoute: typeof SiteImport
+    }
+    '/_site/terms': {
+      id: '/_site/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof SiteTermsImport
       parentRoute: typeof SiteImport
     }
     '/_site/waitlist': {
@@ -348,6 +376,8 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
 interface SiteRouteChildren {
   SiteLoginRoute: typeof SiteLoginRoute
   SitePricingRoute: typeof SitePricingRoute
+  SitePrivacyRoute: typeof SitePrivacyRoute
+  SiteTermsRoute: typeof SiteTermsRoute
   SiteWaitlistRoute: typeof SiteWaitlistRoute
   SiteIndexRoute: typeof SiteIndexRoute
 }
@@ -355,6 +385,8 @@ interface SiteRouteChildren {
 const SiteRouteChildren: SiteRouteChildren = {
   SiteLoginRoute: SiteLoginRoute,
   SitePricingRoute: SitePricingRoute,
+  SitePrivacyRoute: SitePrivacyRoute,
+  SiteTermsRoute: SiteTermsRoute,
   SiteWaitlistRoute: SiteWaitlistRoute,
   SiteIndexRoute: SiteIndexRoute,
 }
@@ -367,6 +399,8 @@ export interface FileRoutesByFullPath {
   '/onboard': typeof onboardingOnboardRoute
   '/login': typeof SiteLoginRoute
   '/pricing': typeof SitePricingRoute
+  '/privacy': typeof SitePrivacyRoute
+  '/terms': typeof SiteTermsRoute
   '/waitlist': typeof SiteWaitlistRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
@@ -386,6 +420,8 @@ export interface FileRoutesByTo {
   '/onboard': typeof onboardingOnboardRoute
   '/login': typeof SiteLoginRoute
   '/pricing': typeof SitePricingRoute
+  '/privacy': typeof SitePrivacyRoute
+  '/terms': typeof SiteTermsRoute
   '/waitlist': typeof SiteWaitlistRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
@@ -406,6 +442,8 @@ export interface FileRoutesById {
   '/(onboarding)/onboard': typeof onboardingOnboardRoute
   '/_site/login': typeof SiteLoginRoute
   '/_site/pricing': typeof SitePricingRoute
+  '/_site/privacy': typeof SitePrivacyRoute
+  '/_site/terms': typeof SiteTermsRoute
   '/_site/waitlist': typeof SiteWaitlistRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/_site/': typeof SiteIndexRoute
@@ -429,6 +467,8 @@ export interface FileRouteTypes {
     | '/onboard'
     | '/login'
     | '/pricing'
+    | '/privacy'
+    | '/terms'
     | '/waitlist'
     | '/dashboard/profile'
     | '/'
@@ -447,6 +487,8 @@ export interface FileRouteTypes {
     | '/onboard'
     | '/login'
     | '/pricing'
+    | '/privacy'
+    | '/terms'
     | '/waitlist'
     | '/dashboard/profile'
     | '/'
@@ -465,6 +507,8 @@ export interface FileRouteTypes {
     | '/(onboarding)/onboard'
     | '/_site/login'
     | '/_site/pricing'
+    | '/_site/privacy'
+    | '/_site/terms'
     | '/_site/waitlist'
     | '/dashboard/profile'
     | '/_site/'
@@ -523,6 +567,8 @@ export const routeTree = rootRoute
       "children": [
         "/_site/login",
         "/_site/pricing",
+        "/_site/privacy",
+        "/_site/terms",
         "/_site/waitlist",
         "/_site/"
       ]
@@ -536,6 +582,14 @@ export const routeTree = rootRoute
     },
     "/_site/pricing": {
       "filePath": "_site/pricing.tsx",
+      "parent": "/_site"
+    },
+    "/_site/privacy": {
+      "filePath": "_site/privacy.tsx",
+      "parent": "/_site"
+    },
+    "/_site/terms": {
+      "filePath": "_site/terms.tsx",
       "parent": "/_site"
     },
     "/_site/waitlist": {

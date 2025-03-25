@@ -31,8 +31,9 @@ function RouteComponent() {
             <p>Built for developers.</p>
           </div>
 
-          <div>
-            <Button to="/waitlist">Get started</Button>
+          <div className="flex gap-4">
+            <Button to="/waitlist">Join the waitlist</Button>
+            <Button to="/dashboard" outline>Try the Alpha</Button>
           </div>
         </div>
       </section>
