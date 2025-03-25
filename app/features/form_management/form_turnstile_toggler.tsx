@@ -10,7 +10,11 @@ export function FormTurnstileToggler(props: { formSlug: string }) {
   const { data: form } = useGetForm({ formSlug: props.formSlug });
   const { data: orgTurnstile } = useGetTurnstile();
   const toggle = useToggleFormTurnstile();
-  const value: Options = form?.cloudflareTurnstileId ? "enabled" : "disabled";
+  const value: Options = form?.cloudflareTurnstileId && orgTurnstile?.siteKey
+    ? "enabled"
+    : "disabled";
+
+  const preventProtection = !orgTurnstile?.siteKey;
 
   if (!form) {
     return;
@@ -29,6 +33,7 @@ export function FormTurnstileToggler(props: { formSlug: string }) {
       value={value}
       onChange={handleChange}
       data-slot="control"
+      disabled={value === "disabled"}
     >
       <ToggleOption value="disabled">Allow bots</ToggleOption>
       <ToggleOption value="enabled">

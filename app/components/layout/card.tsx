@@ -33,7 +33,7 @@ export function CardHeader({ children }: PropsWithChildren) {
 }
 
 export function CardBody({ children }: PropsWithChildren) {
-  return <div className="px-4 py-5 sm:p-6">{children}</div>;
+  return <div className="px-4 py-5 sm:p-6 overflow-auto">{children}</div>;
 }
 
 export function CardFooter({ children }: PropsWithChildren) {

@@ -18,8 +18,8 @@ import {
 } from "@/components/ui/sidebar";
 import { SidebarLayout } from "@/components/ui/sidebar_layout";
 import {
-  BookOpenIcon,
   DocumentTextIcon,
+  LightBulbIcon,
   LinkIcon,
   PlusIcon,
 } from "@heroicons/react/20/solid";
@@ -96,6 +96,10 @@ export function AppNavigation(props: Props) {
               <SidebarItem to="/">
                 <LinkIcon />
                 <SidebarLabel>Homepage</SidebarLabel>
+              </SidebarItem>
+              <SidebarItem to="/">
+                <LightBulbIcon />
+                <SidebarLabel>Share feedback</SidebarLabel>
               </SidebarItem>
             </SidebarSection>
           </SidebarBody>

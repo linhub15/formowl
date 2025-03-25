@@ -59,10 +59,11 @@ export function ToggleOption(
     /// <Field> is used to listen to changes from parent RadioGroup
     <Field as={Fragment}>
       <Radio {...props}>
-        {({ checked }) => (
+        {({ checked, disabled }) => (
           <Label
             className={radioStyles.label}
             data-active={checked ? "" : undefined}
+            data-disabled={disabled ? "" : undefined}
           >
             {children}
           </Label>

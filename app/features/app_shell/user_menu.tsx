@@ -1,7 +1,7 @@
 import {
   ArrowRightStartOnRectangleIcon,
   ChevronUpIcon,
-  Cog8ToothIcon,
+  CreditCardIcon,
   LightBulbIcon,
   ShieldCheckIcon,
   UserIcon,
@@ -53,18 +53,10 @@ export function UserMenu({ type, email }: Props) {
           <UserIcon />
           <DropdownLabel>My profile</DropdownLabel>
         </DropdownItem>
-        <DropdownItem href="/settings">
-          <Cog8ToothIcon />
-          <DropdownLabel>Settings</DropdownLabel>
-        </DropdownItem>
         <DropdownDivider />
         <DropdownItem href="/privacy-policy">
-          <ShieldCheckIcon />
-          <DropdownLabel>Privacy policy</DropdownLabel>
-        </DropdownItem>
-        <DropdownItem href="/share-feedback">
-          <LightBulbIcon />
-          <DropdownLabel>Share feedback</DropdownLabel>
+          <CreditCardIcon />
+          <DropdownLabel>Billing</DropdownLabel>
         </DropdownItem>
         <DropdownDivider />
         <DropdownItem onClick={() => signOut.mutateAsync()}>

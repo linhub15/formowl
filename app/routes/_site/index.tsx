@@ -13,7 +13,7 @@ function RouteComponent() {
   return (
     <Container>
       <section className="flex flex-col lg:grid grid-cols-2 items-center justify-between min-h-[456px] gap-8 max-w-5xl mx-auto">
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center w-full overflow-clip">
           <SpinningPyramid />
         </div>
         <div className="space-y-6 lg:order-first">
@@ -21,7 +21,7 @@ function RouteComponent() {
             <Badge className="rounded-full" color="green">
               Coming Soon
             </Badge>
-            <Heading className="text-5xl sm:text:6xl lg:text-7xl tracking-tight py-6 font-medium">
+            <Heading className="text-5xl sm:text-6xl lg:text-7xl tracking-tight py-6 font-medium">
               Form API
               <br />for static sites
             </Heading>

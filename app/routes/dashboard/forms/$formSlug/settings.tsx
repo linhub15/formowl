@@ -31,7 +31,7 @@ function RouteComponent() {
     <div className="space-y-16">
       <Card>
         <CardBody>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col md:flex-row gap-6 justify-between md:items-center">
             <div className="space-y-2">
               <Subheading>Email notifications</Subheading>
               <P>
@@ -39,7 +39,7 @@ function RouteComponent() {
                 email address is used by default.
               </P>
             </div>
-            <div>
+            <div data-comment="keeps the width consistent">
               <div className="relative w-xs">
                 <Badge
                   className="absolute right-0 mr-2 inset-y-2"
@@ -54,7 +54,7 @@ function RouteComponent() {
         </CardBody>
 
         <CardBody>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col md:flex-row gap-6 justify-between md:items-center">
             <div className="space-y-2">
               <Subheading>Submissions</Subheading>
               <div>
@@ -72,7 +72,7 @@ function RouteComponent() {
         </CardBody>
 
         <CardBody>
-          <div className="flex justify-between">
+          <div className="flex flex-col md:flex-row gap-6 justify-between md:items-center">
             <div className="space-y-2">
               <Subheading>Cloudflare Turnstile</Subheading>
               <div>
@@ -88,6 +88,7 @@ function RouteComponent() {
                 </P>
               </div>
             </div>
+
             <div className="w-xs">
               <FieldGroup>
                 <Field>
@@ -113,7 +114,7 @@ function RouteComponent() {
           </span>
         </CardHeader>
         <CardBody>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col md:flex-row gap-6 justify-between md:items-center">
             <div className="space-y-2">
               <Subheading level={3}>Permanently delete this form</Subheading>
               <div>
