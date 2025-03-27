@@ -36,7 +36,11 @@ export const auth = betterAuth({
       clientId: process.env.GOOGLE_OAUTH_ID,
       clientSecret: process.env.GOOGLE_OAUTH_SECRET,
     },
-    github: undefined, // todo: Github OAuth
+    github: {
+      enabled: true,
+      clientId: process.env.GITHUB_OAUTH_ID,
+      clientSecret: process.env.GITHUB_OAUTH_SECRET,
+    },
   },
   session: {
     cookieCache: {

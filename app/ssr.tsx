@@ -19,10 +19,13 @@ const env = z.object({
   VITE_POSTHOG_PUBLIC_KEY: z.string().optional(),
 
   DATABASE_URL: z.string(),
+  UPLOADTHING_TOKEN: z.string(),
+
   AUTH_SECRET: z.string(),
   GOOGLE_OAUTH_ID: z.string(),
   GOOGLE_OAUTH_SECRET: z.string(),
-  UPLOADTHING_TOKEN: z.string(),
+  GITHUB_OAUTH_ID: z.string(),
+  GITHUB_OAUTH_SECRET: z.string(),
 
   // EMAIL
   SMTP_HOST: z.string(),

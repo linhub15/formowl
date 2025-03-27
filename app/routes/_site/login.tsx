@@ -66,7 +66,10 @@ function RouteComponent() {
                 login={() => login.mutateAsync({ provider: "google" })}
                 pending={login.isPending || pending}
               />
-              {/* <GithubOAuthButton */}
+              <GithubOAuthButton
+                login={() => login.mutateAsync({ provider: "github" })}
+                pending={login.isPending || pending}
+              />
             </div>
           </CardBody>
           <CardFooter>
@@ -103,15 +106,19 @@ function GoogleOAuthButton({ login, pending }: OAuthButtonProps) {
   );
 }
 
-function GithubOAuthButton(props: OAuthButtonProps) {
+function GithubOAuthButton({ login, pending }: OAuthButtonProps) {
   return (
     <button
       className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 focus-visible:ring-transparent cursor-pointer"
       type="button"
-      onClick={props.login}
+      onClick={login}
     >
-      <GithubIcon className="size-5 fill-[#24292F]" aria-hidden="true" />
-      <span className="text-sm/6 font-semibold">GitHub</span>
+      {pending ? <LoadingSpinner /> : (
+        <>
+          <GithubIcon className="size-5 fill-[#24292F]" aria-hidden="true" />
+          <span className="text-sm/6 font-semibold">GitHub</span>
+        </>
+      )}
     </button>
   );
 }

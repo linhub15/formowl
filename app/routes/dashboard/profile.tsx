@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { useAccounts } from "@/lib/auth/hooks/use_accounts";
 import { useSession } from "@/lib/auth/hooks/use_session";
 import { createFileRoute } from "@tanstack/react-router";
+import { GithubIcon } from "@/components/icons/github_icon";
 
 export const Route = createFileRoute("/dashboard/profile")({
   component: RouteComponent,
@@ -51,17 +52,20 @@ function RouteComponent() {
         </CardBody>
 
         <CardFooter>
-          {user.accounts?.map((a) => (
-            <div className="flex gap-2" key={a.provider}>
-              {a.provider === "google" && <GoogleIcon />}
-              <P>
-                <span className="capitalize">
-                  {a.provider}
-                </span>
-                <span>&nbsp;account connected</span>
-              </P>
-            </div>
-          ))}
+          <div className="space-y-2">
+            {user.accounts?.map((a) => (
+              <div className="flex gap-2" key={a.provider}>
+                {a.provider === "google" && <GoogleIcon />}
+                {a.provider === "github" && <GithubIcon />}
+                <P>
+                  <span className="capitalize">
+                    {a.provider}
+                  </span>
+                  <span>&nbsp;account connected</span>
+                </P>
+              </div>
+            ))}
+          </div>
         </CardFooter>
       </Card>
     </section>

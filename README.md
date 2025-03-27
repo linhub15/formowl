@@ -19,8 +19,18 @@ pnpm install && pnpm dev
 ```
 Application type: Web application
 name: localhost
-Authorized JavaScript origigns: http://localhost:3000
+Authorized JavaScript origins: http://localhost:3000
 Authorized redirect URIs: http://localhost:3000/api/auth/callback/google
+```
+
+### Configure Github OAuth Client
+
+[Create Github OAuth App](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app)
+
+```
+Application Name: [dev] Form Owl
+Homepage URL: http://localhost:3000
+Authorization callback URL: http://localhost:3000/api/auth/callback/github
 ```
 
 ### Local Email testing

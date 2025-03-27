@@ -1,6 +1,15 @@
-export function GithubIcon(props: React.ComponentProps<"svg">) {
+import { cn } from "@/lib/utils/cn";
+
+export function GithubIcon(
+  { className, ...props }: React.ComponentProps<"svg">,
+) {
   return (
-    <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
+    <svg
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      {...props}
+      className={cn("size-5", className)}
+    >
       <title>GitHub</title>
       <path
         fillRule="evenodd"
