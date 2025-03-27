@@ -1,4 +1,6 @@
+import { BRANDING } from "@/lib/constants";
 import tailwind from "@/main.css?url";
+import dashboardScreenshot from "@/routes/dashboard_screenshot.png?url";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
@@ -17,6 +19,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       meta: [
         { name: "charset", content: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+
+        // Branding
+        { name: "title", content: BRANDING.name },
+        { name: "description", content: BRANDING.description },
+
+        // Facebook
+        { property: "og:url", content: process.env.VITE_APP_URL },
+        { property: "og:type", content: "website" },
+        { property: "og:title", content: BRANDING.name },
+        { property: "og:description", content: BRANDING.description },
+        { property: "og:image", content: dashboardScreenshot },
+
+        // Twitter
+        { name: "twitter:card", content: "summary_large_image" },
+        { property: "twitter:domain", content: "formowl.dev" },
+        { property: "twitter:url", content: process.env.VITE_APP_URL },
+        { name: "twitter:title", content: BRANDING.name },
+        { name: "twitter:description", content: BRANDING.description },
+        { name: "twitter:image", content: dashboardScreenshot },
       ],
       links: [
         { rel: "stylesheet", href: "https://rsms.me/inter/inter.css" },
