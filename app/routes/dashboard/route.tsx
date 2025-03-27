@@ -1,5 +1,5 @@
 import { AppNavigation } from "@/features/app_shell/app_navigation";
-import { AnalyticsProvider } from "@/lib/analytics/analytics.provider";
+import { PostHogProvider } from "@/lib/posthog/posthog.provider";
 import { authGuard } from "@/lib/auth/auth.guard";
 import { useSession } from "@/lib/auth/hooks/use_session";
 import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
@@ -15,10 +15,10 @@ function RouteComponent() {
   const { data } = useSession();
   const location = useLocation();
   return (
-    <AnalyticsProvider>
+    <PostHogProvider>
       <AppNavigation email={data?.user.email} pathname={location.pathname}>
         <Outlet />
       </AppNavigation>
-    </AnalyticsProvider>
+    </PostHogProvider>
   );
 }

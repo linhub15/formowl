@@ -23,16 +23,21 @@ function RouteComponent() {
           running.
         </P>
 
-        <form>
+        <form method="post" action="https://formowl.dev/api/@/UbGaM6">
+          <input
+            type="text"
+            style={{ visibility: "hidden", position: "absolute" }}
+            name="honey_pot"
+          />
           <Card className="my-8">
             <CardBody>
               <Field>
                 <Label>Email</Label>
-                <Input type="email" disabled />
+                <Input name="email" type="email" />
               </Field>
             </CardBody>
             <CardFooter>
-              <Button disabled>Waitlist me!</Button>
+              <Button type="submit">Waitlist me!</Button>
             </CardFooter>
           </Card>
         </form>
