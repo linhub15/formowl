@@ -1,17 +1,18 @@
 import posthog from "posthog-js";
 import { PostHogProvider as PHProvider } from "posthog-js/react";
-import { useEffect } from "react";
+import { type PropsWithChildren, useEffect } from "react";
 
-export function PostHogProvider({ children }: { children: React.ReactNode }) {
+export function PostHogProvider({ children }: PropsWithChildren) {
+  const key = import.meta.env.VITE_POSTHOG_PUBLIC_KEY;
+  const host = import.meta.env.VITE_POSTHOG_HOST;
+
   useEffect(() => {
-    const key = import.meta.env.VITE_POSTHOG_PUBLIC_KEY;
     if (!key) {
       return;
     }
 
     posthog.init(key, {
-      api_host: import.meta.env.VITE_POSTHOG_HOST ||
-        "https://us.i.posthog.com",
+      api_host: host || "https://us.i.posthog.com",
     });
   }, []);
 

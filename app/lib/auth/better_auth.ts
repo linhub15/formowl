@@ -5,7 +5,7 @@ import {
   organization as Organization,
   session,
   user as User,
-  verification,
+  userVerification,
 } from "@/db/auth_schema";
 import { db } from "@/db/database";
 import { betterAuth } from "better-auth";
@@ -21,7 +21,7 @@ export const auth = betterAuth({
       user: User,
       session: session,
       account: account,
-      verification: verification,
+      verification: userVerification,
       organization: Organization,
       member: member,
       invitation: invitation,

@@ -83,3 +83,40 @@ export const cloudflareTurnstile = pgTable("cloudflare_turnstile", {
   ...defaultColumns,
   ...organizationColumns,
 });
+
+export const email = pgTable("email", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  email: text("email_address").notNull(),
+  emailVerified: boolean("email_verified").notNull().default(false),
+  ...defaultColumns,
+  ...organizationColumns,
+});
+
+export const emailRelations = relations(email, ({ one, many }) => ({
+  organization: one(organization, {
+    fields: [email.organizationId],
+    references: [organization.id],
+  }),
+  emailVerifications: many(emailVerification),
+}));
+
+export const emailVerification = pgTable("email_verification", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  emailId: uuid("email_id").notNull().references(() => email.id, {
+    onDelete: "cascade",
+  }),
+  token: text("token").notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  ...defaultColumns,
+  ...organizationColumns,
+});
+
+export const emailVerificationRelations = relations(
+  emailVerification,
+  ({ one }) => ({
+    email: one(email, {
+      fields: [emailVerification.emailId],
+      references: [email.id],
+    }),
+  }),
+);

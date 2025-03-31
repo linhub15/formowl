@@ -2,6 +2,7 @@ import { NodeMailer } from "./nodemailer.client";
 import { render } from "@react-email/components";
 import NewUserWelcomeEmail from "./templates/new_user_welcome.email";
 import FormSubmissionNotificationEmail from "./templates/form_submission_notification.email";
+import VerifyEmailAddressEmail from "./templates/verify_email_address.email";
 
 const nodeMailer = new NodeMailer();
 
@@ -20,7 +21,8 @@ export const mailer = {
     args: {
       to: string;
       formSubmissionUrl: URL;
-      formData: Record<string, string>;
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+      formData: Record<string, any>;
     },
   ) => {
     await nodeMailer.send({
@@ -31,6 +33,18 @@ export const mailer = {
           formData={args.formData}
           formSubmissionUrl={args.formSubmissionUrl.href}
         />,
+      ),
+    });
+  },
+  verifyEmailAddress: async (args: {
+    to: string;
+    verifyUrl: URL;
+  }) => {
+    await nodeMailer.send({
+      to: args.to,
+      subject: "Verify your email address",
+      html: await render(
+        <VerifyEmailAddressEmail verifyUrl={args.verifyUrl.href} />,
       ),
     });
   },

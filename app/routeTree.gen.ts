@@ -27,11 +27,14 @@ import { Route as SitePricingImport } from './routes/_site/pricing'
 import { Route as SiteLoginImport } from './routes/_site/login'
 import { Route as onboardingOnboardImport } from './routes/(onboarding)/onboard'
 import { Route as DashboardFormsIndexImport } from './routes/dashboard/forms/index'
+import { Route as DashboardEmailsIndexImport } from './routes/dashboard/emails/index'
 import { Route as DashboardFormsCreateImport } from './routes/dashboard/forms/create'
+import { Route as DashboardEmailsCreateImport } from './routes/dashboard/emails/create'
 import { Route as DashboardFormsFormSlugRouteImport } from './routes/dashboard/forms/$formSlug/route'
 import { Route as DashboardFormsFormSlugIndexImport } from './routes/dashboard/forms/$formSlug/index'
 import { Route as DashboardFormsFormSlugSettingsImport } from './routes/dashboard/forms/$formSlug/settings'
 import { Route as DashboardFormsFormSlugExampleImport } from './routes/dashboard/forms/$formSlug/example'
+import { Route as DashboardEmailsVerificationSuccessEmailImport } from './routes/dashboard/emails/verification-success.$email'
 import { Route as DashboardFormsFormSlugSubmissionsRouteImport } from './routes/dashboard/forms/$formSlug/submissions/route'
 import { Route as DashboardFormsFormSlugSubmissionsIndexImport } from './routes/dashboard/forms/$formSlug/submissions/index'
 import { Route as DashboardFormsFormSlugSubmissionsIdImport } from './routes/dashboard/forms/$formSlug/submissions/$id'
@@ -109,9 +112,21 @@ const DashboardFormsIndexRoute = DashboardFormsIndexImport.update({
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
+const DashboardEmailsIndexRoute = DashboardEmailsIndexImport.update({
+  id: '/emails/',
+  path: '/emails/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
 const DashboardFormsCreateRoute = DashboardFormsCreateImport.update({
   id: '/forms/create',
   path: '/forms/create',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardEmailsCreateRoute = DashboardEmailsCreateImport.update({
+  id: '/emails/create',
+  path: '/emails/create',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
@@ -141,6 +156,13 @@ const DashboardFormsFormSlugExampleRoute =
     id: '/example',
     path: '/example',
     getParentRoute: () => DashboardFormsFormSlugRouteRoute,
+  } as any)
+
+const DashboardEmailsVerificationSuccessEmailRoute =
+  DashboardEmailsVerificationSuccessEmailImport.update({
+    id: '/emails/verification-success/$email',
+    path: '/emails/verification-success/$email',
+    getParentRoute: () => DashboardRouteRoute,
   } as any)
 
 const DashboardFormsFormSlugSubmissionsRouteRoute =
@@ -252,11 +274,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardFormsFormSlugRouteImport
       parentRoute: typeof DashboardRouteImport
     }
+    '/dashboard/emails/create': {
+      id: '/dashboard/emails/create'
+      path: '/emails/create'
+      fullPath: '/dashboard/emails/create'
+      preLoaderRoute: typeof DashboardEmailsCreateImport
+      parentRoute: typeof DashboardRouteImport
+    }
     '/dashboard/forms/create': {
       id: '/dashboard/forms/create'
       path: '/forms/create'
       fullPath: '/dashboard/forms/create'
       preLoaderRoute: typeof DashboardFormsCreateImport
+      parentRoute: typeof DashboardRouteImport
+    }
+    '/dashboard/emails/': {
+      id: '/dashboard/emails/'
+      path: '/emails'
+      fullPath: '/dashboard/emails'
+      preLoaderRoute: typeof DashboardEmailsIndexImport
       parentRoute: typeof DashboardRouteImport
     }
     '/dashboard/forms/': {
@@ -272,6 +308,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/forms/$formSlug/submissions'
       preLoaderRoute: typeof DashboardFormsFormSlugSubmissionsRouteImport
       parentRoute: typeof DashboardFormsFormSlugRouteImport
+    }
+    '/dashboard/emails/verification-success/$email': {
+      id: '/dashboard/emails/verification-success/$email'
+      path: '/emails/verification-success/$email'
+      fullPath: '/dashboard/emails/verification-success/$email'
+      preLoaderRoute: typeof DashboardEmailsVerificationSuccessEmailImport
+      parentRoute: typeof DashboardRouteImport
     }
     '/dashboard/forms/$formSlug/example': {
       id: '/dashboard/forms/$formSlug/example'
@@ -356,8 +399,11 @@ interface DashboardRouteRouteChildren {
   DashboardProfileRoute: typeof DashboardProfileRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   DashboardFormsFormSlugRouteRoute: typeof DashboardFormsFormSlugRouteRouteWithChildren
+  DashboardEmailsCreateRoute: typeof DashboardEmailsCreateRoute
   DashboardFormsCreateRoute: typeof DashboardFormsCreateRoute
+  DashboardEmailsIndexRoute: typeof DashboardEmailsIndexRoute
   DashboardFormsIndexRoute: typeof DashboardFormsIndexRoute
+  DashboardEmailsVerificationSuccessEmailRoute: typeof DashboardEmailsVerificationSuccessEmailRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
@@ -365,8 +411,12 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardFormsFormSlugRouteRoute:
     DashboardFormsFormSlugRouteRouteWithChildren,
+  DashboardEmailsCreateRoute: DashboardEmailsCreateRoute,
   DashboardFormsCreateRoute: DashboardFormsCreateRoute,
+  DashboardEmailsIndexRoute: DashboardEmailsIndexRoute,
   DashboardFormsIndexRoute: DashboardFormsIndexRoute,
+  DashboardEmailsVerificationSuccessEmailRoute:
+    DashboardEmailsVerificationSuccessEmailRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
@@ -406,9 +456,12 @@ export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
+  '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
+  '/dashboard/emails': typeof DashboardEmailsIndexRoute
   '/dashboard/forms': typeof DashboardFormsIndexRoute
   '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsRouteRouteWithChildren
+  '/dashboard/emails/verification-success/$email': typeof DashboardEmailsVerificationSuccessEmailRoute
   '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
   '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
   '/dashboard/forms/$formSlug/': typeof DashboardFormsFormSlugIndexRoute
@@ -426,8 +479,11 @@ export interface FileRoutesByTo {
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
+  '/dashboard/emails': typeof DashboardEmailsIndexRoute
   '/dashboard/forms': typeof DashboardFormsIndexRoute
+  '/dashboard/emails/verification-success/$email': typeof DashboardEmailsVerificationSuccessEmailRoute
   '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
   '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
   '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugIndexRoute
@@ -449,9 +505,12 @@ export interface FileRoutesById {
   '/_site/': typeof SiteIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
+  '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
+  '/dashboard/emails/': typeof DashboardEmailsIndexRoute
   '/dashboard/forms/': typeof DashboardFormsIndexRoute
   '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsRouteRouteWithChildren
+  '/dashboard/emails/verification-success/$email': typeof DashboardEmailsVerificationSuccessEmailRoute
   '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
   '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
   '/dashboard/forms/$formSlug/': typeof DashboardFormsFormSlugIndexRoute
@@ -474,9 +533,12 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard/'
     | '/dashboard/forms/$formSlug'
+    | '/dashboard/emails/create'
     | '/dashboard/forms/create'
+    | '/dashboard/emails'
     | '/dashboard/forms'
     | '/dashboard/forms/$formSlug/submissions'
+    | '/dashboard/emails/verification-success/$email'
     | '/dashboard/forms/$formSlug/example'
     | '/dashboard/forms/$formSlug/settings'
     | '/dashboard/forms/$formSlug/'
@@ -493,8 +555,11 @@ export interface FileRouteTypes {
     | '/dashboard/profile'
     | '/'
     | '/dashboard'
+    | '/dashboard/emails/create'
     | '/dashboard/forms/create'
+    | '/dashboard/emails'
     | '/dashboard/forms'
+    | '/dashboard/emails/verification-success/$email'
     | '/dashboard/forms/$formSlug/example'
     | '/dashboard/forms/$formSlug/settings'
     | '/dashboard/forms/$formSlug'
@@ -514,9 +579,12 @@ export interface FileRouteTypes {
     | '/_site/'
     | '/dashboard/'
     | '/dashboard/forms/$formSlug'
+    | '/dashboard/emails/create'
     | '/dashboard/forms/create'
+    | '/dashboard/emails/'
     | '/dashboard/forms/'
     | '/dashboard/forms/$formSlug/submissions'
+    | '/dashboard/emails/verification-success/$email'
     | '/dashboard/forms/$formSlug/example'
     | '/dashboard/forms/$formSlug/settings'
     | '/dashboard/forms/$formSlug/'
@@ -558,8 +626,11 @@ export const routeTree = rootRoute
         "/dashboard/profile",
         "/dashboard/",
         "/dashboard/forms/$formSlug",
+        "/dashboard/emails/create",
         "/dashboard/forms/create",
-        "/dashboard/forms/"
+        "/dashboard/emails/",
+        "/dashboard/forms/",
+        "/dashboard/emails/verification-success/$email"
       ]
     },
     "/_site": {
@@ -618,8 +689,16 @@ export const routeTree = rootRoute
         "/dashboard/forms/$formSlug/"
       ]
     },
+    "/dashboard/emails/create": {
+      "filePath": "dashboard/emails/create.tsx",
+      "parent": "/dashboard"
+    },
     "/dashboard/forms/create": {
       "filePath": "dashboard/forms/create.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/emails/": {
+      "filePath": "dashboard/emails/index.tsx",
       "parent": "/dashboard"
     },
     "/dashboard/forms/": {
@@ -633,6 +712,10 @@ export const routeTree = rootRoute
         "/dashboard/forms/$formSlug/submissions/$id",
         "/dashboard/forms/$formSlug/submissions/"
       ]
+    },
+    "/dashboard/emails/verification-success/$email": {
+      "filePath": "dashboard/emails/verification-success.$email.tsx",
+      "parent": "/dashboard"
     },
     "/dashboard/forms/$formSlug/example": {
       "filePath": "dashboard/forms/$formSlug/example.tsx",

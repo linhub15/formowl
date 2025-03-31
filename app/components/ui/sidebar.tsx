@@ -153,7 +153,7 @@ export function SidebarItem(
     "dark:text-white dark:*:data-[slot=icon]:fill-zinc-400",
     "dark:data-hover:bg-white/5 dark:data-hover:*:data-[slot=icon]:fill-white",
     "dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white",
-    "dark:data-current:*:data-[slot=icon]:fill-white",
+    "dark:data-current:*:data-[slot=icon]:fill-white dark:data-current:*:data-[slot=icon]:stroke-white",
   );
 
   return (

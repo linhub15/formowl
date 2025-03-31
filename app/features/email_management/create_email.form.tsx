@@ -1,33 +1,25 @@
-import { useForm } from "@tanstack/react-form";
-import { useCreateForm } from "./hooks/use_create_form";
-import { Field, Label } from "@/components/ui/fieldset";
-import { Input } from "@/components/ui/input";
 import { Card, CardBody, CardFooter } from "@/components/layout/card";
 import { Button } from "@/components/ui/button";
+import { Field, Label } from "@/components/ui/fieldset";
+import { Input } from "@/components/ui/input";
+import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
+import { useCreateEmail } from "./hooks/use_create_email";
 
-export function CreateFormForm() {
-  const mutation = useCreateForm();
+export function CreateEmailForm() {
+  const mutation = useCreateEmail();
   const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
-      formName: "",
+      email: "",
     },
     onSubmit: async ({ value }) => {
-      const result = await mutation.mutateAsync({
-        name: value.formName,
+      await mutation.mutateAsync({
+        email: value.email,
       });
 
-      if (!result?.slug) {
-        alert("form created but, failed to get the form slug");
-        return;
-      }
-
-      await navigate({
-        to: "/dashboard/forms/$formSlug",
-        params: { formSlug: result.slug },
-      });
+      await navigate({ to: "/dashboard/emails" });
     },
   });
 
@@ -41,10 +33,10 @@ export function CreateFormForm() {
     >
       <Card>
         <CardBody>
-          <form.Field name="formName">
+          <form.Field name="email">
             {(field) => (
               <Field className="w-full max-w-sm">
-                <Label htmlFor={field.name}>Form name</Label>
+                <Label htmlFor={field.name}>Email</Label>
                 <Input
                   id={field.name}
                   name={field.name}
@@ -66,7 +58,7 @@ export function CreateFormForm() {
                 type="submit"
                 disabled={form.isSubmitting || !form.canSubmit}
               >
-                Create form
+                Create email
               </Button>
             )}
           </form.Subscribe>

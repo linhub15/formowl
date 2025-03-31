@@ -71,7 +71,7 @@ export function TurnstileFormDialog() {
                         id={field.name}
                         name={field.name}
                         type="text"
-                        placeholder="0x4AAAAAAANYYyy5YYyyyyYy"
+                        placeholder="0x4AAAAAAA_example"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                       />

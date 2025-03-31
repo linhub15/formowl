@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/sidebar";
 import { SidebarLayout } from "@/components/ui/sidebar_layout";
 import {
+  AtSymbolIcon,
   DocumentTextIcon,
   LightBulbIcon,
   LinkIcon,
@@ -27,6 +28,8 @@ import type { PropsWithChildren } from "react";
 import { UserMenu } from "./user_menu";
 import { BRANDING } from "@/lib/constants";
 import { useListForms } from "../form_management/hooks/use_list_forms";
+import { useFeatureFlagEnabled } from "posthog-js/react";
+import { FEATURE_FLAGS } from "@/lib/posthog/feature_flags";
 
 type Props = {
   email?: string;
@@ -34,6 +37,10 @@ type Props = {
 } & PropsWithChildren;
 
 export function AppNavigation(props: Props) {
+  const emailManagementFlag = useFeatureFlagEnabled(
+    FEATURE_FLAGS.emailManagement,
+  );
+
   const forms = useListForms();
   return (
     <SidebarLayout
@@ -48,6 +55,16 @@ export function AppNavigation(props: Props) {
             >
               <FormsIcon open={props.pathname === "/dashboard/forms"} />
             </NavbarItem>
+
+            {emailManagementFlag && (
+              <NavbarItem
+                to="/dashboard/emails"
+                aria-label="Emails"
+                current={props.pathname === "/dashboard/emails"}
+              >
+                <AtSymbolIcon />
+              </NavbarItem>
+            )}
             <UserMenu email={props.email} type="navbar" />
           </NavbarSection>
         </Navbar>
@@ -65,6 +82,16 @@ export function AppNavigation(props: Props) {
                 <FormsIcon open={props.pathname === "/dashboard/forms"} />
                 <SidebarLabel>Forms</SidebarLabel>
               </SidebarItem>
+
+              {emailManagementFlag && (
+                <SidebarItem
+                  to="/dashboard/emails"
+                  current={props.pathname === "/dashboard/emails"}
+                >
+                  <AtSymbolIcon />
+                  <SidebarLabel>Emails</SidebarLabel>
+                </SidebarItem>
+              )}
             </SidebarSection>
           </SidebarHeader>
           <SidebarBody>

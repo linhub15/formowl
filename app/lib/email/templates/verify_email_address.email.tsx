@@ -2,16 +2,18 @@ import { Button, Row, Section, Text } from "@react-email/components";
 import { EmailLayout } from "./email.layout";
 
 type Props = {
-  dashboardUrl: string;
+  organizationName?: string;
+  verifyUrl: string;
 };
 
-function NewUserWelcomeEmail({ dashboardUrl = "#" }: Props) {
+function VerifyEmailAddressEmail({ verifyUrl = "#" }: Props) {
   return (
-    <EmailLayout heading="Welcome to Form Owl!">
+    <EmailLayout heading="Verify your email address">
       <Section className="py-6">
         <Row>
           <Text className="text-base text-center">
-            You're ready to start making forms.
+            Your email has been requested to receive form submission
+            notifications. Click the button to verify this email address.
           </Text>
         </Row>
       </Section>
@@ -19,13 +21,15 @@ function NewUserWelcomeEmail({ dashboardUrl = "#" }: Props) {
       <Section className="text-center">
         <Button
           className="bg-brand text-white rounded-lg py-3 px-[18px]"
-          href={dashboardUrl}
+          href={verifyUrl}
         >
-          Go to your dashboard
+          Verify email address
         </Button>
+
+        {/* todo: allow verification recipient to reject the verification */}
       </Section>
     </EmailLayout>
   );
 }
 
-export default NewUserWelcomeEmail;
+export default VerifyEmailAddressEmail;

@@ -1,14 +1,15 @@
 import { db } from "@/db/database";
 import { formSubmission } from "@/db/schema";
-import { siteVerify } from "../cloudflare_turnstile/site_verify";
+import { siteVerify } from "../../cloudflare_turnstile/site_verify";
 import { z } from "zod";
-import { featureFlags } from "@/lib/posthog/feature_flags";
+import { featureFlags } from "@/lib/posthog/feature_flags.server";
 import { member, user } from "@/db/auth_schema";
 import { eq } from "drizzle-orm";
 import { form as formSchema } from "@/db/schema";
 import { mailer } from "@/lib/email/mailer";
 
 const CF_TURNSTILE_RESPONSE_KEY = "cf-turnstile-response";
+const HONEY_POT_KEY = "_honey_pot";
 
 export const submitFormRequest = z.object({
   formSlug: z.string(),
@@ -63,6 +64,17 @@ export async function submitForm(args: Request): Promise<Response> {
     }
   }
 
+  /// HONEY POT
+  const honeyPot = args.formData.get(HONEY_POT_KEY);
+  if (honeyPot?.toString()) {
+    console.warn(
+      "Honeypot triggered by ip:",
+      args.requestIpAddress,
+    );
+    return "not_found";
+  }
+  args.formData.delete(HONEY_POT_KEY);
+
   /// 2. Form Submission
   const result = await db.insert(formSubmission).values({
     formId: form.id,
@@ -97,7 +109,6 @@ export async function submitForm(args: Request): Promise<Response> {
           `/dashboard/forms/${form.slug}`,
           process.env.VITE_APP_URL,
         ),
-
         formData: firstFormSubmission.data,
       });
     }

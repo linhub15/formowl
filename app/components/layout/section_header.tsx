@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
-import type { LinkProps } from "../ui/link";
+import { Link, type LinkProps } from "../ui/link";
 import { Heading } from "../ui/heading";
 import { Tabbar, TabbarItem } from "../ui/tabbar";
 import {
@@ -8,8 +8,7 @@ import {
   DropdownItem,
   DropdownMenu,
 } from "../ui/dropdown";
-import type { ReactNode } from "react";
-import React from "react";
+import { Fragment, type ReactNode } from "react";
 
 type Tab = {
   name: ReactNode;
@@ -18,16 +17,34 @@ type Tab = {
 };
 
 type Props = {
-  heading: React.ReactNode;
-  actions?: React.ReactNode;
+  heading: ReactNode;
+  breadcrumbs?: { title: string; to: LinkProps["to"] }[];
+  actions?: ReactNode;
   tabs?: Tab[];
 };
 
-export function SectionHeader({ heading, actions, tabs = [] }: Props) {
+export function SectionHeader(
+  { heading, breadcrumbs = [], actions, tabs = [] }: Props,
+) {
   return (
     <div className="relative border-b border-zinc-950/5 dark:border-white/5 space-y-4 pb-4">
       <div className="flex items-center justify-between">
-        <Heading>{heading}</Heading>
+        <Heading>
+          {breadcrumbs.map((crumb) => (
+            <Fragment key={crumb.to}>
+              <Link
+                className="text-zinc-500 dark:text-zinc-400"
+                to={crumb.to}
+              >
+                {crumb.title}
+              </Link>
+              <span className="text-zinc-500 dark:text-zinc-400 mx-3 select-none">
+                /
+              </span>
+            </Fragment>
+          ))}
+          {heading}
+        </Heading>
         {actions}
       </div>
 

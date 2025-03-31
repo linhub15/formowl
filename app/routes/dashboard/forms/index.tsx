@@ -13,9 +13,9 @@ function RouteComponent() {
   const forms = useListForms();
 
   return (
-    <div>
+    <div className="space-y-8">
       <SectionHeader heading="Forms" />
-      <div className="py-8 space-y-3">
+      <div className="space-y-3">
         {forms.data?.map((form) => (
           <Link
             className={cn(

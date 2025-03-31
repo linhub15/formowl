@@ -1,6 +1,5 @@
-import { Card, CardBody } from "@/components/layout/card";
-import { Heading } from "@/components/ui/heading";
-import { CreateForm } from "@/features/form_management/create_form.form";
+import { SectionHeader } from "@/components/layout/section_header";
+import { CreateFormForm } from "@/features/form_management/create_form.form";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/forms/create")({
@@ -10,8 +9,8 @@ export const Route = createFileRoute("/dashboard/forms/create")({
 function RouteComponent() {
   return (
     <div className="space-y-8">
-      <Heading>New form</Heading>
-      <CreateForm />
+      <SectionHeader heading="New Form" />
+      <CreateFormForm />
     </div>
   );
 }
