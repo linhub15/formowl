@@ -21,7 +21,11 @@ export function MarketingNav(props: Props) {
     <header className="flex items-center px-4">
       <div className="min-w-0 flex-1">
         <Navbar>
-          <NavbarItem className="hidden sm:block" disabled>
+          <NavbarItem
+            className="hidden sm:block select-none"
+            to={pathname === "/" ? undefined : "/"}
+            disabled={pathname === "/"}
+          >
             <span className="text-base leading-tight font-semibold">
               {BRANDING.name}
             </span>

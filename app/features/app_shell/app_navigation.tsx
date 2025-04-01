@@ -125,10 +125,12 @@ export function AppNavigation(props: Props) {
                 <LinkIcon />
                 <SidebarLabel>Homepage</SidebarLabel>
               </SidebarItem>
-              <SidebarItem to="/">
+              {
+                /* <SidebarItem to="/">
                 <LightBulbIcon />
                 <SidebarLabel>Share feedback</SidebarLabel>
-              </SidebarItem>
+              </SidebarItem> */
+              }
             </SidebarSection>
           </SidebarBody>
           <SidebarFooter className="max-lg:hidden">

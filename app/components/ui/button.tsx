@@ -201,7 +201,7 @@ export function Button(
     : (
       <Headless.Button
         {...props}
-        className={cn(classes, "cursor-default")}
+        className={cn(classes, "cursor-pointer")}
         ref={ref}
       >
         <TouchTarget>{children}</TouchTarget>

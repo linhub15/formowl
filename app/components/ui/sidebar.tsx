@@ -179,7 +179,7 @@ export function SidebarItem(
         : (
           <Headless.Button
             {...props as Headless.ButtonProps}
-            className={cn("cursor-default", classes)}
+            className={cn("cursor-pointer", classes)}
             data-current={current ? "true" : undefined}
             ref={ref}
           >
