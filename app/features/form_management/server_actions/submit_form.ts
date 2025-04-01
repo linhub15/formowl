@@ -2,10 +2,10 @@ import { member, user } from "@/db/auth_schema";
 import { db } from "@/db/database";
 import { form as formSchema, formSubmission } from "@/db/schema";
 import { mailer } from "@/lib/email/mailer";
-import { featureFlags } from "@/lib/feature_flags/is_feature_enabled.fn";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { siteVerify } from "../../cloudflare_turnstile/site_verify";
+import { featureFlags } from "@/lib/feature_flags/is_feature_enabled.server";
 
 const CF_TURNSTILE_RESPONSE_KEY = "cf-turnstile-response";
 const HONEY_POT_KEY = "_honey_pot";
