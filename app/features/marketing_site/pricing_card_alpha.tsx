@@ -8,7 +8,7 @@ export function PricingCardAlpha() {
       description="Warning! Alpha is not production ready. Data will be periodically deleted."
       price="Free"
       priceSuffix=""
-      to={new URL("/dashboard", import.meta.env.VITE_APP_URL)}
+      to="/dashboard"
       actionText="Try the Alpha"
       features={[
         "Unlimited forms",

@@ -35,6 +35,7 @@ export const auth = betterAuth({
       enabled: true,
       clientId: process.env.GOOGLE_OAUTH_ID,
       clientSecret: process.env.GOOGLE_OAUTH_SECRET,
+      scope: ["profile", "email"],
     },
     github: {
       enabled: true,

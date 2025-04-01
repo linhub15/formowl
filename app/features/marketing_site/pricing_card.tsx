@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Subheading } from "@/components/ui/heading";
 import { P } from "@/components/ui/text";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
+import type { LinkProps } from "@tanstack/react-router";
 
 export type PricingCardProps = {
   id: string;
@@ -11,7 +12,8 @@ export type PricingCardProps = {
   price: string;
   priceSuffix?: string;
   features: string[];
-  to: URL;
+  to?: LinkProps["to"];
+  href?: string;
   actionText?: string;
 };
 
@@ -24,6 +26,7 @@ export function PricingCard(
     priceSuffix = "/month",
     features,
     to,
+    href,
     actionText = "Get started",
   }: PricingCardProps,
 ) {
@@ -58,7 +61,8 @@ export function PricingCard(
         <div className="w-full mt-6">
           <Button
             className="mt-4 w-full"
-            href={to.pathname}
+            to={to}
+            href={href}
             aria-describedby={id}
           >
             {actionText}

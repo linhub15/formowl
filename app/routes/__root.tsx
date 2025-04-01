@@ -13,7 +13,7 @@ import {
 } from "@tanstack/react-router";
 import { Toaster } from "sonner";
 
-const imgeUrl = new URL(dashboardScreenshot, process.env.VITE_APP_URL).href;
+const imgeUrl = new URL(dashboardScreenshot, import.meta.env.VITE_APP_URL).href;
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
