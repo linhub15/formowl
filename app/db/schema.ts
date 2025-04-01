@@ -120,3 +120,10 @@ export const emailVerificationRelations = relations(
     }),
   }),
 );
+
+/// FEATURE FLAG SCHEMA
+export const featureFlag = pgTable("feature_flag", {
+  key: text("key").primaryKey(),
+  isEnabled: boolean("is_enabled").notNull().default(false),
+  ...defaultColumns,
+});

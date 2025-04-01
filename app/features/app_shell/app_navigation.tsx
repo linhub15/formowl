@@ -28,8 +28,8 @@ import type { PropsWithChildren } from "react";
 import { UserMenu } from "./user_menu";
 import { BRANDING } from "@/lib/constants";
 import { useListForms } from "../form_management/hooks/use_list_forms";
-import { useFeatureFlagEnabled } from "posthog-js/react";
-import { FEATURE_FLAGS } from "@/lib/posthog/feature_flags";
+import { FEATURE_FLAGS } from "@/lib/feature_flags/feature_flags";
+import { useFeatureFlagEnabled } from "@/lib/feature_flags/use_feature_flag_enabled";
 
 type Props = {
   email?: string;
@@ -37,11 +37,12 @@ type Props = {
 } & PropsWithChildren;
 
 export function AppNavigation(props: Props) {
-  const emailManagementFlag = useFeatureFlagEnabled(
+  const { data: emailManagementFlag } = useFeatureFlagEnabled(
     FEATURE_FLAGS.emailManagement,
   );
 
   const forms = useListForms();
+
   return (
     <SidebarLayout
       navbar={
