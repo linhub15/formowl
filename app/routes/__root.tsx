@@ -23,6 +23,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         // Branding
         { name: "title", content: BRANDING.name },
         { name: "description", content: BRANDING.description },
+        { name: "robots", content: "index, follow" },
 
         // Facebook
         { property: "og:url", content: process.env.VITE_APP_URL },
@@ -33,8 +34,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
         // Twitter
         { name: "twitter:card", content: "summary_large_image" },
-        { property: "twitter:domain", content: "formowl.dev" },
-        { property: "twitter:url", content: process.env.VITE_APP_URL },
+        { name: "twitter:domain", content: "formowl.dev" },
+        { name: "twitter:url", content: process.env.VITE_APP_URL },
         { name: "twitter:title", content: BRANDING.name },
         { name: "twitter:description", content: BRANDING.description },
         { name: "twitter:image", content: dashboardScreenshot },
@@ -71,6 +72,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       className="h-full bg-white lg:bg-zinc-100 dark:bg-zinc-900 dark:lg:bg-zinc-950 text-zinc-500 dark:text-zinc-400"
     >
       <head>
+        <title>{BRANDING.name}</title>
         <HeadContent />
       </head>
       <body className="h-full">
