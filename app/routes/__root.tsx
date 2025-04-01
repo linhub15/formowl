@@ -13,6 +13,8 @@ import {
 } from "@tanstack/react-router";
 import { Toaster } from "sonner";
 
+const imgeUrl = new URL(dashboardScreenshot, process.env.VITE_APP_URL).href;
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
     head: () => ({
@@ -22,27 +24,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
         // Branding
         { name: "title", content: BRANDING.name },
+        { name: "type", content: "website" },
         { name: "description", content: BRANDING.description },
         { name: "robots", content: "index, follow" },
+        { name: "image", content: imgeUrl },
+        { name: "url", content: process.env.VITE_APP_URL },
 
         // Facebook
-        { name: "url", property: "og:url", content: process.env.VITE_APP_URL },
-        { name: "type", property: "og:type", content: "website" },
-        { name: "title", property: "og:title", content: BRANDING.name },
-        {
-          name: "description",
-          property: "og:description",
-          content: BRANDING.description,
-        },
-        { name: "image", property: "og:image", content: dashboardScreenshot },
+        { property: "og:title", content: BRANDING.name },
+        { property: "og:type", content: "website" },
+        { property: "og:description", content: BRANDING.description },
+        { property: "og:image", content: imgeUrl },
+        { property: "og:url", content: process.env.VITE_APP_URL },
 
         // Twitter
-        { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:domain", content: "formowl.dev" },
-        { name: "twitter:url", content: process.env.VITE_APP_URL },
         { name: "twitter:title", content: BRANDING.name },
         { name: "twitter:description", content: BRANDING.description },
-        { name: "twitter:image", content: dashboardScreenshot },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:image", content: imgeUrl },
+        { name: "twitter:url", content: process.env.VITE_APP_URL },
+        { name: "twitter:domain", content: "formowl.dev" },
       ],
       links: [
         { rel: "stylesheet", href: "https://rsms.me/inter/inter.css" },
