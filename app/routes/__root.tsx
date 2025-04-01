@@ -26,11 +26,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         { name: "robots", content: "index, follow" },
 
         // Facebook
-        { property: "og:url", content: process.env.VITE_APP_URL },
-        { property: "og:type", content: "website" },
-        { property: "og:title", content: BRANDING.name },
-        { property: "og:description", content: BRANDING.description },
-        { property: "og:image", content: dashboardScreenshot },
+        { name: "url", property: "og:url", content: process.env.VITE_APP_URL },
+        { name: "type", property: "og:type", content: "website" },
+        { name: "title", property: "og:title", content: BRANDING.name },
+        {
+          name: "description",
+          property: "og:description",
+          content: BRANDING.description,
+        },
+        { name: "image", property: "og:image", content: dashboardScreenshot },
 
         // Twitter
         { name: "twitter:card", content: "summary_large_image" },
