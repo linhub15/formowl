@@ -1,5 +1,6 @@
 import { Card, CardBody, CardHeader } from "@/components/layout/card";
 import { Badge } from "@/components/ui/badge";
+import { CodeBlock } from "@/components/ui/code_block";
 import { Field, FieldGroup, Label } from "@/components/ui/fieldset";
 import { Subheading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
@@ -9,9 +10,10 @@ import { TurnstileFormDialog } from "@/features/cloudflare_turnstile/turnstile_f
 import { DeleteFormButton } from "@/features/form_management/delete_form_button";
 import { FormSubmissionToggler } from "@/features/form_management/form_submission_toggler";
 import { FormTurnstileToggler } from "@/features/form_management/form_turnstile_toggler";
+import { useFormActionUrl } from "@/features/form_management/hooks/use_form_action_url";
 import { useGetForm } from "@/features/form_management/hooks/use_get_form";
 import { useSession } from "@/lib/auth/hooks/use_session";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/forms/$formSlug/settings")({
   component: RouteComponent,
@@ -20,6 +22,7 @@ export const Route = createFileRoute("/dashboard/forms/$formSlug/settings")({
 function RouteComponent() {
   const { data: session } = useSession();
   const params = Route.useParams();
+  const formActionUrl = useFormActionUrl({ formSlug: params.formSlug });
   const { data: form } = useGetForm({ formSlug: params.formSlug });
   const { data: turnstile } = useGetTurnstile();
 
@@ -29,6 +32,13 @@ function RouteComponent() {
 
   return (
     <div className="space-y-16">
+      <Card>
+        <CardBody>
+          <Subheading>Form action</Subheading>
+          <CodeBlock code={formActionUrl.href} language="html" showCopyButton />
+        </CardBody>
+      </Card>
+
       <Card>
         <CardBody>
           <div className="flex flex-col md:flex-row gap-6 justify-between md:items-center">

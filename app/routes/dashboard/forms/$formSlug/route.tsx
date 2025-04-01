@@ -21,7 +21,7 @@ function RouteComponent() {
   const { data: form } = useGetForm({ formSlug: params.formSlug });
 
   /**
-   * todo:
+   * todo: style the renaming
    */
 
   const setFormName = useSetFormName();

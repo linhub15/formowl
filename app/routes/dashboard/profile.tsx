@@ -14,6 +14,7 @@ import { useAccounts } from "@/lib/auth/hooks/use_accounts";
 import { useSession } from "@/lib/auth/hooks/use_session";
 import { createFileRoute } from "@tanstack/react-router";
 import { GithubIcon } from "@/components/icons/github_icon";
+import { SectionHeader } from "@/components/layout/section_header";
 
 export const Route = createFileRoute("/dashboard/profile")({
   component: RouteComponent,
@@ -35,9 +36,8 @@ function RouteComponent() {
 
   return (
     <section className="space-y-8">
-      <div>
-        <Heading>Profile</Heading>
-      </div>
+      <SectionHeader heading="Profile" />
+
       <Card>
         <CardHeader>Your email</CardHeader>
         <CardBody>

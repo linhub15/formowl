@@ -54,7 +54,7 @@ export function UserMenu({ type, email }: Props) {
           <DropdownLabel>My profile</DropdownLabel>
         </DropdownItem>
         <DropdownDivider />
-        <DropdownItem href="/privacy-policy">
+        <DropdownItem to="/dashboard/billing">
           <CreditCardIcon />
           <DropdownLabel>Billing</DropdownLabel>
         </DropdownItem>

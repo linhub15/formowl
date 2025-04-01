@@ -73,6 +73,9 @@ function RouteComponent() {
         <CardBody>
           <Fieldset>
             <Legend>Welcome to {BRANDING.name}</Legend>
+            <P>
+              An account has been created for your email: {session?.user.email}
+            </P>
             <P>Are you ready to get started?</P>
           </Fieldset>
 

@@ -20,6 +20,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard/route'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as SiteIndexImport } from './routes/_site/index'
 import { Route as DashboardProfileImport } from './routes/dashboard/profile'
+import { Route as DashboardBillingImport } from './routes/dashboard/billing'
 import { Route as SiteWaitlistImport } from './routes/_site/waitlist'
 import { Route as SiteTermsImport } from './routes/_site/terms'
 import { Route as SitePrivacyImport } from './routes/_site/privacy'
@@ -67,6 +68,12 @@ const SiteIndexRoute = SiteIndexImport.update({
 const DashboardProfileRoute = DashboardProfileImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const DashboardBillingRoute = DashboardBillingImport.update({
+  id: '/billing',
+  path: '/billing',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
@@ -246,6 +253,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteWaitlistImport
       parentRoute: typeof SiteImport
     }
+    '/dashboard/billing': {
+      id: '/dashboard/billing'
+      path: '/billing'
+      fullPath: '/dashboard/billing'
+      preLoaderRoute: typeof DashboardBillingImport
+      parentRoute: typeof DashboardRouteImport
+    }
     '/dashboard/profile': {
       id: '/dashboard/profile'
       path: '/profile'
@@ -396,6 +410,7 @@ const DashboardFormsFormSlugRouteRouteWithChildren =
   )
 
 interface DashboardRouteRouteChildren {
+  DashboardBillingRoute: typeof DashboardBillingRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   DashboardFormsFormSlugRouteRoute: typeof DashboardFormsFormSlugRouteRouteWithChildren
@@ -407,6 +422,7 @@ interface DashboardRouteRouteChildren {
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardBillingRoute: DashboardBillingRoute,
   DashboardProfileRoute: DashboardProfileRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardFormsFormSlugRouteRoute:
@@ -452,6 +468,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof SitePrivacyRoute
   '/terms': typeof SiteTermsRoute
   '/waitlist': typeof SiteWaitlistRoute
+  '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -476,6 +493,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof SitePrivacyRoute
   '/terms': typeof SiteTermsRoute
   '/waitlist': typeof SiteWaitlistRoute
+  '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
   '/dashboard': typeof DashboardIndexRoute
@@ -501,6 +519,7 @@ export interface FileRoutesById {
   '/_site/privacy': typeof SitePrivacyRoute
   '/_site/terms': typeof SiteTermsRoute
   '/_site/waitlist': typeof SiteWaitlistRoute
+  '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/_site/': typeof SiteIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -529,6 +548,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/terms'
     | '/waitlist'
+    | '/dashboard/billing'
     | '/dashboard/profile'
     | '/'
     | '/dashboard/'
@@ -552,6 +572,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/terms'
     | '/waitlist'
+    | '/dashboard/billing'
     | '/dashboard/profile'
     | '/'
     | '/dashboard'
@@ -575,6 +596,7 @@ export interface FileRouteTypes {
     | '/_site/privacy'
     | '/_site/terms'
     | '/_site/waitlist'
+    | '/dashboard/billing'
     | '/dashboard/profile'
     | '/_site/'
     | '/dashboard/'
@@ -623,6 +645,7 @@ export const routeTree = rootRoute
     "/dashboard": {
       "filePath": "dashboard/route.tsx",
       "children": [
+        "/dashboard/billing",
         "/dashboard/profile",
         "/dashboard/",
         "/dashboard/forms/$formSlug",
@@ -666,6 +689,10 @@ export const routeTree = rootRoute
     "/_site/waitlist": {
       "filePath": "_site/waitlist.tsx",
       "parent": "/_site"
+    },
+    "/dashboard/billing": {
+      "filePath": "dashboard/billing.tsx",
+      "parent": "/dashboard"
     },
     "/dashboard/profile": {
       "filePath": "dashboard/profile.tsx",
