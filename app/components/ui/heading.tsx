@@ -15,7 +15,7 @@ export function Heading({ className, level = 1, ...props }: HeadingProps) {
     <Element
       {...props}
       className={cn(
-        "text-2xl/8 font-semibold text-zinc-950 sm:text-xl/8 dark:text-white/90",
+        "text-2xl font-semibold text-zinc-950 sm:text-xl leading-8 dark:text-white/90",
         className,
       )}
     />

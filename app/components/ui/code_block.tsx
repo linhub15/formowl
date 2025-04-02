@@ -7,12 +7,14 @@ import vs_light from "react-syntax-highlighter/dist/esm/styles/prism/vs";
 import vs_dark from "react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus";
 import { Button } from "./button";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils/cn";
 
 type Props = {
   language: "html" | "javascript" | "json";
   code: string | string[];
   showLineNumbers?: boolean;
   showCopyButton?: boolean;
+  copyButtonPosition?: "top" | "bottom";
 };
 
 export function CodeBlock(
@@ -21,6 +23,7 @@ export function CodeBlock(
     code,
     showLineNumbers = false,
     showCopyButton = false,
+    copyButtonPosition = "top",
   }: Props,
 ) {
   const scheme = usePrefersColorScheme();
@@ -29,7 +32,12 @@ export function CodeBlock(
   return (
     <div className="relative">
       {showCopyButton && (
-        <div className="absolute flex items-center justify-center right-0 top-0 mr-2 mt-2">
+        <div
+          className={cn(
+            "absolute flex items-center justify-center right-0 mr-2",
+            copyButtonPosition === "top" ? "top-0 mt-2" : "bottom-0 mb-2",
+          )}
+        >
           <CopyButton copyText={code} />
         </div>
       )}
