@@ -4,6 +4,7 @@ import { Card, CardBody, CardFooter } from "@/components/layout/card";
 import { Heading } from "@/components/ui/heading";
 import { LoadingSpinner } from "@/components/ui/loading_spinner";
 import { P } from "@/components/ui/text";
+import { AppNavigation } from "@/features/app_shell/app_navigation";
 import { authClient } from "@/lib/auth/auth.client";
 import { getSessionFn } from "@/lib/auth/get_session.fn";
 import { BRANDING } from "@/lib/constants";
@@ -53,31 +54,37 @@ function RouteComponent() {
   });
 
   return (
-    <div className="flex flex-1 flex-col justify-center py-32 lg:py-52 px-4 sm:px-6 lg:px-8">
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-        <Card>
-          <CardBody>
-            <div className="flex flex-col gap-6">
-              <Heading className="text-center">{BRANDING.name}</Heading>
-              <P className="text-center">
-                Login providers
+    <div className="relative">
+      <div className="absolute blur-sm inset-0 -z-10 select-none">
+        <AppNavigation email="test@gmail.com" pathname="/dashboard/forms" />
+      </div>
+
+      <div className="flex flex-1 flex-col justify-center py-32 lg:py-52 px-4 sm:px-6 lg:px-8">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+          <Card>
+            <CardBody>
+              <div className="flex flex-col gap-6">
+                <Heading className="text-center">{BRANDING.name}</Heading>
+                <P className="text-center">
+                  Login providers
+                </P>
+                <GoogleOAuthButton
+                  login={() => login.mutateAsync({ provider: "google" })}
+                  pending={login.isPending || pending}
+                />
+                <GithubOAuthButton
+                  login={() => login.mutateAsync({ provider: "github" })}
+                  pending={login.isPending || pending}
+                />
+              </div>
+            </CardBody>
+            <CardFooter>
+              <P>
+                No account? No worries! Clicking the button also signs you up.
               </P>
-              <GoogleOAuthButton
-                login={() => login.mutateAsync({ provider: "google" })}
-                pending={login.isPending || pending}
-              />
-              <GithubOAuthButton
-                login={() => login.mutateAsync({ provider: "github" })}
-                pending={login.isPending || pending}
-              />
-            </div>
-          </CardBody>
-          <CardFooter>
-            <P>
-              No account? No worries! Clicking the button also signs you up.
-            </P>
-          </CardFooter>
-        </Card>
+            </CardFooter>
+          </Card>
+        </div>
       </div>
     </div>
   );
