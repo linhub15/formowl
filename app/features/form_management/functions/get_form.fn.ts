@@ -1,5 +1,5 @@
 import { db } from "@/db/database";
-import { form, formSubmission } from "@/db/schema";
+import { email, form, formSubmission } from "@/db/schema";
 import { authMiddleware } from "@/lib/auth/auth_middleware";
 import { createServerFn } from "@tanstack/react-start";
 import { and, eq, getTableColumns, sql } from "drizzle-orm";
@@ -28,11 +28,13 @@ export const getFormFn = createServerFn({ method: "GET" })
     const result = await db.select({
       ...getTableColumns(form),
       submissionsCount: sql<number>`count(${formSubmission.id})::int`,
+      email: email.email,
     })
       .from(form)
       .leftJoin(formSubmission, eq(formSubmission.formId, form.id))
+      .leftJoin(email, eq(email.id, form.emailId))
       .where(and(formIdOrSlug, eq(form.organizationId, context.activeOrgId)))
-      .groupBy(form.id)
+      .groupBy(form.id, email.email)
       .limit(1);
 
     return result.at(0);

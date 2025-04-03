@@ -1,5 +1,4 @@
 import { Card, CardBody, CardHeader } from "@/components/layout/card";
-import { Badge } from "@/components/ui/badge";
 import { CodeBlock } from "@/components/ui/code_block";
 import { Field, FieldGroup, Label } from "@/components/ui/fieldset";
 import { Subheading } from "@/components/ui/heading";
@@ -7,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { A, P } from "@/components/ui/text";
 import { useGetTurnstile } from "@/features/cloudflare_turnstile/hooks/use_get_turnstile";
 import { TurnstileFormDialog } from "@/features/cloudflare_turnstile/turnstile_form_dialog";
+import { SelectEmail } from "@/features/email_management/select_email";
 import { DeleteFormButton } from "@/features/form_management/delete_form_button";
 import { FormSubmissionToggler } from "@/features/form_management/form_submission_toggler";
 import { FormTurnstileToggler } from "@/features/form_management/form_turnstile_toggler";
@@ -49,16 +49,11 @@ function RouteComponent() {
                 email address is used by default.
               </P>
             </div>
-            <div data-comment="keeps the width consistent">
-              <div className="relative w-xs">
-                <Badge
-                  className="absolute right-0 mr-2 inset-y-2"
-                  color="green"
-                >
-                  Verified
-                </Badge>
-                <Input defaultValue={session.user.email} disabled />
-              </div>
+            <div className="w-xs">
+              <SelectEmail
+                value={form.email || session.user.email}
+                formId={form.id}
+              />
             </div>
           </div>
         </CardBody>
@@ -68,7 +63,7 @@ function RouteComponent() {
             <div className="space-y-2">
               <Subheading>Submissions</Subheading>
               <div>
-                <P>Pause to block all form submission.</P>
+                <P>Pause to temporarily block all form submission.</P>
                 <P>Paused forms will respond with 404 not found.</P>
               </div>
             </div>

@@ -4,7 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useListEmails } from "@/features/email_management/hooks/use_list_emails";
 import { useResendVerification } from "@/features/email_management/hooks/use_resend_verification";
+import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { createFileRoute } from "@tanstack/react-router";
+import {
+  Dropdown,
+  DropdownButton,
+  DropdownItem,
+  DropdownMenu,
+} from "@/components/ui/dropdown";
+import { useDeleteEmail } from "@/features/email_management/hooks/use_delete_email";
 
 export const Route = createFileRoute("/dashboard/emails/")({
   component: RouteComponent,
@@ -13,6 +21,7 @@ export const Route = createFileRoute("/dashboard/emails/")({
 function RouteComponent() {
   const { data: emails } = useListEmails();
   const resend = useResendVerification();
+  const deleteEmail = useDeleteEmail();
 
   return (
     <div className="space-y-8">
@@ -36,22 +45,43 @@ function RouteComponent() {
                   key={email.email}
                 >
                   <div className="flex gap-4">
-                    {email.email}
+                    {email.email} <Badge>External</Badge>
                     {email.emailVerified
                       ? <Badge color="green">Verified</Badge>
                       : <Badge>Unverified</Badge>}
                   </div>
-                  {!email.emailVerified && (
-                    <Button
-                      outline
-                      onClick={() =>
-                        resend.mutateAsync({
-                          emailId: email.id,
-                        })}
-                    >
-                      Resend verification
-                    </Button>
-                  )}
+
+                  <div className="flex gap-2">
+                    {!email.emailVerified && (
+                      <Button
+                        outline
+                        onClick={() =>
+                          resend.mutateAsync({
+                            emailId: email.id,
+                          })}
+                      >
+                        Resend verification
+                      </Button>
+                    )}
+
+                    <Dropdown>
+                      <DropdownButton outline>
+                        <EllipsisVerticalIcon className="size-4" />
+                      </DropdownButton>
+                      <DropdownMenu>
+                        <DropdownItem
+                          onClick={async () =>
+                            email.forms.length > 0
+                              ? alert(
+                                `Email is connected to ${email.forms.length} form(s). Remove the email from the form(s) before deleting.`,
+                              )
+                              : await deleteEmail.mutateAsync(email.id)}
+                        >
+                          Delete
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                  </div>
                 </div>
               ))}
             </div>

@@ -42,6 +42,7 @@ export const form = pgTable("form", {
   cloudflareTurnstileId: uuid("cloudflare_turnstile_id").references(
     () => cloudflareTurnstile.id,
   ),
+  emailId: uuid("email_id").references(() => email.id),
   ...defaultColumns,
   ...organizationColumns,
 });
@@ -54,6 +55,10 @@ export const formRelations = relations(form, ({ one, many }) => ({
   cloudflareTurnstile: one(cloudflareTurnstile, {
     fields: [form.cloudflareTurnstileId],
     references: [cloudflareTurnstile.id],
+  }),
+  email: one(email, {
+    fields: [form.emailId],
+    references: [email.id],
   }),
   submissions: many(formSubmission),
 }));
@@ -98,6 +103,7 @@ export const emailRelations = relations(email, ({ one, many }) => ({
     references: [organization.id],
   }),
   emailVerifications: many(emailVerification),
+  forms: many(form),
 }));
 
 export const emailVerification = pgTable("email_verification", {

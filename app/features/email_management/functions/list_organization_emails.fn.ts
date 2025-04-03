@@ -16,6 +16,7 @@ export const listOrganizationEmailsFn = createServerFn({ method: "GET" })
     const orgEmails = await db.query.email.findMany({
       columns: { id: true, email: true, emailVerified: true },
       with: {
+        forms: { columns: { id: true } },
         emailVerifications: {
           columns: { expiresAt: true },
           where: (verification, { lt }) =>

@@ -8,7 +8,7 @@ export function useDeleteEmail() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (emailId: string) => {
-      await deleteEmail({ data: { id: emailId } });
+      await deleteEmail({ data: { emailId: emailId } });
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["emails"] });

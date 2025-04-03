@@ -6,16 +6,34 @@ import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 
 const request = z.object({
-  id: z.string().uuid(),
+  emailId: z.string().uuid(),
 });
 
 export type DeleteEmailRequest = z.infer<typeof request>;
 
 export const deleteEmailFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .validator((data: { id: string }) => request.parse(data))
+  .validator((data: DeleteEmailRequest) => request.parse(data))
   .handler(async ({ context, data }) => {
+    const formIdUsingEmail = await db.query.form.findFirst({
+      columns: { id: true },
+      where: (form, { and, eq }) =>
+        and(
+          eq(form.emailId, data.emailId),
+          eq(form.organizationId, context.activeOrgId),
+        ),
+    });
+
+    if (formIdUsingEmail?.id) {
+      throw new Error(
+        "Email is being used on a form. Make sure to remove the email from all forms before deleting.",
+      );
+    }
+
     await db.delete(email).where(
-      and(eq(email.id, data.id), eq(email.organizationId, context.activeOrgId)),
+      and(
+        eq(email.id, data.emailId),
+        eq(email.organizationId, context.activeOrgId),
+      ),
     );
   });
