@@ -7,6 +7,7 @@ import { SpinningPyramid } from "@/components/spinning_pyramid";
 import { CodeBlock } from "@/components/ui/code_block";
 import ExampleForm from "@/features/marketing_site/example_form.html?raw";
 import { LockClosedIcon, PaperAirplaneIcon } from "@heroicons/react/20/solid";
+import { Faq } from "@/features/marketing_site/faq";
 
 export const Route = createFileRoute("/_site/")({
   component: RouteComponent,
@@ -15,7 +16,7 @@ export const Route = createFileRoute("/_site/")({
 function RouteComponent() {
   return (
     <Container>
-      <div className="space-y-32">
+      <div className="space-y-32 md:space-y-52">
         <section className="flex flex-col lg:grid grid-cols-2 items-center justify-between min-h-[456px] gap-8">
           <div className="flex items-center justify-center w-full overflow-clip">
             <SpinningPyramid />
@@ -40,7 +41,7 @@ function RouteComponent() {
           </div>
         </section>
 
-        <section className="">
+        <section id="features">
           <div className="flex flex-col lg:flex-row justify-between gap-16">
             <div className="space-y-4">
               <div>
@@ -84,6 +85,15 @@ function RouteComponent() {
               />
             </div>
           </div>
+        </section>
+
+        <section className="" id="faq">
+          <div className="rounded-lg px-3 py-1 text-sm text-center">FAQ</div>
+          <Heading className="sm:text-3xl pb-3 text-center" level={2}>
+            Frequently Asked Questions
+          </Heading>
+
+          <Faq />
         </section>
       </div>
     </Container>

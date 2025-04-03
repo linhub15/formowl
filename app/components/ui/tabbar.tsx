@@ -10,7 +10,7 @@ export function Tabbar(
   return (
     <nav
       {...props}
-      className={cn(className, "flex flex-1 items-center gap-4 -ml-2")}
+      className={cn(className, "flex flex-1 items-center gap-4")}
     />
   );
 }
