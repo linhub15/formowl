@@ -33,7 +33,7 @@ export async function submitForm(args: Request): Promise<Response> {
       slug: true,
     },
     where: (form, { eq }) => eq(form.slug, args.formSlug),
-    with: { cloudflareTurnstile: true },
+    with: { cloudflareTurnstile: true, email: { columns: { email: true } } },
   });
 
   if (!form || form.isSubmissionsPaused) {
@@ -99,11 +99,14 @@ export async function submitForm(args: Request): Promise<Response> {
       .where(eq(formSchema.id, form.id))
       .limit(1);
 
+    // assuming only one user in each org
     const firstUser = selected.at(0);
 
     if (firstUser) {
+      const to = form.email?.email ?? firstUser.email;
+
       await mailer.submissionNotification({
-        to: firstUser.email, // todo: get the email from the form
+        to: to,
         formSubmissionUrl: new URL(
           `/dashboard/forms/${form.slug}`,
           process.env.VITE_APP_URL,
