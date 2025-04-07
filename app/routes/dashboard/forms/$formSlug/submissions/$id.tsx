@@ -1,5 +1,6 @@
 import { Card, CardBody, CardHeader } from "@/components/layout/card";
 import { Badge } from "@/components/ui/badge";
+import { FormSubmissionActionDropdown } from "@/features/form_management/form_submission_action_dropdown";
 import { useGetSubmission } from "@/features/form_management/hooks/use_get_submission";
 import { maskLocalDate } from "@/lib/masks/mask_local_date";
 import { CheckIcon } from "@heroicons/react/20/solid";
@@ -32,11 +33,17 @@ function RouteComponent() {
               {maskLocalDate(submission.createdAt)}
             </span>
           </div>
-          {submission.emailedTo && (
-            <Badge title={submission.emailedTo}>
-              <CheckIcon className="text-green-500 size-4" />Emailed
-            </Badge>
-          )}
+          <div className="space-x-3">
+            {submission.emailedTo && (
+              <Badge title={submission.emailedTo}>
+                <CheckIcon className="text-green-500 size-4" />Emailed
+              </Badge>
+            )}
+            <FormSubmissionActionDropdown
+              formSlug={params.formSlug}
+              submissionId={submission.id}
+            />
+          </div>
         </div>
       </CardHeader>
       <CardBody>
