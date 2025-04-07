@@ -9,7 +9,7 @@ const nodeMailer = new NodeMailer();
 export const mailer = {
   // todo: write a test case to check email links are correct
   welcome: async (args: { to: string; dashboardUrl: URL }) => {
-    await nodeMailer.send({
+    return await nodeMailer.send({
       to: args.to,
       subject: "Welcome to Form Owl!",
       html: await render(
@@ -25,7 +25,7 @@ export const mailer = {
       formData: Record<string, any>;
     },
   ) => {
-    await nodeMailer.send({
+    return await nodeMailer.send({
       to: args.to,
       subject: "New form submitted",
       html: await render(
@@ -40,7 +40,7 @@ export const mailer = {
     to: string;
     verifyUrl: URL;
   }) => {
-    await nodeMailer.send({
+    return await nodeMailer.send({
       to: args.to,
       subject: "Verify your email address",
       html: await render(

@@ -2,7 +2,7 @@ import { member, user } from "@/db/auth_schema";
 import { db } from "@/db/database";
 import { form as formSchema, formSubmission } from "@/db/schema";
 import { mailer } from "@/lib/email/mailer";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 import { siteVerify } from "../../cloudflare_turnstile/site_verify";
 import { featureFlags } from "@/lib/feature_flags/is_feature_enabled.server";
@@ -105,7 +105,7 @@ export async function submitForm(args: Request): Promise<Response> {
     if (firstUser) {
       const to = form.email?.email ?? firstUser.email;
 
-      await mailer.submissionNotification({
+      const result = await mailer.submissionNotification({
         to: to,
         formSubmissionUrl: new URL(
           `/dashboard/forms/${form.slug}`,
@@ -113,6 +113,17 @@ export async function submitForm(args: Request): Promise<Response> {
         ),
         formData: firstFormSubmission.data,
       });
+
+      if (result.isOk()) {
+        await db.update(formSubmission)
+          .set({ emailedTo: to })
+          .where(
+            and(
+              eq(formSubmission.id, firstFormSubmission.id),
+              eq(formSubmission.organizationId, form.organizationId),
+            ),
+          );
+      }
     }
   }
 
