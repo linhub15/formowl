@@ -3,7 +3,9 @@
  * Tanstack Start uses `app.config.ts` so storybook and other tools cannot get the vite config.
  */
 
+import { sitemap } from "./app/lib/utils/sitemap";
 import tailwindcss from "@tailwindcss/vite";
+import { generateSitemap } from "tanstack-router-sitemap";
 import type { UserConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 
@@ -13,5 +15,6 @@ export default {
       projects: ["./tsconfig.json"],
     }),
     tailwindcss(),
+    generateSitemap(sitemap),
   ],
 } satisfies UserConfig;

@@ -68,8 +68,9 @@ export const formSubmission = pgTable("form_submission", {
   formId: uuid("form_id").notNull().references(() => form.id, {
     onDelete: "cascade",
   }),
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: JSONB is any type
   data: jsonb("data").$type<Record<string, any>>().notNull(),
+  emailedTo: text("emailed_to"),
   ...defaultColumns,
   ...organizationColumns,
 });
