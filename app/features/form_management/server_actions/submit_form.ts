@@ -91,7 +91,7 @@ export async function submitForm(args: Request): Promise<Response> {
 
   if (await featureFlags.submissionNotificationEmail()) {
     const selected = await db.select(
-      { email: user.email },
+      { email: user.email, formName: formSchema.name },
     )
       .from(formSchema)
       .innerJoin(member, eq(member.organizationId, formSchema.organizationId))
@@ -112,6 +112,7 @@ export async function submitForm(args: Request): Promise<Response> {
           process.env.VITE_APP_URL,
         ),
         formData: firstFormSubmission.data,
+        formName: firstUser.formName,
       });
 
       if (result.isOk()) {
