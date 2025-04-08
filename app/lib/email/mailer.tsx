@@ -23,15 +23,17 @@ export const mailer = {
       formSubmissionUrl: URL;
       // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       formData: Record<string, any>;
+      formName: string;
     },
   ) => {
     return await nodeMailer.send({
       to: args.to,
-      subject: "New form submitted",
+      subject: `New ${args.formName} form submission`,
       html: await render(
         <FormSubmissionNotificationEmail
           formData={args.formData}
           formSubmissionUrl={args.formSubmissionUrl.href}
+          formName={args.formName}
         />,
       ),
     });

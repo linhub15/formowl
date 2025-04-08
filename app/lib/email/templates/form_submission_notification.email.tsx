@@ -11,12 +11,13 @@ type Props = {
   formSubmissionUrl: string;
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   formData: Record<string, any>;
+  formName: string;
 };
 function FormSubmissionNotificationEmail(
-  { formSubmissionUrl = "#", formData = {} }: Props,
+  { formSubmissionUrl = "#", formData = {}, formName = "" }: Props,
 ) {
   return (
-    <EmailLayout heading="You've got a new form submission">
+    <EmailLayout heading={`You've got a new ${formName} form submission`}>
       <Section className="py-6">
         <Row>
           <CodeBlock
@@ -32,7 +33,7 @@ function FormSubmissionNotificationEmail(
           className="bg-brand text-white rounded-lg py-3 px-[18px]"
           href={formSubmissionUrl}
         >
-          View form submission
+          View {formName} form submission
         </Button>
       </Section>
     </EmailLayout>
