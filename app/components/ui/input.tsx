@@ -1,7 +1,6 @@
 /** https://catalyst.tailwindui.com/docs/input */
 import { cn } from "@/lib/utils/cn";
 import * as Headless from "@headlessui/react";
-import type React from "react";
 
 export function InputGroup(
   { children }: React.ComponentPropsWithoutRef<"span">,

@@ -1,22 +1,11 @@
 /** https://catalyst.tailwindui.com/docs/button */
 import * as Headless from "@headlessui/react";
-import { cn } from "@/lib/utils/cn";
 import type React from "react";
 import { Link, type LinkProps } from "./link";
+import { cva, type VariantProps } from "cva";
+import { LoadingSpinner } from "./loading_spinner";
 
 const styles = {
-  base: [
-    // Base
-    "relative isolate inline-flex items-baseline justify-center gap-x-2 rounded-lg border text-base/6 font-semibold",
-    // Sizing
-    "px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)] sm:text-sm/6",
-    // Focus
-    "focus:outline-hidden data-focus:outline data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500",
-    // Disabled
-    "data-disabled:opacity-50",
-    // Icon
-    "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-0.5 *:data-[slot=icon]:size-5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) sm:*:data-[slot=icon]:my-1 sm:*:data-[slot=icon]:size-4 forced-colors:[--btn-icon:ButtonText] forced-colors:data-hover:[--btn-icon:ButtonText]",
-  ],
   solid: [
     // Optical border, implemented as the button background to avoid corner artifacts
     "border-transparent bg-(--btn-border)",
@@ -39,7 +28,7 @@ const styles = {
     // Dark mode: `after` layer expands to cover entire button
     "dark:after:-inset-px dark:after:rounded-lg",
     // Disabled
-    "data-disabled:before:shadow-none data-disabled:after:shadow-none",
+    "disabled:before:shadow-none disabled:after:shadow-none",
   ],
   outline: [
     // Base
@@ -159,15 +148,47 @@ const styles = {
   },
 };
 
+const buttonCva = cva({
+  base: [
+    "relative isolate inline-flex items-baseline justify-center gap-x-2 rounded-lg border text-base/6 font-semibold",
+    // Sizing
+    "px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)] sm:text-sm/6",
+    // Focus
+    "focus:outline-hidden data-focus:outline data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500",
+    // Disabled
+    "disabled:opacity-50 disabled:cursor-default",
+    // Icon
+    "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-0.5 *:data-[slot=icon]:size-5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) sm:*:data-[slot=icon]:my-1 sm:*:data-[slot=icon]:size-4 forced-colors:[--btn-icon:ButtonText] forced-colors:data-hover:[--btn-icon:ButtonText]",
+  ],
+  variants: {
+    variant: {
+      solid: styles.solid,
+      outline: styles.outline,
+      plain: styles.plain,
+    },
+    color: {
+      unset: null,
+      red: styles.colors.red,
+      white: styles.colors.white,
+      "dark/zinc": styles.colors["dark/zinc"],
+      light: styles.colors.light,
+    },
+  },
+  defaultVariants: {
+    variant: "solid",
+    color: "unset",
+  },
+  compoundVariants: [
+    { variant: "solid", color: "unset", className: styles.colors["dark/zinc"] },
+  ],
+});
+
 type ButtonProps =
-  & (
-    | { color?: keyof typeof styles.colors; outline?: never; plain?: never }
-    | { color?: never; outline: true; plain?: never }
-    | { color?: never; outline?: never; plain: true }
-  )
+  & VariantProps<typeof buttonCva>
   & {
     className?: string;
     children: React.ReactNode;
+    pending?: boolean;
     ref?: React.Ref<HTMLElement>;
   }
   & (
@@ -176,35 +197,31 @@ type ButtonProps =
   );
 
 export function Button(
-  { color, outline, plain, className, children, ref, ...props }: ButtonProps,
+  { variant, color, className, children, pending, ref, ...props }: ButtonProps,
 ) {
-  const classes = cn(
-    styles.base,
-    outline
-      ? styles.outline
-      : plain
-      ? styles.plain
-      : cn(styles.solid, styles.colors[color ?? "dark/zinc"]),
-    className,
-  );
-
   return "to" in props || "href" in props
     ? (
       <Link
         {...props}
-        className={classes}
+        className={buttonCva({ variant, color, className })}
+        disabled={pending || props.disabled}
         ref={ref as React.Ref<HTMLAnchorElement>}
       >
-        <TouchTarget>{children}</TouchTarget>
+        <TouchTarget>{pending ? <LoadingSpinner /> : children}</TouchTarget>
       </Link>
     )
     : (
       <Headless.Button
         {...props}
-        className={cn(classes, "cursor-pointer")}
+        className={buttonCva({
+          variant,
+          color,
+          className: [className, "cursor-pointer"],
+        })}
+        disabled={pending || props.disabled}
         ref={ref}
       >
-        <TouchTarget>{children}</TouchTarget>
+        <TouchTarget>{pending ? <LoadingSpinner /> : children}</TouchTarget>
       </Headless.Button>
     );
 }

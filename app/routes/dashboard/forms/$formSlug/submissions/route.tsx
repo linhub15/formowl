@@ -24,7 +24,7 @@ function RouteComponent() {
             <Button
               className="font-normal"
               key={s.id}
-              outline
+              variant="outline"
               to="/dashboard/forms/$formSlug/submissions/$id"
               params={{ formSlug: params.formSlug, id: s.id }}
               activeProps={{ "data-active": true }}

@@ -51,11 +51,15 @@ export function MarketingNav(props: Props) {
                   {(match) => (
                     match
                       ? (
-                        <Button outline>
+                        <Button variant="outline">
                           <LoadingSpinner className="text-white" />
                         </Button>
                       )
-                      : <Button to="/dashboard" outline>Dashboard</Button>
+                      : (
+                        <Button to="/dashboard" variant="outline">
+                          Dashboard
+                        </Button>
+                      )
                   )}
                 </MatchRoute>
               )
@@ -64,7 +68,7 @@ export function MarketingNav(props: Props) {
                   {(match) => (
                     match
                       ? (
-                        <Button outline>
+                        <Button variant="outline">
                           <LoadingSpinner />
                         </Button>
                       )
@@ -72,7 +76,7 @@ export function MarketingNav(props: Props) {
                         <Button
                           className="data-[current=true]:invisible"
                           to="/login"
-                          outline
+                          variant="outline"
                           data-current={pathname === "/login"}
                         >
                           Try the Alpha

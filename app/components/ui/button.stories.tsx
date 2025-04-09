@@ -17,9 +17,9 @@ export default meta;
 export const Default: Story = {};
 
 export const Outline: Story = {
-  args: { outline: true },
+  args: { variant: "outline" },
 };
 
 export const Plain: Story = {
-  args: { plain: true },
+  args: { variant: "plain" },
 };

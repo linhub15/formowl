@@ -30,6 +30,9 @@ export const auth = betterAuth({
   plugins: [organization({
     organizationLimit: 1,
   })],
+  emailAndPassword: {
+    enabled: true,
+  },
   socialProviders: {
     google: {
       enabled: true,

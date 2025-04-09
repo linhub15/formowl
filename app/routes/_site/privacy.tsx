@@ -42,8 +42,8 @@ function RouteComponent() {
           </li>
 
           <li>
-            Your Choices: Users can review and request their data be deleted
-            through email.
+            Your Choices: Users can review and request their data be deleted by
+            emailing hubert@birdy.dev
           </li>
         </ol>
       </div>

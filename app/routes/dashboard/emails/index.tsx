@@ -54,7 +54,7 @@ function RouteComponent() {
                   <div className="flex gap-2">
                     {!email.emailVerified && (
                       <Button
-                        outline
+                        variant="outline"
                         onClick={() =>
                           resend.mutateAsync({
                             emailId: email.id,
@@ -65,7 +65,7 @@ function RouteComponent() {
                     )}
 
                     <Dropdown>
-                      <DropdownButton outline>
+                      <DropdownButton variant="outline">
                         <EllipsisVerticalIcon className="size-4" />
                       </DropdownButton>
                       <DropdownMenu>

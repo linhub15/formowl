@@ -15,11 +15,26 @@ const tiers: PricingCardProps[] = [
   {
     id: "tier-hobby",
     name: "Freelancer",
-    to: new URL("/waitlist", import.meta.env.VITE_APP_URL),
-    price: "$10",
+    to: "/waitlist",
+    price: "$1",
     features: [
       "Unlimited forms",
       "Unlimited submissions",
+      "50 email notifications",
+      "Bring your own SMTP (coming soon)",
+      "Anti-spam honeypot (coming soon)",
+      "Cloudflare turnstile",
+    ],
+  },
+  {
+    id: "tier-hobby",
+    name: "Freelancer",
+    to: "/waitlist",
+    price: "$1",
+    features: [
+      "Unlimited forms",
+      "Unlimited submissions",
+      "1000 email notifications",
       "Bring your own SMTP (coming soon)",
       "Anti-spam honeypot (coming soon)",
       "Cloudflare turnstile",
@@ -28,7 +43,7 @@ const tiers: PricingCardProps[] = [
   {
     name: "Team",
     id: "tier-business",
-    to: new URL("/waitlist", import.meta.env.VITE_APP_URL),
+    to: "/waitlist",
     price: "$100",
     features: [
       "Unlimited forms",

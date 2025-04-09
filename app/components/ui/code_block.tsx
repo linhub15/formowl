@@ -83,7 +83,7 @@ function CopyButton(props: { copyText: string | string[] }) {
   return (
     <Button
       className="bg-white/90 dark:bg-[#1e1e1e]/70 [--spacing:4px] [--text-size: 14px]"
-      outline
+      variant="outline"
       onClick={onClick}
     >
       {done

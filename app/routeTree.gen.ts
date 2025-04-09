@@ -25,12 +25,15 @@ import { Route as SiteWaitlistImport } from './routes/_site/waitlist'
 import { Route as SiteTermsImport } from './routes/_site/terms'
 import { Route as SitePrivacyImport } from './routes/_site/privacy'
 import { Route as SitePricingImport } from './routes/_site/pricing'
-import { Route as SiteLoginImport } from './routes/_site/login'
+import { Route as SiteLogoutImport } from './routes/_site/logout'
 import { Route as onboardingOnboardImport } from './routes/(onboarding)/onboard'
+import { Route as SiteLoginRouteImport } from './routes/_site/login/route'
 import { Route as DashboardFormsIndexImport } from './routes/dashboard/forms/index'
 import { Route as DashboardEmailsIndexImport } from './routes/dashboard/emails/index'
+import { Route as SiteLoginIndexImport } from './routes/_site/login/index'
 import { Route as DashboardFormsCreateImport } from './routes/dashboard/forms/create'
 import { Route as DashboardEmailsCreateImport } from './routes/dashboard/emails/create'
+import { Route as SiteLoginEmailImport } from './routes/_site/login/$email'
 import { Route as DashboardFormsFormSlugRouteImport } from './routes/dashboard/forms/$formSlug/route'
 import { Route as DashboardFormsFormSlugIndexImport } from './routes/dashboard/forms/$formSlug/index'
 import { Route as DashboardFormsFormSlugSettingsImport } from './routes/dashboard/forms/$formSlug/settings'
@@ -101,9 +104,9 @@ const SitePricingRoute = SitePricingImport.update({
   getParentRoute: () => SiteRoute,
 } as any)
 
-const SiteLoginRoute = SiteLoginImport.update({
-  id: '/login',
-  path: '/login',
+const SiteLogoutRoute = SiteLogoutImport.update({
+  id: '/logout',
+  path: '/logout',
   getParentRoute: () => SiteRoute,
 } as any)
 
@@ -111,6 +114,12 @@ const onboardingOnboardRoute = onboardingOnboardImport.update({
   id: '/(onboarding)/onboard',
   path: '/onboard',
   getParentRoute: () => rootRoute,
+} as any)
+
+const SiteLoginRouteRoute = SiteLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => SiteRoute,
 } as any)
 
 const DashboardFormsIndexRoute = DashboardFormsIndexImport.update({
@@ -125,6 +134,12 @@ const DashboardEmailsIndexRoute = DashboardEmailsIndexImport.update({
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
+const SiteLoginIndexRoute = SiteLoginIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SiteLoginRouteRoute,
+} as any)
+
 const DashboardFormsCreateRoute = DashboardFormsCreateImport.update({
   id: '/forms/create',
   path: '/forms/create',
@@ -135,6 +150,12 @@ const DashboardEmailsCreateRoute = DashboardEmailsCreateImport.update({
   id: '/emails/create',
   path: '/emails/create',
   getParentRoute: () => DashboardRouteRoute,
+} as any)
+
+const SiteLoginEmailRoute = SiteLoginEmailImport.update({
+  id: '/$email',
+  path: '/$email',
+  getParentRoute: () => SiteLoginRouteRoute,
 } as any)
 
 const DashboardFormsFormSlugRouteRoute =
@@ -211,6 +232,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteImport
       parentRoute: typeof rootRoute
     }
+    '/_site/login': {
+      id: '/_site/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof SiteLoginRouteImport
+      parentRoute: typeof SiteImport
+    }
     '/(onboarding)/onboard': {
       id: '/(onboarding)/onboard'
       path: '/onboard'
@@ -218,11 +246,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof onboardingOnboardImport
       parentRoute: typeof rootRoute
     }
-    '/_site/login': {
-      id: '/_site/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof SiteLoginImport
+    '/_site/logout': {
+      id: '/_site/logout'
+      path: '/logout'
+      fullPath: '/logout'
+      preLoaderRoute: typeof SiteLogoutImport
       parentRoute: typeof SiteImport
     }
     '/_site/pricing': {
@@ -288,6 +316,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardFormsFormSlugRouteImport
       parentRoute: typeof DashboardRouteImport
     }
+    '/_site/login/$email': {
+      id: '/_site/login/$email'
+      path: '/$email'
+      fullPath: '/login/$email'
+      preLoaderRoute: typeof SiteLoginEmailImport
+      parentRoute: typeof SiteLoginRouteImport
+    }
     '/dashboard/emails/create': {
       id: '/dashboard/emails/create'
       path: '/emails/create'
@@ -301,6 +336,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/forms/create'
       preLoaderRoute: typeof DashboardFormsCreateImport
       parentRoute: typeof DashboardRouteImport
+    }
+    '/_site/login/': {
+      id: '/_site/login/'
+      path: '/'
+      fullPath: '/login/'
+      preLoaderRoute: typeof SiteLoginIndexImport
+      parentRoute: typeof SiteLoginRouteImport
     }
     '/dashboard/emails/': {
       id: '/dashboard/emails/'
@@ -439,8 +481,23 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
   DashboardRouteRouteChildren,
 )
 
+interface SiteLoginRouteRouteChildren {
+  SiteLoginEmailRoute: typeof SiteLoginEmailRoute
+  SiteLoginIndexRoute: typeof SiteLoginIndexRoute
+}
+
+const SiteLoginRouteRouteChildren: SiteLoginRouteRouteChildren = {
+  SiteLoginEmailRoute: SiteLoginEmailRoute,
+  SiteLoginIndexRoute: SiteLoginIndexRoute,
+}
+
+const SiteLoginRouteRouteWithChildren = SiteLoginRouteRoute._addFileChildren(
+  SiteLoginRouteRouteChildren,
+)
+
 interface SiteRouteChildren {
-  SiteLoginRoute: typeof SiteLoginRoute
+  SiteLoginRouteRoute: typeof SiteLoginRouteRouteWithChildren
+  SiteLogoutRoute: typeof SiteLogoutRoute
   SitePricingRoute: typeof SitePricingRoute
   SitePrivacyRoute: typeof SitePrivacyRoute
   SiteTermsRoute: typeof SiteTermsRoute
@@ -449,7 +506,8 @@ interface SiteRouteChildren {
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
-  SiteLoginRoute: SiteLoginRoute,
+  SiteLoginRouteRoute: SiteLoginRouteRouteWithChildren,
+  SiteLogoutRoute: SiteLogoutRoute,
   SitePricingRoute: SitePricingRoute,
   SitePrivacyRoute: SitePrivacyRoute,
   SiteTermsRoute: SiteTermsRoute,
@@ -462,8 +520,9 @@ const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '': typeof SiteRouteWithChildren
+  '/login': typeof SiteLoginRouteRouteWithChildren
   '/onboard': typeof onboardingOnboardRoute
-  '/login': typeof SiteLoginRoute
+  '/logout': typeof SiteLogoutRoute
   '/pricing': typeof SitePricingRoute
   '/privacy': typeof SitePrivacyRoute
   '/terms': typeof SiteTermsRoute
@@ -473,8 +532,10 @@ export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
+  '/login/$email': typeof SiteLoginEmailRoute
   '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
+  '/login/': typeof SiteLoginIndexRoute
   '/dashboard/emails': typeof DashboardEmailsIndexRoute
   '/dashboard/forms': typeof DashboardFormsIndexRoute
   '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsRouteRouteWithChildren
@@ -488,7 +549,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/onboard': typeof onboardingOnboardRoute
-  '/login': typeof SiteLoginRoute
+  '/logout': typeof SiteLogoutRoute
   '/pricing': typeof SitePricingRoute
   '/privacy': typeof SitePrivacyRoute
   '/terms': typeof SiteTermsRoute
@@ -497,8 +558,10 @@ export interface FileRoutesByTo {
   '/dashboard/profile': typeof DashboardProfileRoute
   '/': typeof SiteIndexRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/login/$email': typeof SiteLoginEmailRoute
   '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
+  '/login': typeof SiteLoginIndexRoute
   '/dashboard/emails': typeof DashboardEmailsIndexRoute
   '/dashboard/forms': typeof DashboardFormsIndexRoute
   '/dashboard/emails/verification-success/$email': typeof DashboardEmailsVerificationSuccessEmailRoute
@@ -513,8 +576,9 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/_site': typeof SiteRouteWithChildren
+  '/_site/login': typeof SiteLoginRouteRouteWithChildren
   '/(onboarding)/onboard': typeof onboardingOnboardRoute
-  '/_site/login': typeof SiteLoginRoute
+  '/_site/logout': typeof SiteLogoutRoute
   '/_site/pricing': typeof SitePricingRoute
   '/_site/privacy': typeof SitePrivacyRoute
   '/_site/terms': typeof SiteTermsRoute
@@ -524,8 +588,10 @@ export interface FileRoutesById {
   '/_site/': typeof SiteIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
+  '/_site/login/$email': typeof SiteLoginEmailRoute
   '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
+  '/_site/login/': typeof SiteLoginIndexRoute
   '/dashboard/emails/': typeof DashboardEmailsIndexRoute
   '/dashboard/forms/': typeof DashboardFormsIndexRoute
   '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsRouteRouteWithChildren
@@ -542,8 +608,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/dashboard'
     | ''
-    | '/onboard'
     | '/login'
+    | '/onboard'
+    | '/logout'
     | '/pricing'
     | '/privacy'
     | '/terms'
@@ -553,8 +620,10 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard/'
     | '/dashboard/forms/$formSlug'
+    | '/login/$email'
     | '/dashboard/emails/create'
     | '/dashboard/forms/create'
+    | '/login/'
     | '/dashboard/emails'
     | '/dashboard/forms'
     | '/dashboard/forms/$formSlug/submissions'
@@ -567,7 +636,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/onboard'
-    | '/login'
+    | '/logout'
     | '/pricing'
     | '/privacy'
     | '/terms'
@@ -576,8 +645,10 @@ export interface FileRouteTypes {
     | '/dashboard/profile'
     | '/'
     | '/dashboard'
+    | '/login/$email'
     | '/dashboard/emails/create'
     | '/dashboard/forms/create'
+    | '/login'
     | '/dashboard/emails'
     | '/dashboard/forms'
     | '/dashboard/emails/verification-success/$email'
@@ -590,8 +661,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/dashboard'
     | '/_site'
-    | '/(onboarding)/onboard'
     | '/_site/login'
+    | '/(onboarding)/onboard'
+    | '/_site/logout'
     | '/_site/pricing'
     | '/_site/privacy'
     | '/_site/terms'
@@ -601,8 +673,10 @@ export interface FileRouteTypes {
     | '/_site/'
     | '/dashboard/'
     | '/dashboard/forms/$formSlug'
+    | '/_site/login/$email'
     | '/dashboard/emails/create'
     | '/dashboard/forms/create'
+    | '/_site/login/'
     | '/dashboard/emails/'
     | '/dashboard/forms/'
     | '/dashboard/forms/$formSlug/submissions'
@@ -660,6 +734,7 @@ export const routeTree = rootRoute
       "filePath": "_site.tsx",
       "children": [
         "/_site/login",
+        "/_site/logout",
         "/_site/pricing",
         "/_site/privacy",
         "/_site/terms",
@@ -667,11 +742,19 @@ export const routeTree = rootRoute
         "/_site/"
       ]
     },
+    "/_site/login": {
+      "filePath": "_site/login/route.tsx",
+      "parent": "/_site",
+      "children": [
+        "/_site/login/$email",
+        "/_site/login/"
+      ]
+    },
     "/(onboarding)/onboard": {
       "filePath": "(onboarding)/onboard.tsx"
     },
-    "/_site/login": {
-      "filePath": "_site/login.tsx",
+    "/_site/logout": {
+      "filePath": "_site/logout.tsx",
       "parent": "/_site"
     },
     "/_site/pricing": {
@@ -716,6 +799,10 @@ export const routeTree = rootRoute
         "/dashboard/forms/$formSlug/"
       ]
     },
+    "/_site/login/$email": {
+      "filePath": "_site/login/$email.tsx",
+      "parent": "/_site/login"
+    },
     "/dashboard/emails/create": {
       "filePath": "dashboard/emails/create.tsx",
       "parent": "/dashboard"
@@ -723,6 +810,10 @@ export const routeTree = rootRoute
     "/dashboard/forms/create": {
       "filePath": "dashboard/forms/create.tsx",
       "parent": "/dashboard"
+    },
+    "/_site/login/": {
+      "filePath": "_site/login/index.tsx",
+      "parent": "/_site/login"
     },
     "/dashboard/emails/": {
       "filePath": "dashboard/emails/index.tsx",

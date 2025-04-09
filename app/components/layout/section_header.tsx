@@ -54,7 +54,7 @@ export function SectionHeader(
             <div className="grid grid-cols-1 sm:hidden">
               {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
               <Dropdown>
-                <DropdownButton outline>
+                <DropdownButton variant="outline">
                   {tabs.find((tab) => tab.current)?.name}
                   <ChevronDownIcon />
                 </DropdownButton>

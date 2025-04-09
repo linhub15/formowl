@@ -9,6 +9,11 @@ export const Route = createFileRoute("/dashboard")({
     await authGuard({ location });
   },
   component: RouteComponent,
+  pendingComponent: () => (
+    <AppNavigation email="...">
+      Loading...
+    </AppNavigation>
+  ),
 });
 
 function RouteComponent() {

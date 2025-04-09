@@ -41,7 +41,7 @@ export function TurnstileFormDialog() {
   return (
     <>
       {/* Trigger */}
-      <Button type="button" onClick={() => setIsOpen(true)} outline>
+      <Button type="button" onClick={() => setIsOpen(true)} variant="outline">
         <PencilSquareIcon />
       </Button>
 
@@ -100,8 +100,8 @@ export function TurnstileFormDialog() {
           </DialogBody>
 
           <DialogActions>
-            <Button onClick={close} plain>Cancel</Button>
-            <Button type="submit" outline>Save</Button>
+            <Button onClick={close} variant="plain">Cancel</Button>
+            <Button type="submit" variant="outline">Save</Button>
           </DialogActions>
         </form>
       </Dialog>

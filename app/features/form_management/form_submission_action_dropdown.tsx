@@ -38,7 +38,7 @@ export function FormSubmissionActionDropdown(props: Props) {
 
   return (
     <Dropdown>
-      <DropdownButton outline>
+      <DropdownButton variant="outline">
         <EllipsisVerticalIcon />
       </DropdownButton>
       <DropdownMenu anchor="bottom end">
