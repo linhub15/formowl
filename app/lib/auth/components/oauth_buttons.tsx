@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils/cn";
 import { useMutation } from "@tanstack/react-query";
 import type { LinkProps } from "@tanstack/react-router";
 import { useState } from "react";
+import { BETTERAUTH } from "../better_auth_providers.const";
 
 type OAuthButtonProps = {
   redirect?: string;
@@ -26,7 +27,7 @@ export function GoogleOAuthButton(
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async () => {
       await authClient.signIn.social({
-        provider: "google",
+        provider: BETTERAUTH.oauth.google,
         callbackURL: redirect ?? "/dashboard" satisfies LinkProps["to"],
         newUserCallbackURL: "/onboard" satisfies LinkProps["to"],
         scopes: [],
@@ -71,7 +72,7 @@ export function GithubOAuthButton(
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async () => {
       await authClient.signIn.social({
-        provider: "github",
+        provider: BETTERAUTH.oauth.github,
         callbackURL: redirect ?? "/dashboard" satisfies LinkProps["to"],
         newUserCallbackURL: "/onboard" satisfies LinkProps["to"],
         scopes: [],

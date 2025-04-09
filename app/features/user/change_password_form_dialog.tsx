@@ -7,43 +7,48 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Field, FieldGroup, Label } from "@/components/ui/fieldset";
-import { Input } from "@/components/ui/input";
 import { InputPassword } from "@/components/ui/input_password";
-import { useGetTurnstile } from "@/features/cloudflare_turnstile/hooks/use_get_turnstile";
-import { useUpsertTurnstile } from "@/features/cloudflare_turnstile/hooks/use_upsert_turnstile";
-import { PencilSquareIcon } from "@heroicons/react/20/solid";
+import { authClient } from "@/lib/auth/auth.client";
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
+import { toast } from "sonner";
+import { z } from "zod";
 
-export function TurnstileFormDialog() {
+const formSchema = z.object({
+  currentPassword: z.string()
+    .min(8, "Password must be at least 8 characters")
+    .max(32, "Password can't exceed 32 characters"),
+  newPassword: z.string()
+    .min(8, "Password must be at least 8 characters")
+    .max(32, "Password can't exceed 32 characters"),
+});
+
+export function ChangePasswordFormDialog() {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: turnstile } = useGetTurnstile();
-  const upsert = useUpsertTurnstile();
-
   const form = useForm({
     defaultValues: {
-      siteKey: turnstile?.siteKey,
-      secretKey: turnstile?.secretKey,
+      currentPassword: "",
+      newPassword: "",
+    },
+    validators: {
+      onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      await upsert.mutateAsync({
-        turnstileId: turnstile?.id,
-        siteKey: value.siteKey,
-        secretKey: value.secretKey,
-      }, { onSuccess: close });
+      await authClient.changePassword({
+        currentPassword: value.currentPassword,
+        newPassword: value.newPassword,
+        revokeOtherSessions: true,
+      });
+      setIsOpen(false);
+      toast.success("Password changed");
     },
   });
-
-  const close = () => {
-    setIsOpen(false);
-    form.reset();
-  };
 
   return (
     <>
       {/* Trigger */}
-      <Button type="button" onClick={() => setIsOpen(true)} variant="outline">
-        <PencilSquareIcon />
+      <Button type="button" onClick={() => setIsOpen(true)} variant="plain">
+        Change password
       </Button>
 
       {/* Dialog */}
@@ -55,24 +60,21 @@ export function TurnstileFormDialog() {
             form.handleSubmit();
           }}
         >
-          <DialogTitle>Organization Cloudflare Turnstile Widget</DialogTitle>
+          <DialogTitle>Change your password</DialogTitle>
           <DialogDescription>
-            Cloudflare Turnstile keys are shared between all forms that have
-            turnstile enabled. Changing this will impact all the forms.
+            Use a password at least 8 characters with both letters and numbers.
           </DialogDescription>
 
           <DialogBody>
             <FieldGroup>
               <Field>
-                <form.Field name="siteKey">
+                <form.Field name="currentPassword">
                   {(field) => (
                     <>
-                      <Label htmlFor={field.name}>Turnstile Site Key</Label>
-                      <Input
+                      <Label htmlFor={field.name}>Current password</Label>
+                      <InputPassword
                         id={field.name}
                         name={field.name}
-                        type="text"
-                        placeholder="0x4AAAAAAA_example"
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                       />
@@ -82,10 +84,10 @@ export function TurnstileFormDialog() {
               </Field>
 
               <Field>
-                <form.Field name="secretKey">
+                <form.Field name="newPassword">
                   {(field) => (
                     <>
-                      <Label htmlFor={field.name}>Turnstile Secret Key</Label>
+                      <Label htmlFor={field.name}>New password</Label>
                       <InputPassword
                         id={field.name}
                         name={field.name}
@@ -101,7 +103,13 @@ export function TurnstileFormDialog() {
 
           <DialogActions>
             <Button onClick={close} variant="plain">Cancel</Button>
-            <Button type="submit" variant="outline">Save</Button>
+            <form.Subscribe selector={(state) => [state.isSubmitting]}>
+              {([isSubmitting]) => (
+                <Button type="submit" variant="outline" pending={isSubmitting}>
+                  Save
+                </Button>
+              )}
+            </form.Subscribe>
           </DialogActions>
         </form>
       </Dialog>
