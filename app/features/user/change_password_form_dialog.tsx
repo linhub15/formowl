@@ -102,7 +102,9 @@ export function ChangePasswordFormDialog() {
           </DialogBody>
 
           <DialogActions>
-            <Button onClick={close} variant="plain">Cancel</Button>
+            <Button onClick={() => setIsOpen(false)} variant="plain">
+              Cancel
+            </Button>
             <form.Subscribe selector={(state) => [state.isSubmitting]}>
               {([isSubmitting]) => (
                 <Button type="submit" variant="outline" pending={isSubmitting}>

@@ -33,6 +33,20 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  emailVerification: {
+    sendOnSignUp: true,
+    sendVerificationEmail: async ({ user, url }, _request) => {
+      console.info(`auth: Sending verification email to ${user.email}`);
+
+      const verifyUrl = new URL(url);
+      verifyUrl.searchParams.set("callbackURL", "/dashboard");
+
+      await mailer.verifyAccountEmail({
+        to: user.email,
+        verifyUrl: verifyUrl.href,
+      });
+    },
+  },
   socialProviders: {
     google: {
       enabled: true,
@@ -59,10 +73,12 @@ export const auth = betterAuth({
     user: {
       create: {
         after: async (user) => {
-          await mailer.welcome({
-            to: user.email,
-            dashboardUrl: new URL("/dashboard", process.env.VITE_APP_URL),
-          });
+          if (user.emailVerified) {
+            await mailer.welcome({
+              to: user.email,
+              dashboardUrl: new URL("/dashboard", process.env.VITE_APP_URL),
+            });
+          }
         },
       },
     },

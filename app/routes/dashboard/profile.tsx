@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/layout/card";
-import { Field, Fieldset, Label } from "@/components/ui/fieldset";
+import { Description, Field, Fieldset, Label } from "@/components/ui/fieldset";
 import { P } from "@/components/ui/text";
 import { Input } from "@/components/ui/input";
 import { useAccounts } from "@/lib/auth/hooks/use_accounts";
@@ -47,14 +47,18 @@ function RouteComponent() {
             <Field className="w-full">
               <Label className="space-x-2">
                 <span>Email address</span>
-                {user.emailVerified &&
-                  <Badge color="green">Verified</Badge>}
+                {user.emailVerified
+                  ? <Badge color="green">Verified</Badge>
+                  : <Badge>Requires verification</Badge>}
               </Label>
               <Input
                 type="text"
                 value={user.email}
                 disabled
               />
+              <Description>
+                Check your email for a verification link.
+              </Description>
             </Field>
 
             <Field className="w-full">

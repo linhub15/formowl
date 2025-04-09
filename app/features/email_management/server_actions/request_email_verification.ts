@@ -68,7 +68,7 @@ async function sendVerificationEmail(
     process.env.VITE_APP_URL,
   );
 
-  await mailer.verifyEmailAddress({
+  await mailer.verifyExternalEmail({
     to: email,
     verifyUrl: verifyUrl,
   });

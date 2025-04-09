@@ -6,14 +6,13 @@ type Props = {
   verifyUrl: string;
 };
 
-function VerifyEmailAddressEmail({ verifyUrl = "#" }: Props) {
+function VerifyAccountEmail({ verifyUrl = "#" }: Props) {
   return (
-    <EmailLayout heading="Verify your email address">
+    <EmailLayout heading="Welcome to Form Owl!">
       <Section className="py-6">
         <Row>
           <Text className="text-base text-center">
-            Your email has been requested to receive form submission
-            notifications. Click the button to verify this email address.
+            Please verify your email address.
           </Text>
         </Row>
       </Section>
@@ -25,11 +24,9 @@ function VerifyEmailAddressEmail({ verifyUrl = "#" }: Props) {
         >
           Verify email address
         </Button>
-
-        {/* todo: allow verification recipient to reject the verification */}
       </Section>
     </EmailLayout>
   );
 }
 
-export default VerifyEmailAddressEmail;
+export default VerifyAccountEmail;
