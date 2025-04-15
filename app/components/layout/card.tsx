@@ -36,9 +36,11 @@ export function CardBody({ children }: PropsWithChildren) {
   return <div className="px-4 py-5 sm:p-6 overflow-auto">{children}</div>;
 }
 
-export function CardFooter({ children }: PropsWithChildren) {
+export function CardFooter(
+  { className, children }: PropsWithChildren & Styleable,
+) {
   return (
-    <div className="px-4 py-4 sm:px-6">
+    <div className={cn("px-4 py-4 sm:px-6", className)}>
       {children}
     </div>
   );

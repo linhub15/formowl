@@ -2,6 +2,7 @@ import {
   submitForm,
   submitFormRequest,
 } from "@/features/form_management/server_actions/submit_form";
+import type { LinkProps } from "@tanstack/react-router";
 import { json } from "@tanstack/react-start";
 import { createAPIFileRoute } from "@tanstack/react-start/api";
 import { getRequestIP } from "@tanstack/react-start/server";
@@ -23,17 +24,29 @@ export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
     }
 
     if (
-      response === "turnstile_failed" || response === "turnstile_missing_token"
+      response === "turnstile_failed" ||
+      response === "turnstile_missing_token"
     ) {
       return json({ message: response }, { status: 401 });
     }
 
     if (response === "ok") {
-      // todo: show a link for the user to go back to
-      return new Response(
-        "🎉 Submission received! You can go back on your browser.",
-        { status: 200 },
+      const location = new URL(
+        "/form/submission-received" satisfies LinkProps["to"],
+        process.env.VITE_APP_URL,
       );
+      const referer = request.headers.get("referer");
+
+      if (referer) {
+        location.searchParams.set("referer", referer);
+      }
+
+      return new Response(null, {
+        status: 303,
+        headers: {
+          Location: location.toString(),
+        },
+      });
     }
 
     return json({ message: "not found" }, { status: 404 });

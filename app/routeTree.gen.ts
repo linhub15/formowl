@@ -19,6 +19,7 @@ import { Route as SiteImport } from './routes/_site'
 import { Route as DashboardRouteImport } from './routes/dashboard/route'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as SiteIndexImport } from './routes/_site/index'
+import { Route as FormSubmissionReceivedImport } from './routes/form/submission-received'
 import { Route as DashboardProfileImport } from './routes/dashboard/profile'
 import { Route as DashboardBillingImport } from './routes/dashboard/billing'
 import { Route as SiteWaitlistImport } from './routes/_site/waitlist'
@@ -66,6 +67,12 @@ const SiteIndexRoute = SiteIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => SiteRoute,
+} as any)
+
+const FormSubmissionReceivedRoute = FormSubmissionReceivedImport.update({
+  id: '/form/submission-received',
+  path: '/form/submission-received',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const DashboardProfileRoute = DashboardProfileImport.update({
@@ -294,6 +301,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/profile'
       preLoaderRoute: typeof DashboardProfileImport
       parentRoute: typeof DashboardRouteImport
+    }
+    '/form/submission-received': {
+      id: '/form/submission-received'
+      path: '/form/submission-received'
+      fullPath: '/form/submission-received'
+      preLoaderRoute: typeof FormSubmissionReceivedImport
+      parentRoute: typeof rootRoute
     }
     '/_site/': {
       id: '/_site/'
@@ -529,6 +543,7 @@ export interface FileRoutesByFullPath {
   '/waitlist': typeof SiteWaitlistRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/form/submission-received': typeof FormSubmissionReceivedRoute
   '/': typeof SiteIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
@@ -556,6 +571,7 @@ export interface FileRoutesByTo {
   '/waitlist': typeof SiteWaitlistRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/form/submission-received': typeof FormSubmissionReceivedRoute
   '/': typeof SiteIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/login/$email': typeof SiteLoginEmailRoute
@@ -585,6 +601,7 @@ export interface FileRoutesById {
   '/_site/waitlist': typeof SiteWaitlistRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/form/submission-received': typeof FormSubmissionReceivedRoute
   '/_site/': typeof SiteIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
@@ -617,6 +634,7 @@ export interface FileRouteTypes {
     | '/waitlist'
     | '/dashboard/billing'
     | '/dashboard/profile'
+    | '/form/submission-received'
     | '/'
     | '/dashboard/'
     | '/dashboard/forms/$formSlug'
@@ -643,6 +661,7 @@ export interface FileRouteTypes {
     | '/waitlist'
     | '/dashboard/billing'
     | '/dashboard/profile'
+    | '/form/submission-received'
     | '/'
     | '/dashboard'
     | '/login/$email'
@@ -670,6 +689,7 @@ export interface FileRouteTypes {
     | '/_site/waitlist'
     | '/dashboard/billing'
     | '/dashboard/profile'
+    | '/form/submission-received'
     | '/_site/'
     | '/dashboard/'
     | '/dashboard/forms/$formSlug'
@@ -693,12 +713,14 @@ export interface RootRouteChildren {
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   SiteRoute: typeof SiteRouteWithChildren
   onboardingOnboardRoute: typeof onboardingOnboardRoute
+  FormSubmissionReceivedRoute: typeof FormSubmissionReceivedRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   SiteRoute: SiteRouteWithChildren,
   onboardingOnboardRoute: onboardingOnboardRoute,
+  FormSubmissionReceivedRoute: FormSubmissionReceivedRoute,
 }
 
 export const routeTree = rootRoute
@@ -713,7 +735,8 @@ export const routeTree = rootRoute
       "children": [
         "/dashboard",
         "/_site",
-        "/(onboarding)/onboard"
+        "/(onboarding)/onboard",
+        "/form/submission-received"
       ]
     },
     "/dashboard": {
@@ -780,6 +803,9 @@ export const routeTree = rootRoute
     "/dashboard/profile": {
       "filePath": "dashboard/profile.tsx",
       "parent": "/dashboard"
+    },
+    "/form/submission-received": {
+      "filePath": "form/submission-received.tsx"
     },
     "/_site/": {
       "filePath": "_site/index.tsx",
