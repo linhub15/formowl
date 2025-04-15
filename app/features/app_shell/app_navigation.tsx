@@ -30,6 +30,7 @@ import { BRANDING } from "@/lib/constants";
 import { useListForms } from "../form_management/hooks/use_list_forms";
 import { FEATURE_FLAGS } from "@/lib/feature_flags/feature_flags";
 import { useFeatureFlagEnabled } from "@/lib/feature_flags/use_feature_flag_enabled";
+import { EmailQuotaProgress } from "../email_management/email_quota_usage";
 
 type Props = {
   email?: string;
@@ -120,11 +121,16 @@ export function AppNavigation(props: Props) {
 
             <SidebarSpacer />
 
-            <SidebarSection>
+            <SidebarSection className="space-y-4">
               <SidebarItem to="/">
                 <LinkIcon />
                 <SidebarLabel>Homepage</SidebarLabel>
               </SidebarItem>
+
+              <div className="rounded-lg bg-zinc-200 dark:bg-zinc-900 p-2 pb-3">
+                <EmailQuotaProgress />
+              </div>
+
               {
                 /* <SidebarItem to="/">
                 <LightBulbIcon />

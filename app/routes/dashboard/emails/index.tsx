@@ -1,4 +1,4 @@
-import { Card, CardBody } from "@/components/layout/card";
+import { Card, CardBody, CardHeader } from "@/components/layout/card";
 import { SectionHeader } from "@/components/layout/section_header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,8 @@ import {
   DropdownMenu,
 } from "@/components/ui/dropdown";
 import { useDeleteEmail } from "@/features/email_management/hooks/use_delete_email";
+import { EmailQuotaProgress } from "@/features/email_management/email_quota_usage";
+import { P } from "@/components/ui/text";
 
 export const Route = createFileRoute("/dashboard/emails/")({
   component: RouteComponent,
@@ -84,6 +86,21 @@ function RouteComponent() {
                   </div>
                 </div>
               ))}
+            </div>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            Email Notification Quota
+          </CardHeader>
+          <CardBody>
+            <div className="space-y-4">
+              <P>
+                The email notification quota resets on the 1st of each month.
+              </P>
+
+              <EmailQuotaProgress />
             </div>
           </CardBody>
         </Card>
