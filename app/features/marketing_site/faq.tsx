@@ -41,7 +41,7 @@ export function Faq() {
 
   return (
     <div className="mx-auto max-w-3xl space-y-4 py-12">
-      <div className="mx-auto w-full max-w-lg divide-y divide-white/5 rounded-xl bg-white/5">
+      <div className="mx-auto w-full max-w-lg divide-y divide-zinc-900/20 dark:divide-white/10 rounded-xl">
         {faqs.map((faq) => (
           <Disclosure
             className="p-6"
@@ -49,12 +49,12 @@ export function Faq() {
             key={faq.question.toLowerCase().replaceAll(" ", "_")}
           >
             <DisclosureButton className="group flex w-full items-center justify-between">
-              <span className="text-sm/6 font-medium text-white group-data-[hover]:text-white/80">
+              <span className="font-semibold">
                 {faq.question}
               </span>
-              <ChevronDownIcon className="size-5 fill-white/60 group-data-[hover]:fill-white/50 group-data-[open]:rotate-180" />
+              <ChevronDownIcon className="size-5 group-data-[open]:rotate-180" />
             </DisclosureButton>
-            <DisclosurePanel className="mt-2 text-sm/5 text-white/50">
+            <DisclosurePanel className="mt-2 text-sm/5">
               <p>{faq.answer}</p>
             </DisclosurePanel>
           </Disclosure>

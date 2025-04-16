@@ -52,7 +52,7 @@ function RouteComponent() {
 
               <dl className="space-y-8">
                 <div className="relative pl-9">
-                  <dt className="inline font-semibold text-white">
+                  <dt className="inline font-semibold text-zinc-900 dark:text-white">
                     <LockClosedIcon className="absolute top-1 left-1 size-5" />
                     Spam protection.
                   </dt>
@@ -64,7 +64,7 @@ function RouteComponent() {
                 </div>
 
                 <div className="relative pl-9">
-                  <dt className="inline font-semibold text-white">
+                  <dt className="inline font-semibold text-zinc-900 dark:text-white">
                     <PaperAirplaneIcon className="absolute top-1 left-1 size-5" />
                     Email notifications.
                   </dt>
