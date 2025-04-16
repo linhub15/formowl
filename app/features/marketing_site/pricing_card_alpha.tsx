@@ -14,11 +14,10 @@ export function PricingCardAlpha() {
         "Unlimited forms",
         "Unlimited submissions",
         "50 email notifications / month",
+        "Anti-spam honeypot",
         "Cloudflare turnstile",
         "Bring your own SMTP (coming soon)",
-        "Anti-spam honeypot (coming soon)",
-        "Unlimited workspaces (coming soon)",
-        "10 team members (coming soon)",
+        "5 team members (coming soon)",
       ]}
     />
   );

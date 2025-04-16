@@ -26,6 +26,18 @@ export function ExampleCard(props: { formSlug: string }) {
         <div>
           <CodeBlock code={example} language="html" showCopyButton />
         </div>
+
+        <div>
+          <P>
+            You can include a honey pot field to help mitigate spam and bots.
+          </P>
+
+          <CodeBlock
+            code={`<input name="_honey_pot" type="text" style="display:none;" />`}
+            language="html"
+            showCopyButton
+          />
+        </div>
       </CardBody>
     </Card>
   );

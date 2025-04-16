@@ -13,35 +13,39 @@ export const Route = createFileRoute("/_site/pricing")({
 
 const tiers: PricingCardProps[] = [
   {
-    id: "tier-hobby",
+    id: "tier-freelancer",
     name: "Freelancer",
     to: "/waitlist",
-    price: "$1",
-    features: [
-      "Unlimited forms",
-      "Unlimited submissions",
-      "50 email notifications",
-      "Bring your own SMTP (coming soon)",
-      "Anti-spam honeypot (coming soon)",
-      "Cloudflare turnstile",
-    ],
-  },
-  {
-    id: "tier-hobby",
-    name: "Freelancer",
-    to: "/waitlist",
-    price: "$1",
+    price: "$5",
     features: [
       "Unlimited forms",
       "Unlimited submissions",
       "1000 email notifications",
-      "Bring your own SMTP (coming soon)",
-      "Anti-spam honeypot (coming soon)",
+      "Unlimited linked emails",
+      "Anti-spam honeypot",
       "Cloudflare turnstile",
+      "Bring your own SMTP (coming soon)",
+      "Custom redirect (coming soon)",
     ],
   },
   {
+    id: "tier-team",
     name: "Team",
+    to: "/waitlist",
+    price: "$20",
+    features: [
+      "Unlimited forms",
+      "Unlimited submissions",
+      "4000 email notifications",
+      "Anti-spam honeypot",
+      "Cloudflare turnstile",
+      "Bring your own SMTP (coming soon)",
+      "3 team members (coming soon)",
+      "API access (coming soon)",
+    ],
+  },
+  {
+    name: "Business",
     id: "tier-business",
     to: "/waitlist",
     price: "$100",
@@ -49,9 +53,10 @@ const tiers: PricingCardProps[] = [
       "Unlimited forms",
       "Unlimited submissions",
       "25,000 email notifications",
-      "Anti-spam honeypot (coming soon)",
+      "Anti-spam honeypot",
       "Cloudflare turnstile",
-      "10 team members (coming soon)",
+      "10+ team members (coming soon)",
+      "API access (coming soon)",
     ],
   },
 ];
@@ -65,7 +70,7 @@ function RouteComponent() {
           <PricingCardAlpha />
         </div>
 
-        <div className="grid sm:grid-cols-2 mx-auto max-w-3xl gap-8 blur-xs select-none">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 mx-auto gap-8 blur-xs select-none flex-wrap">
           {tiers.map((tier) => <PricingCard key={tier.id} {...tier} />)}
         </div>
       </section>
