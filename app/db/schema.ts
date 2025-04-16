@@ -128,6 +128,13 @@ export const emailVerificationRelations = relations(
   }),
 );
 
+export const submissionEmailQuota = pgTable("submission_email_quota", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  submissionId: uuid("submission_id").notNull(),
+  ...defaultColumns,
+  ...organizationColumns,
+});
+
 /// FEATURE FLAG SCHEMA
 export const featureFlag = pgTable("feature_flag", {
   key: text("key").primaryKey(),

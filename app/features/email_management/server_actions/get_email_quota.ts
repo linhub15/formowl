@@ -11,14 +11,13 @@ export async function getEmailQuota(args: Args) {
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const startOfNextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
 
-  const submissions = await db.query.formSubmission.findMany({
+  const submissions = await db.query.submissionEmailQuota.findMany({
     columns: { id: true },
-    where: (submission, { and, eq, gte, lt, isNotNull }) =>
+    where: (quota, { and, eq, gte, lt, isNotNull }) =>
       and(
-        eq(submission.organizationId, args.organizationId),
-        isNotNull(submission.emailedTo),
-        gte(submission.createdAt, startOfMonth),
-        lt(submission.createdAt, startOfNextMonth),
+        eq(quota.organizationId, args.organizationId),
+        gte(quota.createdAt, startOfMonth),
+        lt(quota.createdAt, startOfNextMonth),
       ),
   });
 

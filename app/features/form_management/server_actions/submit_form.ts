@@ -1,6 +1,10 @@
 import { member, user } from "@/db/auth_schema";
 import { db } from "@/db/database";
-import { form as formSchema, formSubmission } from "@/db/schema";
+import {
+  form as formSchema,
+  formSubmission,
+  submissionEmailQuota,
+} from "@/db/schema";
 import { mailer } from "@/lib/email/mailer";
 import { and, eq } from "drizzle-orm";
 import { z } from "zod";
@@ -123,14 +127,23 @@ export async function submitForm(args: Request): Promise<Response> {
       });
 
       if (result.isOk()) {
-        await db.update(formSubmission)
-          .set({ emailedTo: to })
-          .where(
-            and(
-              eq(formSubmission.id, firstFormSubmission.id),
-              eq(formSubmission.organizationId, form.organizationId),
-            ),
-          );
+        await db.transaction(async (transaction) => {
+          await transaction.update(formSubmission)
+            .set({ emailedTo: to })
+            .where(
+              and(
+                eq(formSubmission.id, firstFormSubmission.id),
+                eq(formSubmission.organizationId, form.organizationId),
+              ),
+            );
+
+          await transaction
+            .insert(submissionEmailQuota)
+            .values({
+              submissionId: firstFormSubmission.id,
+              organizationId: form.organizationId,
+            });
+        });
       }
     }
   }
