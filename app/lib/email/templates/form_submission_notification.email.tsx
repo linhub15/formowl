@@ -1,10 +1,4 @@
-import {
-  Button,
-  CodeBlock,
-  dracula,
-  Row,
-  Section,
-} from "@react-email/components";
+import { Heading, Row, Section, Text } from "@react-email/components";
 import { EmailLayout } from "./email.layout";
 
 type Props = {
@@ -14,27 +8,25 @@ type Props = {
   formName: string;
 };
 function FormSubmissionNotificationEmail(
-  { formSubmissionUrl = "#", formData = {}, formName = "" }: Props,
+  {
+    formSubmissionUrl = "#",
+    formData = {},
+    formName = "",
+  }: Props,
 ) {
   return (
     <EmailLayout heading={`You've got a new ${formName} form submission`}>
       <Section className="py-6">
         <Row>
-          <CodeBlock
-            language="json"
-            code={JSON.stringify(formData, null, 2)}
-            theme={dracula}
-          />
+          {Object.entries(formData).map(([key, value]) => {
+            return (
+              <div key={key} className="pb-2">
+                <Heading as="h3">{key}</Heading>
+                <Text>{value}</Text>
+              </div>
+            );
+          })}
         </Row>
-      </Section>
-
-      <Section className="text-center">
-        <Button
-          className="bg-brand text-white rounded-lg py-3 px-[18px]"
-          href={formSubmissionUrl}
-        >
-          View {formName} form submission
-        </Button>
       </Section>
     </EmailLayout>
   );
