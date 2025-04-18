@@ -3,6 +3,7 @@ import viteConfig from "./vite.config";
 
 export default defineConfig({
   tsr: {
+    appDirectory: "./src",
     routeTreeFileHeader: [
       "/* eslint-disable */",
       "// @ts-nocheck",

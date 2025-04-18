@@ -8,10 +8,10 @@
     "drizzle": "drizzle-kit",
     "dev:db": "pnpm drizzle studio",
     "dev:smtp": "maildev --smtp 2465 --mail-directory=./maildev",
-    "dev:emails": "email dev --port 3001 --dir app/lib/email/templates",
+    "dev:emails": "email dev --port 3001 --dir src/lib/email/templates",
     "dev:storybook": "storybook dev --port 6006 --no-open --disable-telemetry",
     "dev:form": "pnpx http-server ./sample_form",
-    "better-auth:gen": "pnpx @better-auth/cli@latest generate --config ./app/lib/auth/better_auth.ts --output ./app/db/auth_schema.ts",
+    "better-auth:gen": "pnpx @better-auth/cli@latest generate --config ./src/lib/auth/better_auth.ts --output ./src/db/auth_schema.ts",
     "build:prod-local": "pnpm build --preset node-server",
     "start:prod-local": "node --env-file=.env .output/server/index.mjs"
   },

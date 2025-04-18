@@ -9,8 +9,8 @@
     "strictNullChecks": true,
 
     "paths": {
-      "@/*": ["./app/*"]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["./app/**/*", "**/*.tsx", "**/*.ts"]
+  "include": ["./src/**/*", "**/*.tsx", "**/*.ts"]
 }
