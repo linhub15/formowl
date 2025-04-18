@@ -9,7 +9,10 @@ export const Route = createFileRoute("/dashboard/forms/create")({
 function RouteComponent() {
   return (
     <div className="space-y-8">
-      <SectionHeader heading="New Form" />
+      <SectionHeader
+        heading="New Form"
+        breadcrumbs={[{ title: "Forms", to: "/dashboard/forms" }]}
+      />
       <CreateFormForm />
     </div>
   );

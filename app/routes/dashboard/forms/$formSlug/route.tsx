@@ -41,6 +41,7 @@ function RouteComponent() {
   return (
     <div>
       <SectionHeader
+        breadcrumbs={[{ title: "Forms", to: "/dashboard/forms" }]}
         heading={editName
           ? (
             <nameForm.Field name="name">
@@ -64,9 +65,9 @@ function RouteComponent() {
             </nameForm.Field>
           )
           : (
-            <div>
+            <>
               {form.name} {form.isSubmissionsPaused && <Badge>Paused</Badge>}
-            </div>
+            </>
           )}
         actions={!editName
           ? (

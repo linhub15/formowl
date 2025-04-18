@@ -28,12 +28,12 @@ export function SectionHeader(
 ) {
   return (
     <div className="relative border-b border-zinc-950/5 dark:border-white/5 space-y-4 pb-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between min-h-10">
         <Heading>
           {breadcrumbs.map((crumb) => (
             <Fragment key={crumb.to}>
               <Link
-                className="text-zinc-500 dark:text-zinc-400"
+                className="font-normal text-zinc-500 dark:text-zinc-400"
                 to={crumb.to}
               >
                 {crumb.title}
