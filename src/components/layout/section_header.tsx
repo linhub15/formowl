@@ -33,7 +33,7 @@ export function SectionHeader(
           {breadcrumbs.map((crumb) => (
             <Fragment key={crumb.to}>
               <Link
-                className="font-normal text-zinc-500 dark:text-zinc-400"
+                className="font-normal text-zinc-500 dark:text-zinc-400 dark:hover:text-zinc-300 hover:text-zinc-700"
                 to={crumb.to}
               >
                 {crumb.title}
