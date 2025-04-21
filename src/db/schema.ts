@@ -1,6 +1,7 @@
 import { nanoid } from "@/lib/utils/nanoid";
 import {
   boolean,
+  integer,
   jsonb,
   pgTable,
   text,
@@ -140,4 +141,12 @@ export const featureFlag = pgTable("feature_flag", {
   key: text("key").primaryKey(),
   isEnabled: boolean("is_enabled").notNull().default(false),
   ...defaultColumns,
+});
+
+export const statistic = pgTable("statistic", {
+  key: integer().primaryKey().generatedAlwaysAsIdentity({ startWith: 1000 }),
+  type: text("type").notNull(),
+  // biome-ignore lint/suspicious/noExplicitAny: JSONB is any type
+  meta: jsonb("meta").$type<Record<string, any>>(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });

@@ -3,6 +3,7 @@ import { db } from "@/db/database";
 import {
   form as formSchema,
   formSubmission,
+  statistic,
   submissionEmailQuota,
 } from "@/db/schema";
 import { mailer } from "@/lib/email/mailer";
@@ -19,6 +20,7 @@ export const submitFormRequest = z.object({
   formSlug: z.string(),
   formData: z.instanceof(FormData),
   requestIpAddress: z.string(),
+  requestReferer: z.string().optional(),
 });
 
 type Request = z.infer<typeof submitFormRequest>;
@@ -75,6 +77,12 @@ export async function submitForm(args: Request): Promise<Response> {
       "Honeypot triggered by ip:",
       args.requestIpAddress,
     );
+
+    await db.insert(statistic).values({
+      type: "honeypot",
+      meta: { ip: args.requestIpAddress, referer: args.requestReferer },
+    });
+
     return "not_found";
   }
   args.formData.delete(HONEY_POT_KEY);
