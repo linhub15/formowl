@@ -19,6 +19,7 @@ import {
 import { SidebarLayout } from "@/components/ui/sidebar_layout";
 import {
   AtSymbolIcon,
+  CreditCardIcon,
   DocumentTextIcon,
   LightBulbIcon,
   LinkIcon,
@@ -30,7 +31,7 @@ import { BRANDING } from "@/lib/constants";
 import { useListForms } from "../form_management/hooks/use_list_forms";
 import { FEATURE_FLAGS } from "@/lib/feature_flags/feature_flags";
 import { useFeatureFlagEnabled } from "@/lib/feature_flags/use_feature_flag_enabled";
-import { EmailQuotaProgress } from "../email_management/email_quota_usage";
+import { SubmissionEmailQuotaProgress } from "../email_management/submission_email_quota_usage";
 
 type Props = {
   email?: string;
@@ -53,16 +54,18 @@ export function AppNavigation(props: Props) {
             <NavbarItem
               to="/dashboard/forms"
               aria-label="Forms"
-              current={props.pathname === "/dashboard/forms"}
+              current={props.pathname?.startsWith("/dashboard/forms")}
             >
-              <FormsIcon open={props.pathname === "/dashboard/forms"} />
+              <FormsIcon
+                open={!!props.pathname?.startsWith("/dashboard/forms")}
+              />
             </NavbarItem>
 
             {emailManagementFlag && (
               <NavbarItem
                 to="/dashboard/emails"
                 aria-label="Emails"
-                current={props.pathname === "/dashboard/emails"}
+                current={props.pathname?.startsWith("/dashboard/emails")}
               >
                 <AtSymbolIcon />
               </NavbarItem>
@@ -74,26 +77,40 @@ export function AppNavigation(props: Props) {
       sidebar={
         <Sidebar>
           <SidebarHeader>
-            <SidebarSection className="max-lg:hidden">
-              <SidebarHeading>{BRANDING.name}</SidebarHeading>
+            <SidebarSection>
+              <SidebarHeading className="max-lg:hidden">
+                {BRANDING.name}
+              </SidebarHeading>
 
               <SidebarItem
+                className="max-lg:hidden"
                 to="/dashboard/forms"
-                current={props.pathname === "/dashboard/forms"}
+                current={props.pathname?.startsWith("/dashboard/forms")}
               >
-                <FormsIcon open={props.pathname === "/dashboard/forms"} />
+                <FormsIcon
+                  open={!!props.pathname?.startsWith("/dashboard/forms")}
+                />
                 <SidebarLabel>Forms</SidebarLabel>
               </SidebarItem>
 
               {emailManagementFlag && (
                 <SidebarItem
+                  className="max-lg:hidden"
                   to="/dashboard/emails"
-                  current={props.pathname === "/dashboard/emails"}
+                  current={props.pathname?.startsWith("/dashboard/emails")}
                 >
                   <AtSymbolIcon />
                   <SidebarLabel>Emails</SidebarLabel>
                 </SidebarItem>
               )}
+
+              <SidebarItem
+                to="/dashboard/billing"
+                current={props.pathname?.startsWith("/dashboard/billing")}
+              >
+                <CreditCardIcon />
+                <SidebarLabel>Billing</SidebarLabel>
+              </SidebarItem>
             </SidebarSection>
           </SidebarHeader>
           <SidebarBody>
@@ -109,6 +126,9 @@ export function AppNavigation(props: Props) {
                 {forms.data?.map((f) => (
                   <SidebarItem
                     to="/dashboard/forms/$formSlug"
+                    current={props.pathname?.startsWith(
+                      `/dashboard/forms/${f.slug}`,
+                    )}
                     params={{ formSlug: f.slug }}
                     key={f.slug}
                   >
@@ -128,7 +148,7 @@ export function AppNavigation(props: Props) {
               </SidebarItem>
 
               <div className="rounded-lg bg-zinc-200 dark:bg-zinc-900 p-2 pb-3">
-                <EmailQuotaProgress />
+                <SubmissionEmailQuotaProgress />
               </div>
 
               {

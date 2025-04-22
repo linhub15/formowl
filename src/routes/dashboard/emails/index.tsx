@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useListEmails } from "@/features/email_management/hooks/use_list_emails";
 import { useResendVerification } from "@/features/email_management/hooks/use_resend_verification";
-import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import { AtSymbolIcon, EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Dropdown,
@@ -13,8 +13,6 @@ import {
   DropdownMenu,
 } from "@/components/ui/dropdown";
 import { useDeleteEmail } from "@/features/email_management/hooks/use_delete_email";
-import { EmailQuotaProgress } from "@/features/email_management/email_quota_usage";
-import { P } from "@/components/ui/text";
 
 export const Route = createFileRoute("/dashboard/emails/")({
   component: RouteComponent,
@@ -27,10 +25,7 @@ function RouteComponent() {
 
   return (
     <div className="space-y-8">
-      <SectionHeader
-        heading="Emails"
-        actions={<Button to="/dashboard/emails/create">Add email</Button>}
-      />
+      <SectionHeader heading="Emails" />
       <div className="space-y-16">
         <Card>
           <CardBody>
@@ -41,6 +36,21 @@ function RouteComponent() {
                   <Badge color="green">Verified</Badge>
                 </div>
               ))}
+            </div>
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader>
+            <div className="flex justify-between items-center">
+              <span>Linked emails</span>
+              <Button to="/dashboard/emails/create">Add email</Button>
+            </div>
+          </CardHeader>
+          <CardBody>
+            {emails?.organizationEmails.length === 0 && (
+              <EmptyStateLinkedEmails />
+            )}
+            <div className="flex flex-col gap-6">
               {emails?.organizationEmails.map((email) => (
                 <div
                   className="flex justify-between items-center"
@@ -77,7 +87,10 @@ function RouteComponent() {
                               ? alert(
                                 `Email is connected to ${email.forms.length} form(s). Remove the email from the form(s) before deleting.`,
                               )
-                              : await deleteEmail.mutateAsync(email.id)}
+                              : await deleteEmail.mutateAsync({
+                                email: email.email,
+                                emailId: email.id,
+                              })}
                         >
                           Delete
                         </DropdownItem>
@@ -89,22 +102,18 @@ function RouteComponent() {
             </div>
           </CardBody>
         </Card>
-
-        <Card>
-          <CardHeader>
-            Email Notification Quota
-          </CardHeader>
-          <CardBody>
-            <div className="space-y-4">
-              <P>
-                The email notification quota resets on the 1st of each month.
-              </P>
-
-              <EmailQuotaProgress />
-            </div>
-          </CardBody>
-        </Card>
       </div>
+    </div>
+  );
+}
+
+export function EmptyStateLinkedEmails() {
+  return (
+    <div className="max-w-sm mx-auto text-center space-y-6 py-6">
+      <AtSymbolIcon className="mx-auto size-16" />
+      <span>
+        No linked emails yet. Add an email to send submissions to linked emails.
+      </span>
     </div>
   );
 }

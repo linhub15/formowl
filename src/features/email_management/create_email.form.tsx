@@ -5,10 +5,14 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
 import { useCreateEmail } from "./hooks/use_create_email";
+import { useGetLinkedEmailQuota } from "./hooks/use_get_linked_email_quota";
 
 export function CreateEmailForm() {
   const mutation = useCreateEmail();
   const navigate = useNavigate();
+  const linkedEmailQuota = useGetLinkedEmailQuota();
+  const exceededQuota = linkedEmailQuota.isSuccess &&
+    linkedEmailQuota.data?.exceeded;
 
   const form = useForm({
     defaultValues: {
@@ -22,6 +26,29 @@ export function CreateEmailForm() {
       await navigate({ to: "/dashboard/emails" });
     },
   });
+
+  if (exceededQuota) {
+    return (
+      <p className="text-sm text-center text-red-500">
+        You have reached your email quota {linkedEmailQuota.data?.used} of{" "}
+        {linkedEmailQuota.data?.max}. Please delete an email to create a new
+        one.
+      </p>
+    );
+  }
+
+  if (linkedEmailQuota.isLoading) {
+    return (
+      <Card>
+        <CardBody>
+          <div className="space-y-6">
+            <div className="rounded-full w-32 h-3 animate-pulse bg-zinc-700" />
+            <div className="rounded-full w-64 h-3 animate-pulse bg-zinc-700" />
+          </div>
+        </CardBody>
+      </Card>
+    );
+  }
 
   return (
     <form
@@ -37,6 +64,7 @@ export function CreateEmailForm() {
             {(field) => (
               <Field className="w-full max-w-sm">
                 <Label htmlFor={field.name}>Email</Label>
+
                 <Input
                   id={field.name}
                   name={field.name}

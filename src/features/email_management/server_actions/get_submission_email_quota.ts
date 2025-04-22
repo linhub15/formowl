@@ -4,7 +4,7 @@ type Args = {
   organizationId: string;
 };
 
-export async function getEmailQuota(args: Args) {
+export async function getSubmissionEmailQuota(args: Args) {
   const maxQuota = 50; // 50 emails for during Alpha
 
   const now = new Date();

@@ -11,7 +11,7 @@ import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 import { siteVerify } from "../../cloudflare_turnstile/site_verify";
 import { featureFlags } from "@/lib/feature_flags/is_feature_enabled.server";
-import { getEmailQuota } from "@/features/email_management/server_actions/get_email_quota";
+import { getSubmissionEmailQuota } from "@/features/email_management/server_actions/get_submission_email_quota";
 
 const CF_TURNSTILE_RESPONSE_KEY = "cf-turnstile-response";
 const HONEY_POT_KEY = "_honey_pot";
@@ -102,7 +102,9 @@ export async function submitForm(args: Request): Promise<Response> {
 
   /// 3. Downstream Integrations
 
-  const quota = await getEmailQuota({ organizationId: form.organizationId });
+  const quota = await getSubmissionEmailQuota({
+    organizationId: form.organizationId,
+  });
 
   if (quota.exceeded) {
     // todo: notify user that email quota is exceeded. Suggest they upgrade to continue receiving email notifications

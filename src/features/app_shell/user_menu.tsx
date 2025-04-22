@@ -53,12 +53,9 @@ export function UserMenu({ type, email }: Props) {
           <UserIcon />
           <DropdownLabel>My profile</DropdownLabel>
         </DropdownItem>
+
         <DropdownDivider />
-        <DropdownItem to="/dashboard/billing">
-          <CreditCardIcon />
-          <DropdownLabel>Billing</DropdownLabel>
-        </DropdownItem>
-        <DropdownDivider />
+
         <DropdownItem onClick={() => signOut.mutateAsync()}>
           <ArrowRightStartOnRectangleIcon />
           <DropdownLabel>Sign out</DropdownLabel>

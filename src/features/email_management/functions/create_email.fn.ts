@@ -7,6 +7,7 @@ import { and, eq } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import type { z } from "zod";
 import { requestEmailVerification } from "../server_actions/request_email_verification";
+import { getLinkedEmailQuota } from "../server_actions/get_linked_email_quota";
 
 const request = createInsertSchema(email).pick({
   email: true,
@@ -19,6 +20,14 @@ export const createEmailFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
   .validator((data: CreateEmailRequest) => request.parse(data))
   .handler(async ({ context, data }) => {
+    const quota = await getLinkedEmailQuota({
+      organizationId: context.activeOrgId,
+    });
+
+    if (quota.exceeded) {
+      throw new Error("Linked email quota exceeded");
+    }
+
     await db.transaction(async (transaction) => {
       const emails = await transaction.query.email.findMany({
         columns: { id: true },

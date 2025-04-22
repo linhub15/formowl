@@ -19,5 +19,8 @@ export function useCreateEmail() {
       queryClient.invalidateQueries({ queryKey: ["emails"] });
       toast.success("Email created, validation email sent");
     },
+    onError: (e) => {
+      toast.error(e.message);
+    },
   });
 }
