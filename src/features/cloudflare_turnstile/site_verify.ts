@@ -6,11 +6,12 @@ type Params = {
 
 type Result = {
   "success": boolean;
-  "challenge_ts": string;
-  "hostname": string;
-  "error-codes": [];
-  "action": string;
-  "cdata": string;
+  "challenge_ts"?: string;
+  "hostname"?: string;
+  "error-codes"?: [];
+  "action"?: string;
+  "cdata"?: string;
+  "metadata"?: Record<string, unknown>;
 };
 
 export async function siteVerify(
@@ -35,7 +36,7 @@ export async function siteVerify(
   const json = await response.json() as Result;
 
   if (!json.success) {
-    console.error(json["error-codes"]);
+    console.error(json);
     return;
   }
 
