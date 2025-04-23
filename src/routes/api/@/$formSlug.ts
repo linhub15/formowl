@@ -9,7 +9,7 @@ import { getRequestIP } from "@tanstack/react-start/server";
 
 export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
   POST: async ({ request, params }) => {
-    const ip = getRequestIP();
+    const ip = getRequestIP({ xForwardedFor: true });
 
     const req = submitFormRequest.parse({
       formSlug: params.formSlug,

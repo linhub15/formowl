@@ -5,6 +5,12 @@ import { getRequestIP } from "@tanstack/react-start/server";
 export const APIRoute = createAPIFileRoute("/api/health")({
   GET: () => {
     const ip = getRequestIP();
-    return json({ message: "ok", ip: ip, env: process.env.NODE_ENV });
+    const xForwardedFor = getRequestIP({ xForwardedFor: true });
+    return json({
+      message: "ok",
+      ip: ip,
+      "ip_xForwardedFor": xForwardedFor,
+      env: process.env.NODE_ENV,
+    });
   },
 });
