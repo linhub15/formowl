@@ -36,7 +36,7 @@ export async function siteVerify(
   const json = await response.json() as Result;
 
   if (!json.success) {
-    console.error(json);
+    console.error({ json: json, requestBody: formData });
     return;
   }
 

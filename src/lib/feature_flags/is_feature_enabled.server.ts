@@ -15,9 +15,6 @@ export async function isFeatureEnabled(key: string) {
 }
 
 export const featureFlags = {
-  newUserSignup: async () => {
-    return await isFeatureEnabled(FEATURE_FLAGS.newUserSignup);
-  },
   submissionNotificationEmail: async () => {
     return await isFeatureEnabled(FEATURE_FLAGS.submissionNotificationEmail);
   },
