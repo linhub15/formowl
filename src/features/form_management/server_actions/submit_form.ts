@@ -32,6 +32,10 @@ type Response =
   | "turnstile_failed";
 
 export async function submitForm(args: Request): Promise<Response> {
+  const context = {
+    passedCloudflareTurnstile: false,
+  };
+
   const form = await db.query.form.findFirst({
     columns: {
       id: true,
@@ -51,23 +55,32 @@ export async function submitForm(args: Request): Promise<Response> {
 
   /// CLOUDFLARE TURNSTILE
   const cfTurnstileToken = args.formData.get(CF_TURNSTILE_RESPONSE_KEY);
-  const cfTurnstileSecretKey = form.cloudflareTurnstile?.secretKey;
   args.formData.delete(CF_TURNSTILE_RESPONSE_KEY);
 
-  if (cfTurnstileSecretKey && !cfTurnstileToken) {
-    return "turnstile_missing_token";
-  }
+  const cfTurnstileSiteKey = form.cloudflareTurnstile?.siteKey;
+  const cfTurnstileSecretKey = form.cloudflareTurnstile?.secretKey;
+  const isTurnstileEnabled = cfTurnstileSiteKey && cfTurnstileSecretKey;
+  const isMissingTurnstileToken = cfTurnstileSecretKey && !cfTurnstileToken;
+  const hasKeyAndToken = cfTurnstileSecretKey && cfTurnstileToken;
 
-  if (cfTurnstileSecretKey && cfTurnstileToken) {
-    const ok = await siteVerify({
-      token: cfTurnstileToken.toString(),
-      ip: args.requestIpAddress,
-      secretKey: cfTurnstileSecretKey,
-    });
-
-    if (!ok) {
-      return "turnstile_failed";
+  if (isTurnstileEnabled) {
+    if (isMissingTurnstileToken) {
+      return "turnstile_missing_token";
     }
+
+    if (hasKeyAndToken) {
+      const ok = await siteVerify({
+        token: cfTurnstileToken.toString(),
+        ip: args.requestIpAddress,
+        secretKey: cfTurnstileSecretKey,
+      });
+
+      if (!ok) {
+        return "turnstile_failed";
+      }
+    }
+
+    context.passedCloudflareTurnstile = true;
   }
 
   /// HONEY POT
@@ -92,6 +105,7 @@ export async function submitForm(args: Request): Promise<Response> {
     formId: form.id,
     data: Object.fromEntries(args.formData),
     organizationId: form.organizationId,
+    passedCloudflareTurnstile: context.passedCloudflareTurnstile,
   }).returning();
 
   const firstFormSubmission = result.at(0);

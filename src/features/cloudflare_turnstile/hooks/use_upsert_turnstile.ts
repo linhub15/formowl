@@ -8,13 +8,13 @@ import {
 import { toast } from "sonner";
 
 export function useUpsertTurnstile() {
-  const createTurnstile = useServerFn(upsertTurnstileFn);
+  const upsertTurnstile = useServerFn(upsertTurnstileFn);
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (args: Partial<UpsertTurnstileRequest>) => {
       const request = upsertTurnstileRequest.parse(args);
-      await createTurnstile({ data: request });
+      await upsertTurnstile({ data: request });
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["turnstiles"] });

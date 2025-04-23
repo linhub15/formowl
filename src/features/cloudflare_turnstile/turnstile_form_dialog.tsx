@@ -99,10 +99,18 @@ export function TurnstileFormDialog() {
             </FieldGroup>
           </DialogBody>
 
-          <DialogActions>
-            <Button onClick={close} variant="plain">Cancel</Button>
-            <Button type="submit" variant="outline">Save</Button>
-          </DialogActions>
+          <form.Subscribe selector={(state) => [state.isSubmitting]}>
+            {([isSubmitting]) => (
+              <DialogActions>
+                <Button onClick={close} variant="plain" disabled={isSubmitting}>
+                  Cancel
+                </Button>
+                <Button type="submit" variant="outline" pending={isSubmitting}>
+                  Save
+                </Button>
+              </DialogActions>
+            )}
+          </form.Subscribe>
         </form>
       </Dialog>
     </>

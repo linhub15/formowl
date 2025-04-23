@@ -72,6 +72,9 @@ export const formSubmission = pgTable("form_submission", {
   // biome-ignore lint/suspicious/noExplicitAny: JSONB is any type
   data: jsonb("data").$type<Record<string, any>>().notNull(),
   emailedTo: text("emailed_to"),
+  passedCloudflareTurnstile: boolean("passed_cloudflare_turnstile").default(
+    false,
+  ),
   ...defaultColumns,
   ...organizationColumns,
 });

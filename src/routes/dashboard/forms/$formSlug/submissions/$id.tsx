@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { FormSubmissionActionDropdown } from "@/features/form_management/form_submission_action_dropdown";
 import { useGetSubmission } from "@/features/form_management/hooks/use_get_submission";
 import { maskLocalDate } from "@/lib/masks/mask_local_date";
-import { CheckIcon } from "@heroicons/react/20/solid";
+import { CheckIcon, LockClosedIcon } from "@heroicons/react/20/solid";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
@@ -33,7 +33,15 @@ function RouteComponent() {
               {maskLocalDate(submission.createdAt)}
             </span>
           </div>
-          <div className="space-x-3">
+          <div className="flex items-center gap-x-3">
+            {submission.passedCloudflareTurnstile && (
+              <Badge
+                title="Secure submission with Cloudflare Turnstile"
+                className="h-6"
+              >
+                <LockClosedIcon className="text-green-600 size-3" />
+              </Badge>
+            )}
             {submission.emailedTo && (
               <Badge title={submission.emailedTo}>
                 <CheckIcon className="text-green-500 size-4" />Emailed
