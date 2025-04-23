@@ -32,9 +32,12 @@ export async function siteVerify(
     body: formData,
   });
 
-  const json = await response.json();
+  const json = await response.json() as Result;
 
-  if (json.success) {
-    return "ok";
+  if (!json.success) {
+    console.error(json["error-codes"]);
+    return;
   }
+
+  return "ok";
 }

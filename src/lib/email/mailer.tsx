@@ -29,7 +29,7 @@ export const mailer = {
   ) => {
     return await nodeMailer.send({
       to: args.to,
-      subject: `New ${args.formName} form submission`,
+      subject: `Form Owl: New submission for "${args.formName}"`,
       html: await render(
         <FormSubmissionNotificationEmail
           formData={args.formData}
@@ -45,7 +45,7 @@ export const mailer = {
   }) => {
     return await nodeMailer.send({
       to: args.to,
-      subject: "Verify your email address",
+      subject: "Form Owl: verify your email",
       html: await render(
         <VerifyExternalEmail verifyUrl={args.verifyUrl.href} />,
       ),
@@ -57,7 +57,7 @@ export const mailer = {
   }) => {
     return await nodeMailer.send({
       to: args.to,
-      subject: "Form Owl: verify your email address",
+      subject: "Form Owl: verify your email",
       html: await render(
         <VerifyAccountEmail verifyUrl={args.verifyUrl} />,
       ),

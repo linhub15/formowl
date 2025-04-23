@@ -5,6 +5,7 @@ import { Field, Label } from "@/components/ui/fieldset";
 import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { P } from "@/components/ui/text";
+import { Turnstile } from "@marsidev/react-turnstile";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_site/waitlist")({
@@ -29,6 +30,7 @@ function RouteComponent() {
             style={{ visibility: "hidden", position: "absolute" }}
             name="_honey_pot"
           />
+          <Turnstile siteKey="0x4AAAAAAANYkea6QUqhduSc" />
           <Card className="my-8">
             <CardBody>
               <Field>
