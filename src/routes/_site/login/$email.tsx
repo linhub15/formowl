@@ -12,6 +12,7 @@ import { InputPassword } from "@/components/ui/input_password";
 import { LoadingSpinner } from "@/components/ui/loading_spinner";
 import { findUserFn } from "@/features/app_shell/functions/find_user.fn";
 import { authClient } from "@/lib/auth/auth.client";
+import { BETTERAUTH_PASSWORD } from "@/lib/auth/better_auth.const";
 import {
   GithubOAuthButton,
   GoogleOAuthButton,
@@ -177,6 +178,7 @@ function LoginForm({ email }: { email: string }) {
                   setFormError("");
                   field.handleChange(e.currentTarget.value);
                 }}
+                maxLength={BETTERAUTH_PASSWORD.maxLength}
               />
               {field.state.meta.errors?.length > 0 && (
                 <ErrorMessage>
@@ -305,6 +307,7 @@ function SignupForm({ email }: { email: string }) {
                 onChange={(e) => {
                   field.handleChange(e.currentTarget.value);
                 }}
+                maxLength={BETTERAUTH_PASSWORD.maxLength}
               />
               {field.state.meta.errors?.length > 0 && (
                 <ErrorMessage>

@@ -9,6 +9,7 @@ import {
 import { Field, FieldGroup, Label } from "@/components/ui/fieldset";
 import { InputPassword } from "@/components/ui/input_password";
 import { authClient } from "@/lib/auth/auth.client";
+import { BETTERAUTH_PASSWORD } from "@/lib/auth/better_auth.const";
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -77,6 +78,7 @@ export function ChangePasswordFormDialog() {
                         name={field.name}
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
+                        maxLength={BETTERAUTH_PASSWORD.maxLength}
                       />
                     </>
                   )}
@@ -93,6 +95,7 @@ export function ChangePasswordFormDialog() {
                         name={field.name}
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
+                        maxLength={BETTERAUTH_PASSWORD.maxLength}
                       />
                     </>
                   )}

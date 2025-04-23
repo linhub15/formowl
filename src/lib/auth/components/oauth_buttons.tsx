@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils/cn";
 import { useMutation } from "@tanstack/react-query";
 import type { LinkProps } from "@tanstack/react-router";
 import { useState } from "react";
-import { BETTERAUTH } from "../better_auth_providers.const";
+import { BETTERAUTH } from "../better_auth.const";
 
 type OAuthButtonProps = {
   redirect?: string;
