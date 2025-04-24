@@ -1,6 +1,11 @@
 import { SectionHeader } from "@/components/layout/section_header";
 import { useGetForm } from "@/features/form_management/hooks/use_get_form";
-import { createFileRoute, Outlet, useMatchRoute } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Outlet,
+  redirect,
+  useMatchRoute,
+} from "@tanstack/react-router";
 import { Route as SubmissionRoute } from "./submissions";
 import { Route as SettingsRoute } from "./settings";
 import { Route as FormExampleRoute } from "./example";
@@ -10,15 +15,29 @@ import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { LoadingSpinner } from "@/components/ui/loading_spinner";
 import { Badge } from "@/components/ui/badge";
+import { getFormIdBySlug } from "@/features/form_management/functions/get_form_id_by_slug.fn";
 
 export const Route = createFileRoute("/dashboard/forms/$formSlug")({
+  beforeLoad: async ({ params }) => {
+    const { formId } = await getFormIdBySlug({
+      data: { formSlug: params.formSlug },
+    });
+
+    if (!formId) {
+      throw redirect({ to: "/dashboard/forms" });
+    }
+
+    return { formId: formId };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const params = Route.useParams();
+  const { formId } = Route.useRouteContext();
+
   const matchRoute = useMatchRoute();
-  const { data: form } = useGetForm({ formSlug: params.formSlug });
+  const { data: form } = useGetForm({ formId: formId });
 
   /**
    * todo: style the renaming

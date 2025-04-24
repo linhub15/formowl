@@ -6,8 +6,8 @@ import { LockClosedIcon } from "@heroicons/react/20/solid";
 
 type Options = "enabled" | "disabled";
 
-export function FormTurnstileToggler(props: { formSlug: string }) {
-  const { data: form } = useGetForm({ formSlug: props.formSlug });
+export function FormTurnstileToggler(props: { formId: string }) {
+  const { data: form } = useGetForm({ formId: props.formId });
   const { data: orgTurnstile } = useGetTurnstile();
   const toggle = useToggleFormTurnstile();
   const value: Options = form?.cloudflareTurnstileId &&

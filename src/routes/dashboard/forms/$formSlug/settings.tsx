@@ -22,8 +22,9 @@ export const Route = createFileRoute("/dashboard/forms/$formSlug/settings")({
 function RouteComponent() {
   const { data: session } = useSession();
   const params = Route.useParams();
+  const { formId } = Route.useRouteContext();
   const formActionUrl = useFormActionUrl({ formSlug: params.formSlug });
-  const { data: form } = useGetForm({ formSlug: params.formSlug });
+  const { data: form } = useGetForm({ formId: formId });
   const { data: turnstile } = useGetTurnstile();
 
   if (!form || !session) {
@@ -104,7 +105,7 @@ function RouteComponent() {
                   </div>
                 </Field>
                 <Field>
-                  <FormTurnstileToggler formSlug={form.slug} />
+                  <FormTurnstileToggler formId={form.id} />
                 </Field>
               </FieldGroup>
             </div>

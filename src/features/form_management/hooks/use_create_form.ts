@@ -4,6 +4,7 @@ import {
   createFormFn,
   type CreateFormRequest,
 } from "../functions/create_form.fn";
+import { formKeys } from "./form_keys.factory";
 
 export function useCreateForm() {
   const createForm = useServerFn(createFormFn);
@@ -15,7 +16,7 @@ export function useCreateForm() {
       return created;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["forms"] });
+      queryClient.invalidateQueries({ queryKey: formKeys.lists() });
     },
   });
 }

@@ -14,8 +14,10 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   const params = Route.useParams();
+  const { formId } = Route.useRouteContext();
+
   const { data: submission } = useGetSubmission({
-    formSlug: params.formSlug,
+    formId: formId,
     formSubmissionId: params.id,
   });
 
@@ -49,6 +51,7 @@ function RouteComponent() {
             )}
             <FormSubmissionActionDropdown
               formSlug={params.formSlug}
+              formId={submission.formId}
               submissionId={submission.id}
             />
           </div>

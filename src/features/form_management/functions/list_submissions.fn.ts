@@ -4,11 +4,11 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
 const request = z.object({
-  formSlug: z.string(),
+  formId: z.string(),
   limit: z.number().optional(),
 });
 
-type ListSubmissionsRequest = z.infer<typeof request>;
+export type ListSubmissionsRequest = z.infer<typeof request>;
 
 export const listSubmissionsFn = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
@@ -18,7 +18,7 @@ export const listSubmissionsFn = createServerFn({ method: "GET" })
       columns: { id: true },
       where: (f, { eq, and }) =>
         and(
-          eq(f.slug, data.formSlug),
+          eq(f.id, data.formId),
           eq(f.organizationId, context.activeOrgId),
         ),
     });

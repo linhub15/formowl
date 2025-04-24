@@ -1,11 +1,12 @@
 import { useServerFn } from "@tanstack/react-start";
 import {
   setFormNameFn,
-  SetFormNameRequest,
+  type SetFormNameRequest,
   setFormNameRequest,
 } from "../functions/set_form_name.fn";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { formKeys } from "./form_keys.factory";
 
 export function useSetFormName() {
   const setFormName = useServerFn(setFormNameFn);
@@ -17,9 +18,10 @@ export function useSetFormName() {
       const formNameSet = await setFormName({ data: request });
       return formNameSet;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["forms"] });
+    onSuccess: async () => {
       toast.success("Form renamed");
+
+      await queryClient.invalidateQueries({ queryKey: formKeys.all });
     },
     onError: () => {
       toast.error("Unable to rename");

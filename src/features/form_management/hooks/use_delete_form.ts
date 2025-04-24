@@ -5,6 +5,7 @@ import {
 } from "../functions/delete_form.fn";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
+import { formKeys } from "./form_keys.factory";
 
 export function useDeleteForm() {
   const deleteForm = useServerFn(deleteFormFn);
@@ -14,9 +15,10 @@ export function useDeleteForm() {
     mutationFn: async (args: DeleteFormRequest) => {
       await deleteForm({ data: args });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["forms"] });
+    onSuccess: async () => {
       toast.success("Form deleted");
+
+      await queryClient.invalidateQueries({ queryKey: formKeys.lists() });
     },
   });
 }

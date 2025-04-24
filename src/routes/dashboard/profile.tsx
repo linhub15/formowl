@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/layout/card";
-import { Description, Field, Fieldset, Label } from "@/components/ui/fieldset";
+import { Description, Field, Label } from "@/components/ui/fieldset";
 import { P } from "@/components/ui/text";
 import { Input } from "@/components/ui/input";
 import { useAccounts } from "@/lib/auth/hooks/use_accounts";
@@ -14,7 +14,6 @@ import { useSession } from "@/lib/auth/hooks/use_session";
 import { createFileRoute } from "@tanstack/react-router";
 import { GithubIcon } from "@/components/icons/github_icon";
 import { SectionHeader } from "@/components/layout/section_header";
-import { Button } from "@/components/ui/button";
 import { BETTERAUTH } from "@/lib/auth/better_auth.const";
 import { ChangePasswordFormDialog } from "@/features/user/change_password_form_dialog";
 

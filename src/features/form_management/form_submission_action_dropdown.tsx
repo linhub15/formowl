@@ -10,6 +10,7 @@ import { useDeleteSubmission } from "./hooks/use_delete_submission";
 
 type Props = {
   formSlug: string;
+  formId: string;
   submissionId: string;
 };
 export function FormSubmissionActionDropdown(props: Props) {
@@ -24,7 +25,7 @@ export function FormSubmissionActionDropdown(props: Props) {
     if (!confirmed) return;
 
     await deleteSubmission.mutateAsync(
-      { submissionId: props.submissionId },
+      { formId: props.formId, submissionId: props.submissionId },
       {
         onSuccess: () => {
           navigate({

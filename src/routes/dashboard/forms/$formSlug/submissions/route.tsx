@@ -9,8 +9,9 @@ export const Route = createFileRoute("/dashboard/forms/$formSlug/submissions")({
 
 function RouteComponent() {
   const params = Route.useParams();
+  const { formId } = Route.useRouteContext();
 
-  const submissions = useListSubmissions({ formSlug: params.formSlug });
+  const submissions = useListSubmissions({ formId: formId });
 
   if (!submissions?.data?.length) {
     return <Outlet />;

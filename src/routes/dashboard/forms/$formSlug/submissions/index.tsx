@@ -7,10 +7,9 @@ export const Route = createFileRoute("/dashboard/forms/$formSlug/submissions/")(
 
 export function RouteComponent() {
   const params = Route.useParams();
+  const { formId } = Route.useRouteContext();
 
-  const { data: submissions } = useListSubmissions({
-    formSlug: params.formSlug,
-  });
+  const { data: submissions } = useListSubmissions({ formId: formId });
 
   const first = submissions?.at(0);
 
