@@ -45,6 +45,7 @@ export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
         status: 303,
         headers: {
           Location: location.toString(),
+          "Access-Control-Allow-Origin": "*",
         },
       });
     }

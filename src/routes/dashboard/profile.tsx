@@ -55,9 +55,11 @@ function RouteComponent() {
                 value={user.email}
                 disabled
               />
-              <Description>
-                Check your email for a verification link.
-              </Description>
+              {!user.emailVerified && (
+                <Description>
+                  Check your email for a verification link.
+                </Description>
+              )}
             </Field>
 
             <Field className="w-full">

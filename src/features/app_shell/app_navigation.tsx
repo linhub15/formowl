@@ -32,6 +32,7 @@ import { useListForms } from "../form_management/hooks/use_list_forms";
 import { FEATURE_FLAGS } from "@/lib/feature_flags/feature_flags";
 import { useFeatureFlagEnabled } from "@/lib/feature_flags/use_feature_flag_enabled";
 import { SubmissionEmailQuotaProgress } from "../email_management/submission_email_quota_usage";
+import { FeedbackDialog } from "./feedback_dialog";
 
 type Props = {
   email?: string;
@@ -113,6 +114,7 @@ export function AppNavigation(props: Props) {
               </SidebarItem>
             </SidebarSection>
           </SidebarHeader>
+
           <SidebarBody>
             <SidebarSection>
               <div className="flex items-center justify-between">
@@ -141,22 +143,19 @@ export function AppNavigation(props: Props) {
 
             <SidebarSpacer />
 
-            <SidebarSection className="space-y-4">
+            <SidebarSection>
+              <FeedbackDialog />
+
               <SidebarItem to="/">
                 <LinkIcon />
                 <SidebarLabel>Homepage</SidebarLabel>
               </SidebarItem>
+            </SidebarSection>
 
-              <div className="rounded-lg bg-zinc-200 dark:bg-zinc-900 p-2 pb-3">
+            <SidebarSection>
+              <div className="p-2">
                 <SubmissionEmailQuotaProgress />
               </div>
-
-              {
-                /* <SidebarItem to="/">
-                <LightBulbIcon />
-                <SidebarLabel>Share feedback</SidebarLabel>
-              </SidebarItem> */
-              }
             </SidebarSection>
           </SidebarBody>
           <SidebarFooter className="max-lg:hidden">

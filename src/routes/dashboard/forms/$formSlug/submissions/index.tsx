@@ -1,15 +1,19 @@
 import { useListSubmissions } from "@/features/form_management/hooks/use_list_submissions";
-import { createFileRoute, Navigate, redirect } from "@tanstack/react-router";
+import { createFileRoute, Navigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/forms/$formSlug/submissions/")(
-  { component: RouteComponent },
+  {
+    component: RouteComponent,
+  },
 );
 
 export function RouteComponent() {
   const params = Route.useParams();
   const { formId } = Route.useRouteContext();
 
-  const { data: submissions } = useListSubmissions({ formId: formId });
+  const { data: submissions } = useListSubmissions({
+    formId: formId,
+  });
 
   const first = submissions?.at(0);
 

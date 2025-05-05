@@ -1,6 +1,7 @@
 import { SectionHeader } from "@/components/layout/section_header";
 import { Button } from "@/components/ui/button";
 import { Subheading } from "@/components/ui/heading";
+import { LoadingSkeleton } from "@/components/ui/loading_skeleton";
 import { P } from "@/components/ui/text";
 import { useListForms } from "@/features/form_management/hooks/use_list_forms";
 import { cn } from "@/lib/utils/cn";
@@ -23,8 +24,8 @@ function RouteComponent() {
         <div className="flex items-center gap-3 py-4.5">
           <DocumentTextIcon className="size-6 animate-pulse" />
           <div className="space-y-3">
-            <div className="animate-pulse h-2.5 rounded-full bg-zinc-600 w-20" />
-            <div className="animate-pulse h-2.5 rounded-full bg-zinc-600 w-40" />
+            <LoadingSkeleton className="h-2.5 w-20" />
+            <LoadingSkeleton className="h-2.5 w-40" />
           </div>
         </div>
       )}

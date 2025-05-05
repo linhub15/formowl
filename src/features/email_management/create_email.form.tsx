@@ -6,6 +6,7 @@ import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
 import { useCreateEmail } from "./hooks/use_create_email";
 import { useGetLinkedEmailQuota } from "./hooks/use_get_linked_email_quota";
+import { LoadingSkeleton } from "@/components/ui/loading_skeleton";
 
 export function CreateEmailForm() {
   const mutation = useCreateEmail();
@@ -42,8 +43,8 @@ export function CreateEmailForm() {
       <Card>
         <CardBody>
           <div className="space-y-6">
-            <div className="rounded-full w-32 h-3 animate-pulse bg-zinc-700" />
-            <div className="rounded-full w-64 h-3 animate-pulse bg-zinc-700" />
+            <LoadingSkeleton className="w-32 h-3" />
+            <LoadingSkeleton className="w-64 h-3" />
           </div>
         </CardBody>
       </Card>

@@ -15,7 +15,7 @@ function FormSubmissionNotificationEmail(
   }: Props,
 ) {
   return (
-    <EmailLayout heading={`You've got a new ${formName} form submission`}>
+    <EmailLayout heading={`New form submission for: ${formName}`}>
       <Section className="py-6">
         <Row>
           {Object.entries(formData).map(([key, value]) => {

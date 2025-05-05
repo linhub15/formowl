@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { LoadingSkeleton } from "@/components/ui/loading_skeleton";
 import { useListSubmissions } from "@/features/form_management/hooks/use_list_submissions";
 import { maskLocalDate } from "@/lib/masks/mask_local_date";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
@@ -11,17 +12,25 @@ function RouteComponent() {
   const params = Route.useParams();
   const { formId } = Route.useRouteContext();
 
-  const submissions = useListSubmissions({ formId: formId });
+  const { data: submissions, isPending } = useListSubmissions({
+    formId: formId,
+  });
 
-  if (!submissions?.data?.length) {
-    return <Outlet />;
+  if (isPending) {
+    return (
+      <div className="flex flex-col gap-4">
+        <LoadingSkeleton className="w-32 h-8 rounded-lg" />
+        <LoadingSkeleton className="w-32 h-8 rounded-lg" />
+        <LoadingSkeleton className="w-32 h-8 rounded-lg" />
+      </div>
+    );
   }
 
   return (
-    <div>
-      <div className="flex gap-4">
-        <div className="w-[200px]  space-y-4">
-          {submissions.data?.map((s) => (
+    <div className="flex gap-4">
+      {submissions && submissions.length > 0 && (
+        <div className="w-[200px] space-y-4">
+          {submissions.map((s) => (
             <Button
               className="font-normal"
               key={s.id}
@@ -34,9 +43,9 @@ function RouteComponent() {
             </Button>
           ))}
         </div>
+      )}
 
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   );
 }

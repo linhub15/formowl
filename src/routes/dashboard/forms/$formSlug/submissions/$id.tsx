@@ -1,5 +1,6 @@
 import { Card, CardBody, CardHeader } from "@/components/layout/card";
 import { Badge } from "@/components/ui/badge";
+import { LoadingSkeleton } from "@/components/ui/loading_skeleton";
 import { FormSubmissionActionDropdown } from "@/features/form_management/form_submission_action_dropdown";
 import { useGetSubmission } from "@/features/form_management/hooks/use_get_submission";
 import { maskLocalDate } from "@/lib/masks/mask_local_date";
@@ -8,15 +9,13 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
   "/dashboard/forms/$formSlug/submissions/$id",
-)({
-  component: RouteComponent,
-});
+)({ component: RouteComponent });
 
 function RouteComponent() {
   const params = Route.useParams();
   const { formId } = Route.useRouteContext();
 
-  const { data: submission } = useGetSubmission({
+  const { data: submission, isPending } = useGetSubmission({
     formId: formId,
     formSubmissionId: params.id,
   });
@@ -24,6 +23,28 @@ function RouteComponent() {
   if (!submission) {
     return;
   }
+
+  if (isPending) {
+    return (
+      <Card className="w-full">
+        <CardHeader>
+          <div className="py-4">
+            <LoadingSkeleton className="w-36 h-2.5" />
+          </div>
+        </CardHeader>
+        <CardBody>
+          <div className="space-y-3">
+            <LoadingSkeleton className="w-4 h-2.5" />
+            <LoadingSkeleton className="w-40 h-2.5" />
+            <LoadingSkeleton className="w-64 h-2.5" />
+            <LoadingSkeleton className="w-20 h-2.5" />
+            <LoadingSkeleton className="w-4 h-2.5" />
+          </div>
+        </CardBody>
+      </Card>
+    );
+  }
+
   // todo: implement a nice format for the submission data
   return (
     <Card className="w-full">
