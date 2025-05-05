@@ -14,6 +14,9 @@ export const Route = createFileRoute("/form/submission-received")({
     return searchSchema.parse(search);
   },
   component: RouteComponent,
+  headers: () => ({
+    "Access-Control-Allow-Origin": "*",
+  }),
 });
 
 function RouteComponent() {
