@@ -10,6 +10,7 @@ import {
 import { Field, FieldGroup, Label } from "@/components/ui/fieldset";
 import { InputTextarea } from "@/components/ui/input_textarea";
 import { SidebarItem, SidebarLabel } from "@/components/ui/sidebar";
+import { useSession } from "@/lib/auth/hooks/use_session";
 import { LightBulbIcon } from "@heroicons/react/20/solid";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
@@ -19,11 +20,13 @@ import { toast } from "sonner";
 const feedbackForm = new URL("https://formowl.dev/api/@/5GWjVN");
 
 export function FeedbackDialog() {
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
 
   const submission = useMutation({
     mutationFn: async (form: { feedback: string }) => {
       const postBody = new FormData();
+      postBody.append("email", session?.user.email || "");
       postBody.append("feedback", form.feedback);
 
       const response = await fetch(feedbackForm, {
