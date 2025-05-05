@@ -8,6 +8,7 @@ export function useGetForm(args: GetFormRequest) {
 
   return useQuery({
     queryKey: formKeys.single(args.formId),
+    enabled: !!args.formId,
     queryFn: async () => {
       return await getForm({ data: args });
     },
