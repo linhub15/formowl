@@ -15,6 +15,7 @@ import { getSubmissionEmailQuota } from "@/features/email_management/server_acti
 
 const CF_TURNSTILE_RESPONSE_KEY = "cf-turnstile-response";
 const HONEY_POT_KEY = "_honey_pot";
+export const ON_SUCCESS_REDIRECT_KEY = "_success_url";
 
 export const submitFormRequest = z.object({
   formSlug: z.string(),

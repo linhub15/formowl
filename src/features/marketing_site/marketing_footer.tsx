@@ -5,7 +5,7 @@ import { P, TextLink } from "@/components/ui/text";
 import { BRANDING } from "@/lib/constants";
 import type { LinkProps } from "@tanstack/react-router";
 
-type Nav = Record<string, Array<{ name: string; to: LinkProps["to"] | URL }>>;
+type Nav = Record<string, Array<{ name: string; to: LinkProps["to"] }>>;
 const navigation: Nav = {
   product: [
     { name: "Home", to: "/" },

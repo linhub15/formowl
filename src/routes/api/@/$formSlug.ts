@@ -1,4 +1,5 @@
 import {
+  ON_SUCCESS_REDIRECT_KEY,
   submitForm,
   submitFormRequest,
 } from "@/features/form_management/server_actions/submit_form";
@@ -31,11 +32,34 @@ export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
     }
 
     if (response === "ok") {
+      const hasCustomSuccessRedirect = req.formData.has(
+        ON_SUCCESS_REDIRECT_KEY,
+      );
+
+      if (hasCustomSuccessRedirect) {
+        const urlOrPath = req.formData.get(ON_SUCCESS_REDIRECT_KEY);
+        const location = buildCustomSuccessLocation(
+          urlOrPath?.toString(),
+          request.headers.get("origin") ?? undefined,
+        );
+
+        if (location) {
+          return new Response(null, {
+            status: 303,
+            headers: {
+              Location: location.toString(),
+              "Access-Control-Allow-Origin": "*",
+            },
+          });
+        }
+      }
+
+      // Default redirect
       const location = new URL(
         "/form/submission-received" satisfies LinkProps["to"],
         process.env.VITE_APP_URL,
       );
-      const referer = request.headers.get("referer");
+      const referer = req.requestReferer;
 
       if (referer) {
         location.searchParams.set("referer", referer);
@@ -53,3 +77,21 @@ export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
     return json({ message: "not found" }, { status: 404 });
   },
 });
+
+function buildCustomSuccessLocation(urlOrPath?: string, baseUrl?: string) {
+  if (!urlOrPath) {
+    return;
+  }
+
+  const isFullyQualifiedUrl = URL.canParse(urlOrPath);
+
+  if (!isFullyQualifiedUrl && !baseUrl) {
+    return;
+  }
+
+  const location = isFullyQualifiedUrl
+    ? new URL(urlOrPath)
+    : new URL(urlOrPath, baseUrl); // assume it's a path
+
+  return location;
+}
