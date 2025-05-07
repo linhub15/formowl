@@ -27,6 +27,7 @@ export function FormSubmissionToggler(
     <ToggleGroup
       value={value}
       onChange={setFormIsPaused}
+      data-slot="control"
     >
       {options.map(({ isPaused: value, label, Icon }) => (
         <ToggleOption value={value} key={value}>

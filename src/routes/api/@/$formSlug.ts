@@ -16,6 +16,7 @@ export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
       formSlug: params.formSlug,
       formData: await request.formData(),
       requestIpAddress: ip,
+      requestReferer: request.headers.get("referer") || "",
     });
 
     const response = await submitForm(req);
@@ -59,6 +60,7 @@ export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
         "/form/submission-received" satisfies LinkProps["to"],
         process.env.VITE_APP_URL,
       );
+
       const referer = req.requestReferer;
 
       if (referer) {

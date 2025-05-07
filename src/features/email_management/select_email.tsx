@@ -14,7 +14,7 @@ export function SelectEmail(props: Props) {
 
   if (emails.length === 1) {
     return (
-      <div className="relative">
+      <div className="relative" data-slot="control">
         <Badge
           className="absolute right-0 mr-2 inset-y-2"
           color="green"
@@ -27,24 +27,26 @@ export function SelectEmail(props: Props) {
   }
 
   return (
-    <Listbox
-      value={props.value}
-      onChange={(value) =>
-        setEmail.mutateAsync({ email: value, formId: props.formId })}
-    >
-      {emails.map((email) => (
-        <ListboxOption
-          className="relative"
-          value={email.email}
-          key={email.email}
-        >
-          <ListboxLabel>{email.email}</ListboxLabel>
-          <Badge className="absolute right-0" color="green">
-            Verified
-          </Badge>
-        </ListboxOption>
-      ))}
-    </Listbox>
+    <div data-slot="control">
+      <Listbox
+        value={props.value}
+        onChange={(value) =>
+          setEmail.mutateAsync({ email: value, formId: props.formId })}
+      >
+        {emails.map((email) => (
+          <ListboxOption
+            className="relative"
+            value={email.email}
+            key={email.email}
+          >
+            <ListboxLabel>{email.email}</ListboxLabel>
+            <Badge className="absolute right-0" color="green">
+              Verified
+            </Badge>
+          </ListboxOption>
+        ))}
+      </Listbox>
+    </div>
   );
 }
 

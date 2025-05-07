@@ -37,9 +37,10 @@ export const form = pgTable("form", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
   slug: text("slug").notNull().unique().$default(() => nanoid(6)),
-  isSubmissionsPaused: boolean("is_submissions_paused").notNull().default(
-    false,
-  ),
+  isSubmissionsPaused: boolean("is_submissions_paused").notNull()
+    .default(false),
+  isEmailNotificationsPaused: boolean("is_email_notifications_paused").notNull()
+    .default(false),
   cloudflareTurnstileId: uuid("cloudflare_turnstile_id").references(
     () => cloudflareTurnstile.id,
   ),

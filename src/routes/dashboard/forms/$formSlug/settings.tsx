@@ -8,6 +8,7 @@ import { useGetTurnstile } from "@/features/cloudflare_turnstile/hooks/use_get_t
 import { TurnstileFormDialog } from "@/features/cloudflare_turnstile/turnstile_form_dialog";
 import { SelectEmail } from "@/features/email_management/select_email";
 import { DeleteFormButton } from "@/features/form_management/delete_form_button";
+import { EmailNotificationToggler } from "@/features/form_management/email_notification_togger";
 import { FormSubmissionToggler } from "@/features/form_management/form_submission_toggler";
 import { FormTurnstileToggler } from "@/features/form_management/form_turnstile_toggler";
 import { useFormActionUrl } from "@/features/form_management/hooks/use_form_action_url";
@@ -44,24 +45,6 @@ function RouteComponent() {
         <CardBody>
           <div className="flex flex-col md:flex-row gap-6 justify-between md:items-center">
             <div className="space-y-2">
-              <Subheading>Email notifications</Subheading>
-              <P>
-                Submissions will be sent to this email address. Your profile
-                email address is used by default.
-              </P>
-            </div>
-            <div className="w-xs">
-              <SelectEmail
-                value={form.email || session.user.email}
-                formId={form.id}
-              />
-            </div>
-          </div>
-        </CardBody>
-
-        <CardBody>
-          <div className="flex flex-col md:flex-row gap-6 justify-between md:items-center">
-            <div className="space-y-2">
               <Subheading>Submissions</Subheading>
               <div>
                 <P>Pause to temporarily block all form submission.</P>
@@ -78,7 +61,34 @@ function RouteComponent() {
         </CardBody>
 
         <CardBody>
-          <div className="flex flex-col md:flex-row gap-6 justify-between md:items-center">
+          <div className="flex flex-col md:flex-row gap-6 justify-between">
+            <div className="space-y-2">
+              <Subheading>Email notifications</Subheading>
+              <div>
+                <P>
+                  Submissions will be sent to this email address. Your profile
+                  email address is used by default.
+                </P>
+                <P>
+                  You can pause email notifications and still receive form
+                  submissions.
+                </P>
+              </div>
+            </div>
+            <div className="w-xs">
+              <FieldGroup>
+                <SelectEmail
+                  value={form.email || session.user.email}
+                  formId={form.id}
+                />
+                <EmailNotificationToggler formId={form.id} />
+              </FieldGroup>
+            </div>
+          </div>
+        </CardBody>
+
+        <CardBody>
+          <div className="flex flex-col md:flex-row gap-6 justify-between">
             <div className="space-y-2">
               <Subheading>Cloudflare Turnstile</Subheading>
               <div>

@@ -41,6 +41,7 @@ export async function submitForm(args: Request): Promise<Response> {
     columns: {
       id: true,
       isSubmissionsPaused: true,
+      isEmailNotificationsPaused: true,
       organizationId: true,
       slug: true,
     },
@@ -101,6 +102,9 @@ export async function submitForm(args: Request): Promise<Response> {
   }
   args.formData.delete(HONEY_POT_KEY);
 
+  /// Reserved Form Keys
+  args.formData.delete(ON_SUCCESS_REDIRECT_KEY);
+
   /// 2. Form Submission
   const result = await db.insert(formSubmission).values({
     formId: form.id,
@@ -117,58 +121,61 @@ export async function submitForm(args: Request): Promise<Response> {
 
   /// 3. Downstream Integrations
 
-  const quota = await getSubmissionEmailQuota({
-    organizationId: form.organizationId,
-  });
+  /// EMAIL
+  if (!form.isEmailNotificationsPaused) {
+    const quota = await getSubmissionEmailQuota({
+      organizationId: form.organizationId,
+    });
 
-  if (quota.exceeded) {
-    // todo: notify user that email quota is exceeded. Suggest they upgrade to continue receiving email notifications
-  }
+    if (quota.exceeded) {
+      // todo: notify user that email quota is exceeded. Suggest they upgrade to continue receiving email notifications
+    }
 
-  if (await featureFlags.submissionNotificationEmail() && !quota.exceeded) {
-    const selected = await db.select(
-      { email: user.email, formName: formSchema.name },
-    )
-      .from(formSchema)
-      .innerJoin(member, eq(member.organizationId, formSchema.organizationId))
-      .innerJoin(user, eq(user.id, member.userId))
-      .where(eq(formSchema.id, form.id))
-      .limit(1);
+    if (await featureFlags.submissionNotificationEmail() && !quota.exceeded) {
+      const selected = await db.select(
+        { email: user.email, formName: formSchema.name },
+      )
+        .from(formSchema)
+        .innerJoin(member, eq(member.organizationId, formSchema.organizationId))
+        .innerJoin(user, eq(user.id, member.userId))
+        .where(eq(formSchema.id, form.id))
+        .limit(1);
 
-    // assuming only one user in each org
-    const firstUser = selected.at(0);
+      // assuming only one user in each org
+      const firstUser = selected.at(0);
 
-    if (firstUser) {
-      const to = form.email?.email ?? firstUser.email;
+      if (firstUser) {
+        const to = form.email?.email ?? firstUser.email;
 
-      const result = await mailer.submissionNotification({
-        to: to,
-        formSubmissionUrl: new URL(
-          `/dashboard/forms/${form.slug}`,
-          process.env.VITE_APP_URL,
-        ),
-        formData: firstFormSubmission.data,
-        formName: firstUser.formName,
-      });
-
-      if (result.isOk()) {
-        await db.transaction(async (transaction) => {
-          await transaction.update(formSubmission)
-            .set({ emailedTo: to })
-            .where(
-              and(
-                eq(formSubmission.id, firstFormSubmission.id),
-                eq(formSubmission.organizationId, form.organizationId),
-              ),
-            );
-
-          await transaction
-            .insert(submissionEmailQuota)
-            .values({
-              submissionId: firstFormSubmission.id,
-              organizationId: form.organizationId,
-            });
+        const result = await mailer.submissionNotification({
+          to: to,
+          formSubmissionUrl: new URL(
+            `/dashboard/forms/${form.slug}`,
+            process.env.VITE_APP_URL,
+          ),
+          formData: firstFormSubmission.data,
+          formName: firstUser.formName,
         });
+
+        if (result.isOk()) {
+          await db.transaction(async (transaction) => {
+            await transaction.update(formSubmission)
+              .set({ emailedTo: to })
+              .where(
+                and(
+                  eq(formSubmission.id, firstFormSubmission.id),
+                  eq(formSubmission.organizationId, form.organizationId),
+                ),
+              );
+
+            await transaction
+              .insert(submissionEmailQuota)
+              .values({
+                submissionId: firstFormSubmission.id,
+                organizationId: form.organizationId,
+              });
+          });
+        }
       }
     }
   }

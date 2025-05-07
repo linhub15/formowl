@@ -1,18 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  setSubmissionPausedFn,
-  type SetSubmissionPausedRequest,
-} from "../functions/set_submission_paused.fn";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
+import {
+  setEmailNotificationPausedFn,
+  type SetEmailNotificationPausedRequest,
+} from "../functions/set_email_notification_paused.fn";
 import { formKeys } from "./form_keys.factory";
 
-export function useSetSubmissionPaused() {
-  const setSubmissionPause = useServerFn(setSubmissionPausedFn);
+export function useSetEmailNotificationPaused() {
+  const setPaused = useServerFn(setEmailNotificationPausedFn);
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (args: SetSubmissionPausedRequest) => {
-      await setSubmissionPause({ data: args });
+    mutationFn: async (args: SetEmailNotificationPausedRequest) => {
+      await setPaused({ data: args });
 
       return { formId: args.formId };
     },

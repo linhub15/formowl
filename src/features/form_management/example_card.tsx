@@ -61,7 +61,7 @@ export function ExampleCard(props: { formSlug: string }) {
 
             <div>
               <P>
-                Using a path, will redirect to the same origin as the form.
+                Use a path to redirect to the same origin as the form.
               </P>
               <CodeBlock
                 code={`<input name="_success_url" value="/success" style="display:none;" />`}
@@ -71,8 +71,8 @@ export function ExampleCard(props: { formSlug: string }) {
             </div>
             <div>
               <P>
-                Using a fully qualifieid URL, you can redirect to a different
-                origin if prefered.
+                Use a fully qualified URL if you want to redirect to a different
+                domain.
               </P>
               <CodeBlock
                 code={`<input name="_success_url" value="https://different-site.com/success" style="display:none;"/>`}

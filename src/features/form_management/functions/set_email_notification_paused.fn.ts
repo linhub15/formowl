@@ -10,14 +10,14 @@ const request = z.object({
   isPaused: z.boolean(),
 });
 
-export type SetSubmissionPausedRequest = z.infer<typeof request>;
+export type SetEmailNotificationPausedRequest = z.infer<typeof request>;
 
-export const setSubmissionsPausedFn = createServerFn({ method: "POST" })
+export const setEmailNotificationPausedFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .validator((data: SetSubmissionPausedRequest) => request.parse(data))
+  .validator((data: SetEmailNotificationPausedRequest) => request.parse(data))
   .handler(async ({ context, data }) => {
     await db.update(form)
-      .set({ isSubmissionsPaused: data.isPaused })
+      .set({ isEmailNotificationsPaused: data.isPaused })
       .where(
         and(
           eq(form.id, data.formId),
