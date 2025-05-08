@@ -6,6 +6,7 @@ export const alphaFeatures = [
   "50 email notifications / month",
   "Anti-spam honeypot",
   "Cloudflare turnstile",
+  "Custom thank you page",
   "5 linked emails",
   "3 team members (coming soon)",
 ];
@@ -15,7 +16,7 @@ export function PricingCardAlpha() {
     <PricingCard
       name="Alpha tester"
       id="tier-alpha"
-      description="Thanks for testing the Alpha for me. This is a free plan for early adopters."
+      description="Thanks for testing the Alpha for me. This is a temporary free plan for early adopters."
       price="Free"
       priceSuffix=""
       to="/dashboard"
