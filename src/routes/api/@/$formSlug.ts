@@ -19,6 +19,9 @@ export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
       requestReferer: request.headers.get("referer") || "",
     });
 
+    const successUrlOrPath = req.formData.get(ON_SUCCESS_REDIRECT_KEY);
+    req.formData.delete(ON_SUCCESS_REDIRECT_KEY);
+
     const response = await submitForm(req);
 
     if (response === "not_found") {
@@ -33,14 +36,11 @@ export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
     }
 
     if (response === "ok") {
-      const hasCustomSuccessRedirect = req.formData.has(
-        ON_SUCCESS_REDIRECT_KEY,
-      );
+      const hasCustomSuccessRedirect = !!successUrlOrPath;
 
       if (hasCustomSuccessRedirect) {
-        const urlOrPath = req.formData.get(ON_SUCCESS_REDIRECT_KEY);
         const location = buildCustomSuccessLocation(
-          urlOrPath?.toString(),
+          successUrlOrPath?.toString(),
           request.headers.get("origin") ?? undefined,
         );
 

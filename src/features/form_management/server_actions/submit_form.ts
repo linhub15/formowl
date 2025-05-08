@@ -102,9 +102,6 @@ export async function submitForm(args: Request): Promise<Response> {
   }
   args.formData.delete(HONEY_POT_KEY);
 
-  /// Reserved Form Keys
-  args.formData.delete(ON_SUCCESS_REDIRECT_KEY);
-
   /// 2. Form Submission
   const result = await db.insert(formSubmission).values({
     formId: form.id,
