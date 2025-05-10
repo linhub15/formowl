@@ -12,9 +12,10 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { organization } from "better-auth/plugins";
 import { mailer } from "../email/mailer";
+import { env } from "@/env.server";
 
 export const auth = betterAuth({
-  secret: process.env.AUTH_SECRET,
+  secret: env.AUTH_SECRET,
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: {
@@ -50,14 +51,14 @@ export const auth = betterAuth({
   socialProviders: {
     google: {
       enabled: true,
-      clientId: process.env.GOOGLE_OAUTH_ID,
-      clientSecret: process.env.GOOGLE_OAUTH_SECRET,
+      clientId: env.GOOGLE_OAUTH_ID,
+      clientSecret: env.GOOGLE_OAUTH_SECRET,
       scope: ["profile", "email"],
     },
     github: {
       enabled: true,
-      clientId: process.env.GITHUB_OAUTH_ID,
-      clientSecret: process.env.GITHUB_OAUTH_SECRET,
+      clientId: env.GITHUB_OAUTH_ID,
+      clientSecret: env.GITHUB_OAUTH_SECRET,
     },
   },
   session: {
@@ -76,7 +77,7 @@ export const auth = betterAuth({
           if (user.emailVerified) {
             await mailer.welcome({
               to: user.email,
-              dashboardUrl: new URL("/dashboard", process.env.VITE_APP_URL),
+              dashboardUrl: new URL("/dashboard", env.VITE_APP_URL),
             });
           }
         },

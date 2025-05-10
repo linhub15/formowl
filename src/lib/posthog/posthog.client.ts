@@ -1,6 +1,7 @@
+import { env } from "@/env.server";
 import { PostHog } from "posthog-node";
 
-const apiKey = process.env.VITE_POSTHOG_PUBLIC_KEY;
+const apiKey = env.VITE_POSTHOG_PUBLIC_KEY;
 
 function buildPostHogClient() {
   if (apiKey) {

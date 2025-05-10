@@ -12,6 +12,11 @@ export default defineConfig({
       "// deno-fmt-ignore-file",
     ],
   },
-  server: { preset: "vercel" },
+  server: {
+    preset: "vercel",
+    prerender: {
+      routes: ["/", "/waitlist", "/terms", "/privacy", "/pricing"],
+    },
+  },
   vite: viteConfig,
 });

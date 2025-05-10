@@ -1,5 +1,6 @@
 import type { DbTransaction } from "@/db/database";
 import { emailVerification } from "@/db/schema";
+import { env } from "@/env.server";
 import { mailer } from "@/lib/email/mailer";
 import { nanoid } from "@/lib/utils/nanoid";
 
@@ -65,7 +66,7 @@ async function sendVerificationEmail(
 ) {
   const verifyUrl = new URL(
     `api/emails/verify/${organizationId}/${token}`,
-    process.env.VITE_APP_URL,
+    env.VITE_APP_URL,
   );
 
   await mailer.verifyExternalEmail({

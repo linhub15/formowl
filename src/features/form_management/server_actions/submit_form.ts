@@ -12,6 +12,7 @@ import { z } from "zod";
 import { siteVerify } from "../../cloudflare_turnstile/site_verify";
 import { featureFlags } from "@/lib/feature_flags/is_feature_enabled.server";
 import { getSubmissionEmailQuota } from "@/features/email_management/server_actions/get_submission_email_quota";
+import { env } from "@/env.server";
 
 const CF_TURNSTILE_RESPONSE_KEY = "cf-turnstile-response";
 const HONEY_POT_KEY = "_honey_pot";
@@ -148,7 +149,7 @@ export async function submitForm(args: Request): Promise<Response> {
           to: to,
           formSubmissionUrl: new URL(
             `/dashboard/forms/${form.slug}`,
-            process.env.VITE_APP_URL,
+            env.VITE_APP_URL,
           ),
           formData: firstFormSubmission.data,
           formName: firstUser.formName,

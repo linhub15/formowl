@@ -1,3 +1,4 @@
+import { env } from "@/env.server";
 import {
   ON_SUCCESS_REDIRECT_KEY,
   submitForm,
@@ -58,7 +59,7 @@ export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
       // Default redirect
       const location = new URL(
         "/form/submission-received" satisfies LinkProps["to"],
-        process.env.VITE_APP_URL,
+        env.VITE_APP_URL,
       );
 
       const referer = req.requestReferer;
