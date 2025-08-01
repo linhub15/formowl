@@ -67,8 +67,8 @@ export const PLANS: Record<keyof typeof SUBSCRIPTION_PLAN, Plan> = {
   [SUBSCRIPTION_PLAN.pro]: {
     name: SUBSCRIPTION_PLAN.pro,
     label: "Pro Tier",
-    monthlyPrice: 10,
-    annualPrice: 100,
+    monthlyPrice: 3,
+    annualPrice: 36,
     features: [
       "Unlimited forms",
       "Unlimited submissions",

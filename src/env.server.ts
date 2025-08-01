@@ -31,3 +31,8 @@ export type EnvServer = z.infer<typeof envServerSchema>;
 
 /** This should only be imported on server code. Client has no access to this. */
 export const env = envServerSchema.parse(process.env);
+
+// if on vercel & !production use the VERCEL_URL
+if (process.env.VERCEL_URL && process.env.NODE_ENV !== "production") {
+  env.VITE_APP_URL = `https://${process.env.VERCEL_URL}`;
+}
