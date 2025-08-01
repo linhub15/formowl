@@ -4,6 +4,7 @@ import {
   member,
   organization as Organization,
   session,
+  subscription,
   user as User,
   userVerification,
 } from "@/db/auth_schema";
@@ -11,8 +12,11 @@ import { db } from "@/db/database";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { organization } from "better-auth/plugins";
+import { stripe } from "@better-auth/stripe";
 import { mailer } from "../email/mailer";
 import { env } from "@/env.server";
+import { stripeClient } from "../stripe/stripe_client";
+import { PLANS } from "@/features/billing/plans/plans.const";
 
 export const auth = betterAuth({
   secret: env.AUTH_SECRET,
@@ -26,11 +30,40 @@ export const auth = betterAuth({
       organization: Organization,
       member: member,
       invitation: invitation,
+      subscription: subscription,
     },
   }),
-  plugins: [organization({
-    organizationLimit: 1,
-  })],
+  plugins: [
+    organization({ organizationLimit: 1 }),
+    stripe({
+      stripeClient: stripeClient,
+      stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET,
+      subscription: {
+        requireEmailVerification: true,
+        enabled: true,
+        organization: { enabled: true },
+        plans: [
+          {
+            name: PLANS.pro.name,
+            annualDiscountPriceId: env.STRIPE_PRICE_PRO_YEARLY,
+            limits: PLANS.pro.limits,
+          },
+        ],
+
+        authorizeReference: async ({ user, referenceId }) => {
+          const member = await db.query.member.findFirst({
+            where: (member, { eq, and }) =>
+              and(
+                eq(member.userId, user.id),
+                eq(member.organizationId, referenceId),
+              ),
+          });
+
+          return member?.role === "owner" || member?.role === "admin";
+        },
+      },
+    }),
+  ],
   emailAndPassword: {
     enabled: true,
   },

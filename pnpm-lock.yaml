@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@better-auth/stripe':
+        specifier: ^1.2.8-beta.7
+        version: 1.2.8-beta.7
       '@headlessui/react':
         specifier: ^2.2.2
         version: 2.2.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -22,7 +25,7 @@ importers:
         version: 0.0.38(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tanstack/react-form':
         specifier: ^1.11.1
-        version: 1.11.1(f8dbd8d15399918b28137711899bfc52)
+        version: 1.11.1(75cef84fd35d3daf364a848421ca67b7)
       '@tanstack/react-query':
         specifier: ^5.75.7
         version: 5.75.7(react@19.1.0)
@@ -34,13 +37,13 @@ importers:
         version: 1.120.3(@tanstack/react-query@5.75.7(react@19.1.0))(@tanstack/react-router@1.120.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@tanstack/router-core@1.120.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tanstack/react-start':
         specifier: ^1.120.3
-        version: 1.120.3(@netlify/blobs@8.2.0)(@tanstack/react-router@1.120.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))(vite@6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4))
+        version: 1.120.3(@netlify/blobs@8.2.0)(@tanstack/react-router@1.120.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))(vite@6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4))
       '@uploadthing/react':
         specifier: ^7.3.1
         version: 7.3.1(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
       better-auth:
-        specifier: ^1.2.7
-        version: 1.2.7
+        specifier: ^1.2.8-beta.7
+        version: 1.2.8-beta.7
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -49,10 +52,10 @@ importers:
         version: 1.0.0-beta.3(typescript@5.8.3)
       drizzle-orm:
         specifier: ^0.43.1
-        version: 0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)
+        version: 0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)
       drizzle-zod:
         specifier: ^0.7.1
-        version: 0.7.1(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(zod@3.24.4)
+        version: 0.7.1(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(zod@3.24.4)
       framer-motion:
         specifier: ^12.10.5
         version: 12.10.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -89,6 +92,9 @@ importers:
       sonner:
         specifier: ^2.0.3
         version: 2.0.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      stripe:
+        specifier: ^18.1.0
+        version: 18.1.0(@types/node@22.15.17)
       tailwind-merge:
         specifier: ^3.2.0
         version: 3.2.0
@@ -100,7 +106,7 @@ importers:
         version: 7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6)
       vinxi:
         specifier: ^0.5.6
-        version: 0.5.6(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+        version: 0.5.6(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
       zod:
         specifier: ^3.24.4
         version: 3.24.4
@@ -138,6 +144,9 @@ importers:
       concurrently:
         specifier: ^9.1.2
         version: 9.1.2
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
       drizzle-kit:
         specifier: ^0.31.1
         version: 0.31.1
@@ -274,8 +283,11 @@ packages:
     resolution: {integrity: sha512-+EzkxvLNfiUeKMgy/3luqfsCWFRXLb7U6wNQTk60tovuckwB15B191tJWvpp4HjiQWdJkCxO3Wbvc6jlk3Xb2Q==}
     engines: {node: '>=6.9.0'}
 
-  '@better-auth/utils@0.2.4':
-    resolution: {integrity: sha512-ayiX87Xd5sCHEplAdeMgwkA0FgnXsEZBgDn890XHHwSWNqqRZDYOq3uj2Ei2leTv1I2KbG5HHn60Ah1i2JWZjQ==}
+  '@better-auth/stripe@1.2.8-beta.7':
+    resolution: {integrity: sha512-60V9u9DGbijvC/1Dchf3uOiGfFLGZkrwexq/+9llLA0+w8MF1AY8hdwm805MXEQ20Km5uVZzFz94NvQmiFuB6w==}
+
+  '@better-auth/utils@0.2.5':
+    resolution: {integrity: sha512-uI2+/8h/zVsH8RrYdG8eUErbuGBk16rZKQfz8CjxQOyCE6v7BqFYEbFwvOkvl1KbUdxhqOnXp78+uE5h8qVEgQ==}
 
   '@better-fetch/fetch@1.1.18':
     resolution: {integrity: sha512-rEFOE1MYIsBmoMJtQbl32PGHHXuG2hDxvEd7rUHE0vCBoFQVSDqaVs9hkZEtHCxRoY+CljXKFCOuJ8uxqw1LcA==}
@@ -2518,8 +2530,8 @@ packages:
     resolution: {integrity: sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==}
     engines: {node: ^4.5.0 || >= 5.9}
 
-  better-auth@1.2.7:
-    resolution: {integrity: sha512-2hCB263GSrgetsMUZw8vv9O1e4S4AlYJW3P4e8bX9u3Q3idv4u9BzDFCblpTLuL4YjYovghMCN0vurAsctXOAQ==}
+  better-auth@1.2.8-beta.7:
+    resolution: {integrity: sha512-gVApvvhnPVqMCYYLMhxUfbTi5fJYfp9rcsoJSjjTOMV+CIc7KVlYN6Qo8E7ju1JeRU5ae1Wl1NdXrolRJHjmaQ==}
 
   better-call@1.0.9:
     resolution: {integrity: sha512-Qfm0gjk0XQz0oI7qvTK1hbqTsBY4xV2hsHAxF8LZfUYl3RaECCIifXuVqtPpZJWvlCCMlQSvkvhhyuApGUba6g==}
@@ -4022,9 +4034,9 @@ packages:
   kuler@2.0.0:
     resolution: {integrity: sha512-Xq9nH7KlWZmXAtodXDDRE7vs6DU1gTU8zYDHDiWLSip45Egwq3plLHzPn27NgvzL2r1LMPC1vdqh98sQxtqj4A==}
 
-  kysely@0.27.6:
-    resolution: {integrity: sha512-FIyV/64EkKhJmjgC0g2hygpBv5RNWVPyNCqSAD7eTCv6eFWNIi4PN1UvdSJGicN/o35bnevgis4Y0UDC0qi8jQ==}
-    engines: {node: '>=14.0.0'}
+  kysely@0.28.2:
+    resolution: {integrity: sha512-4YAVLoF0Sf0UTqlhgQMFU9iQECdah7n+13ANkiuVfRvlK+uI0Etbgd7bVP36dKlG+NXWbhGua8vnGt+sdhvT7A==}
+    engines: {node: '>=18.0.0'}
 
   lambda-local@2.2.0:
     resolution: {integrity: sha512-bPcgpIXbHnVGfI/omZIlgucDqlf4LrsunwoKue5JdZeGybt8L6KyJz2Zu19ffuZwIwLj2NAI2ZyaqNT6/cetcg==}
@@ -5282,6 +5294,15 @@ packages:
   strip-literal@3.0.0:
     resolution: {integrity: sha512-TcccoMhJOM3OebGhSBEmp3UZ2SfDMZUEBdRA/9ynfLi8yYajyWX3JiXArcJt4Umh4vISpspkQIY8ZZoCqjbviA==}
 
+  stripe@18.1.0:
+    resolution: {integrity: sha512-MLDiniPTHqcfIT3anyBPmOEcaiDhYa7/jRaNypQ3Rt2SJnayQZBvVbFghIziUCZdltGAndm/ZxVOSw6uuSCDig==}
+    engines: {node: '>=12.*'}
+    peerDependencies:
+      '@types/node': '>=12.x.x'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+
   styled-jsx@5.1.6:
     resolution: {integrity: sha512-qSVyDTeMotdvQYoHWLNGwRFJHC+i+ZvdBRYosOFgC+Wg1vx4frN2/RG/NA7SYqqvKNLf39P2LSRA2pu6n0XYZA==}
     engines: {node: '>= 12.0.0'}
@@ -6088,7 +6109,12 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
 
-  '@better-auth/utils@0.2.4':
+  '@better-auth/stripe@1.2.8-beta.7':
+    dependencies:
+      better-auth: 1.2.8-beta.7
+      zod: 3.24.4
+
+  '@better-auth/utils@0.2.5':
     dependencies:
       typescript: 5.8.3
       uncrypto: 0.1.3
@@ -7546,7 +7572,7 @@ snapshots:
 
   '@tanstack/query-devtools@5.74.7': {}
 
-  '@tanstack/react-form@1.11.1(f8dbd8d15399918b28137711899bfc52)':
+  '@tanstack/react-form@1.11.1(75cef84fd35d3daf364a848421ca67b7)':
     dependencies:
       '@tanstack/form-core': 1.11.1
       '@tanstack/react-store': 0.7.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -7554,8 +7580,8 @@ snapshots:
       devalue: 5.1.1
       react: 19.1.0
     optionalDependencies:
-      '@tanstack/react-start': 1.120.3(@netlify/blobs@8.2.0)(@tanstack/react-router@1.120.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))(vite@6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4))
-      vinxi: 0.5.6(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      '@tanstack/react-start': 1.120.3(@netlify/blobs@8.2.0)(@tanstack/react-router@1.120.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))(vite@6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4))
+      vinxi: 0.5.6(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
     transitivePeerDependencies:
       - react-dom
 
@@ -7589,7 +7615,7 @@ snapshots:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
-  '@tanstack/react-start-client@1.120.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))':
+  '@tanstack/react-start-client@1.120.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))':
     dependencies:
       '@tanstack/react-router': 1.120.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tanstack/router-core': 1.120.3
@@ -7600,7 +7626,7 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
-      vinxi: 0.5.6(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      vinxi: 0.5.6(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -7643,7 +7669,7 @@ snapshots:
       - xml2js
       - yaml
 
-  '@tanstack/react-start-config@1.120.3(@netlify/blobs@8.2.0)(@tanstack/react-router@1.120.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))(vite@6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4))':
+  '@tanstack/react-start-config@1.120.3(@netlify/blobs@8.2.0)(@tanstack/react-router@1.120.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))(vite@6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4))':
     dependencies:
       '@tanstack/react-start-plugin': 1.115.0(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)
       '@tanstack/router-core': 1.120.3
@@ -7653,11 +7679,11 @@ snapshots:
       '@tanstack/start-server-functions-handler': 1.120.3
       '@vitejs/plugin-react': 4.4.1(vite@6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4))
       import-meta-resolve: 4.1.0
-      nitropack: 2.11.11(@netlify/blobs@8.2.0)(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      nitropack: 2.11.11(@netlify/blobs@8.2.0)(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
       ofetch: 1.4.1
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
-      vinxi: 0.5.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      vinxi: 0.5.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
       vite: 6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)
       zod: 3.24.4
     transitivePeerDependencies:
@@ -7734,11 +7760,11 @@ snapshots:
       - tsx
       - yaml
 
-  '@tanstack/react-start-router-manifest@1.120.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))':
+  '@tanstack/react-start-router-manifest@1.120.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))':
     dependencies:
       '@tanstack/router-core': 1.120.3
       tiny-invariant: 1.3.3
-      vinxi: 0.5.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      vinxi: 0.5.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -7796,13 +7822,13 @@ snapshots:
       tiny-warning: 1.0.3
       unctx: 2.4.1
 
-  '@tanstack/react-start@1.120.3(@netlify/blobs@8.2.0)(@tanstack/react-router@1.120.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))(vite@6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4))':
+  '@tanstack/react-start@1.120.3(@netlify/blobs@8.2.0)(@tanstack/react-router@1.120.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))(vite@6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4))':
     dependencies:
-      '@tanstack/react-start-client': 1.120.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
-      '@tanstack/react-start-config': 1.120.3(@netlify/blobs@8.2.0)(@tanstack/react-router@1.120.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))(vite@6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4))
-      '@tanstack/react-start-router-manifest': 1.120.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      '@tanstack/react-start-client': 1.120.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      '@tanstack/react-start-config': 1.120.3(@netlify/blobs@8.2.0)(@tanstack/react-router@1.120.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))(vite@6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4))
+      '@tanstack/react-start-router-manifest': 1.120.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
       '@tanstack/react-start-server': 1.120.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@tanstack/start-api-routes': 1.120.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      '@tanstack/start-api-routes': 1.120.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
       '@tanstack/start-server-functions-client': 1.120.3(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)
       '@tanstack/start-server-functions-handler': 1.120.3
       '@tanstack/start-server-functions-server': 1.119.2(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)
@@ -7945,11 +7971,11 @@ snapshots:
       - tsx
       - yaml
 
-  '@tanstack/start-api-routes@1.120.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))':
+  '@tanstack/start-api-routes@1.120.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))':
     dependencies:
       '@tanstack/router-core': 1.120.3
       '@tanstack/start-server-core': 1.120.3
-      vinxi: 0.5.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      vinxi: 0.5.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -8499,9 +8525,9 @@ snapshots:
 
   base64id@2.0.0: {}
 
-  better-auth@1.2.7:
+  better-auth@1.2.8-beta.7:
     dependencies:
-      '@better-auth/utils': 0.2.4
+      '@better-auth/utils': 0.2.5
       '@better-fetch/fetch': 1.1.18
       '@noble/ciphers': 0.6.0
       '@noble/hashes': 1.8.0
@@ -8510,7 +8536,7 @@ snapshots:
       better-call: 1.0.9
       defu: 6.1.4
       jose: 5.10.0
-      kysely: 0.27.6
+      kysely: 0.28.2
       nanostores: 0.11.4
       zod: 3.24.4
 
@@ -8926,9 +8952,9 @@ snapshots:
       '@deno/shim-deno': 0.19.2
       undici-types: 5.28.4
 
-  db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)):
+  db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)):
     optionalDependencies:
-      drizzle-orm: 0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)
+      drizzle-orm: 0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)
 
   debounce@2.2.0: {}
 
@@ -9076,15 +9102,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5):
+  drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5):
     optionalDependencies:
       gel: 2.0.2
-      kysely: 0.27.6
+      kysely: 0.28.2
       postgres: 3.4.5
 
-  drizzle-zod@0.7.1(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(zod@3.24.4):
+  drizzle-zod@0.7.1(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(zod@3.24.4):
     dependencies:
-      drizzle-orm: 0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)
+      drizzle-orm: 0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)
       zod: 3.24.4
 
   dunder-proto@1.0.1:
@@ -10058,7 +10084,7 @@ snapshots:
 
   kuler@2.0.0: {}
 
-  kysely@0.27.6: {}
+  kysely@0.28.2: {}
 
   lambda-local@2.2.0:
     dependencies:
@@ -10442,7 +10468,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nitropack@2.11.11(@netlify/blobs@8.2.0)(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6)):
+  nitropack@2.11.11(@netlify/blobs@8.2.0)(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6)):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.4.0
       '@netlify/functions': 3.1.8(rollup@4.40.2)
@@ -10464,7 +10490,7 @@ snapshots:
       cookie-es: 2.0.0
       croner: 9.0.0
       crossws: 0.3.5
-      db0: 0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))
+      db0: 0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))
       defu: 6.1.4
       destr: 2.0.5
       dot-prop: 9.0.0
@@ -10510,7 +10536,7 @@ snapshots:
       unenv: 2.0.0-rc.15
       unimport: 5.0.1
       unplugin-utils: 0.2.4
-      unstorage: 1.16.0(@netlify/blobs@8.2.0)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(ioredis@5.6.1)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      unstorage: 1.16.0(@netlify/blobs@8.2.0)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(ioredis@5.6.1)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
       untyped: 2.0.0
       unwasm: 0.3.9
       youch: 4.1.0-beta.7
@@ -11494,6 +11520,12 @@ snapshots:
     dependencies:
       js-tokens: 9.0.1
 
+  stripe@18.1.0(@types/node@22.15.17):
+    dependencies:
+      qs: 6.14.0
+    optionalDependencies:
+      '@types/node': 22.15.17
+
   styled-jsx@5.1.6(@babel/core@7.27.1)(react@19.1.0):
     dependencies:
       client-only: 0.0.1
@@ -11735,7 +11767,7 @@ snapshots:
       picomatch: 4.0.2
       webpack-virtual-modules: 0.6.2
 
-  unstorage@1.16.0(@netlify/blobs@8.2.0)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(ioredis@5.6.1)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6)):
+  unstorage@1.16.0(@netlify/blobs@8.2.0)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(ioredis@5.6.1)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6)):
     dependencies:
       anymatch: 3.1.3
       chokidar: 4.0.3
@@ -11747,7 +11779,7 @@ snapshots:
       ufo: 1.6.1
     optionalDependencies:
       '@netlify/blobs': 8.2.0
-      db0: 0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))
+      db0: 0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))
       ioredis: 5.6.1
       uploadthing: 7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6)
 
@@ -11836,7 +11868,7 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vinxi@0.5.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6)):
+  vinxi@0.5.3(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6)):
     dependencies:
       '@babel/core': 7.27.1
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.27.1)
@@ -11858,7 +11890,7 @@ snapshots:
       hookable: 5.5.3
       http-proxy: 1.18.1
       micromatch: 4.0.8
-      nitropack: 2.11.11(@netlify/blobs@8.2.0)(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      nitropack: 2.11.11(@netlify/blobs@8.2.0)(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
       node-fetch-native: 1.6.6
       path-to-regexp: 6.3.0
       pathe: 1.1.2
@@ -11869,7 +11901,7 @@ snapshots:
       ufo: 1.6.1
       unctx: 2.4.1
       unenv: 1.10.0
-      unstorage: 1.16.0(@netlify/blobs@8.2.0)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(ioredis@5.6.1)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      unstorage: 1.16.0(@netlify/blobs@8.2.0)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(ioredis@5.6.1)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
       vite: 6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)
       zod: 3.24.4
     transitivePeerDependencies:
@@ -11914,7 +11946,7 @@ snapshots:
       - xml2js
       - yaml
 
-  vinxi@0.5.6(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6)):
+  vinxi@0.5.6(@netlify/blobs@8.2.0)(@types/node@22.15.17)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6)):
     dependencies:
       '@babel/core': 7.27.1
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.27.1)
@@ -11936,7 +11968,7 @@ snapshots:
       hookable: 5.5.3
       http-proxy: 1.18.1
       micromatch: 4.0.8
-      nitropack: 2.11.11(@netlify/blobs@8.2.0)(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5))(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      nitropack: 2.11.11(@netlify/blobs@8.2.0)(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5))(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
       node-fetch-native: 1.6.6
       path-to-regexp: 6.3.0
       pathe: 1.1.2
@@ -11947,7 +11979,7 @@ snapshots:
       ufo: 1.6.1
       unctx: 2.4.1
       unenv: 1.10.0
-      unstorage: 1.16.0(@netlify/blobs@8.2.0)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.27.6)(postgres@3.4.5)))(ioredis@5.6.1)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
+      unstorage: 1.16.0(@netlify/blobs@8.2.0)(db0@0.3.2(drizzle-orm@0.43.1(gel@2.0.2)(kysely@0.28.2)(postgres@3.4.5)))(ioredis@5.6.1)(uploadthing@7.7.2(express@4.21.2)(h3@1.15.3)(next@15.3.2(@babel/core@7.27.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tailwindcss@4.1.6))
       vite: 6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.4)
       zod: 3.24.4
     transitivePeerDependencies:

@@ -40,7 +40,7 @@ function RouteComponent() {
   const { data: form } = useGetForm({ formId: formId });
 
   /**
-   * todo: style the renaming
+   * todo(ux): style the renaming
    */
 
   const setFormName = useSetFormName();

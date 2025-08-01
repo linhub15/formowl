@@ -40,3 +40,10 @@ Using `maildev` for local SMTP server and `nodemailer` to send mail.
 - run local smtp server `pnpm dev:smtp`
 - set local smtp server into `.env`
 - preview email templates `pnpm dev:emails`
+
+### Local Stripe testing
+
+```
+stripe login
+stripe listen --forward-to localhost:3000/api/auth/stripe/webhook
+```

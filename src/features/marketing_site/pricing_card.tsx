@@ -9,9 +9,9 @@ export type PricingCardProps = {
   id: string;
   name: string;
   description?: string;
-  price: string;
+  price: number;
   priceSuffix?: string;
-  features: string[];
+  features: readonly string[];
   to?: LinkProps["to"];
   href?: string;
   actionText?: string;
@@ -39,7 +39,7 @@ export function PricingCard(
           </Subheading>
           <div className="flex items-baseline flex-1 gap-x-2">
             <span className="text-5xl font-semibold tracking-tight text-zinc-950 dark:text-white/90">
-              {price}
+              {price <= 0 ? "Free" : <>${price}</>}
             </span>
             <span className="text-base/7 font-semibold">
               {priceSuffix}

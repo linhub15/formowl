@@ -14,6 +14,10 @@ const envServerSchema = z.object({
   GITHUB_OAUTH_ID: z.string(),
   GITHUB_OAUTH_SECRET: z.string(),
 
+  STRIPE_WEBHOOK_SECRET: z.string(),
+  STRIPE_SECRET_KEY: z.string(),
+  STRIPE_PRICE_PRO_YEARLY: z.string(),
+
   // EMAIL
   SMTP_HOST: z.string(),
   SMTP_PORT: z.string().default("465"),
@@ -27,3 +31,8 @@ export type EnvServer = z.infer<typeof envServerSchema>;
 
 /** This should only be imported on server code. Client has no access to this. */
 export const env = envServerSchema.parse(process.env);
+
+// if on vercel & !production use the VERCEL_URL
+if (process.env.VERCEL_URL && process.env.NODE_ENV !== "production") {
+  env.VITE_APP_URL = `https://${process.env.VERCEL_URL}`;
+}
