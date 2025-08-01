@@ -81,7 +81,8 @@ function RouteComponent() {
                     Upgrade to Pro
                   </Button>
                   <span className="ml-4 text-sm text-zinc-500 dark:text-zinc-400">
-                    $3 / month billed annually
+                    $<span>{PLANS.pro.monthlyPrice}</span>{" "}
+                    / month billed annually
                   </span>
                 </CardFooter>
               </Card>
