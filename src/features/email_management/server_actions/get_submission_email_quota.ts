@@ -7,8 +7,11 @@ type Args = {
 
 export async function getSubmissionEmailQuota(args: Args) {
   const subscription = await db.query.subscription.findFirst({
-    where: (subscription, { eq }) =>
-      eq(subscription.referenceId, args.organizationId),
+    where: (subscription, { and, eq }) =>
+      and(
+        eq(subscription.referenceId, args.organizationId),
+        eq(subscription.status, "active"),
+      ),
   });
 
   const maxQuota =

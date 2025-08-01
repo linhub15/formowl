@@ -1,5 +1,5 @@
 import { db } from "@/db/database";
-import { PLANS, safeGetPlan } from "@/features/billing/plans/plans.const";
+import { safeGetPlan } from "@/features/billing/plans/plans.const";
 
 type Args = {
   organizationId: string;
@@ -7,8 +7,11 @@ type Args = {
 
 export async function getLinkedEmailQuota(args: Args) {
   const subscription = await db.query.subscription.findFirst({
-    where: (subscription, { eq }) =>
-      eq(subscription.referenceId, args.organizationId),
+    where: (subscription, { and, eq }) =>
+      and(
+        eq(subscription.referenceId, args.organizationId),
+        eq(subscription.status, "active"),
+      ),
   });
 
   const maxQuota = safeGetPlan(subscription?.plan, "free").limits.linkedEmails;
