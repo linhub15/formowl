@@ -3,7 +3,8 @@
 node_modules
 
 # Tanstack Start
-.vinxi
+.nitro
+.tanstack
 .vercel
 .output
 dist

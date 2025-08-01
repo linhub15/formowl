@@ -12,419 +12,690 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { createServerRootRoute } from '@tanstack/react-start/server'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as SiteImport } from './routes/_site'
-import { Route as DashboardRouteImport } from './routes/dashboard/route'
-import { Route as DashboardIndexImport } from './routes/dashboard/index'
-import { Route as SiteIndexImport } from './routes/_site/index'
-import { Route as FormSubmissionReceivedImport } from './routes/form/submission-received'
-import { Route as DashboardProfileImport } from './routes/dashboard/profile'
-import { Route as DashboardBillingImport } from './routes/dashboard/billing'
-import { Route as SiteWaitlistImport } from './routes/_site/waitlist'
-import { Route as SiteTermsImport } from './routes/_site/terms'
-import { Route as SitePrivacyImport } from './routes/_site/privacy'
-import { Route as SitePricingImport } from './routes/_site/pricing'
-import { Route as SiteLogoutImport } from './routes/_site/logout'
-import { Route as onboardingOnboardImport } from './routes/(onboarding)/onboard'
-import { Route as SiteLoginRouteImport } from './routes/_site/login/route'
-import { Route as DashboardFormsIndexImport } from './routes/dashboard/forms/index'
-import { Route as DashboardEmailsIndexImport } from './routes/dashboard/emails/index'
-import { Route as SiteLoginIndexImport } from './routes/_site/login/index'
-import { Route as DashboardFormsCreateImport } from './routes/dashboard/forms/create'
-import { Route as DashboardEmailsCreateImport } from './routes/dashboard/emails/create'
-import { Route as SiteLoginEmailImport } from './routes/_site/login/$email'
-import { Route as DashboardFormsFormSlugRouteImport } from './routes/dashboard/forms/$formSlug/route'
-import { Route as DashboardFormsFormSlugIndexImport } from './routes/dashboard/forms/$formSlug/index'
-import { Route as DashboardFormsFormSlugSettingsImport } from './routes/dashboard/forms/$formSlug/settings'
-import { Route as DashboardFormsFormSlugExampleImport } from './routes/dashboard/forms/$formSlug/example'
-import { Route as DashboardEmailsVerificationSuccessEmailImport } from './routes/dashboard/emails/verification-success.$email'
-import { Route as DashboardFormsFormSlugSubmissionsRouteImport } from './routes/dashboard/forms/$formSlug/submissions/route'
-import { Route as DashboardFormsFormSlugSubmissionsIndexImport } from './routes/dashboard/forms/$formSlug/submissions/index'
-import { Route as DashboardFormsFormSlugSubmissionsIdImport } from './routes/dashboard/forms/$formSlug/submissions/$id'
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as SiteRouteImport } from './routes/_site'
+import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as SiteIndexRouteImport } from './routes/_site/index'
+import { Route as FormSubmissionReceivedRouteImport } from './routes/form/submission-received'
+import { Route as DashboardProfileRouteImport } from './routes/dashboard/profile'
+import { Route as DashboardBillingRouteImport } from './routes/dashboard/billing'
+import { Route as SiteWaitlistRouteImport } from './routes/_site/waitlist'
+import { Route as SiteTermsRouteImport } from './routes/_site/terms'
+import { Route as SitePrivacyRouteImport } from './routes/_site/privacy'
+import { Route as SitePricingRouteImport } from './routes/_site/pricing'
+import { Route as SiteLogoutRouteImport } from './routes/_site/logout'
+import { Route as onboardingOnboardRouteImport } from './routes/(onboarding)/onboard'
+import { Route as SiteLoginRouteRouteImport } from './routes/_site/login/route'
+import { Route as DashboardFormsIndexRouteImport } from './routes/dashboard/forms/index'
+import { Route as DashboardEmailsIndexRouteImport } from './routes/dashboard/emails/index'
+import { Route as SiteLoginIndexRouteImport } from './routes/_site/login/index'
+import { Route as DashboardFormsCreateRouteImport } from './routes/dashboard/forms/create'
+import { Route as DashboardEmailsCreateRouteImport } from './routes/dashboard/emails/create'
+import { Route as SiteLoginEmailRouteImport } from './routes/_site/login/$email'
+import { Route as DashboardFormsFormSlugRouteRouteImport } from './routes/dashboard/forms/$formSlug/route'
+import { Route as DashboardFormsFormSlugIndexRouteImport } from './routes/dashboard/forms/$formSlug/index'
+import { Route as DashboardFormsFormSlugSettingsRouteImport } from './routes/dashboard/forms/$formSlug/settings'
+import { Route as DashboardFormsFormSlugExampleRouteImport } from './routes/dashboard/forms/$formSlug/example'
+import { Route as DashboardEmailsVerificationSuccessEmailRouteImport } from './routes/dashboard/emails/verification-success.$email'
+import { Route as DashboardFormsFormSlugSubmissionsRouteRouteImport } from './routes/dashboard/forms/$formSlug/submissions/route'
+import { Route as DashboardFormsFormSlugSubmissionsIndexRouteImport } from './routes/dashboard/forms/$formSlug/submissions/index'
+import { Route as DashboardFormsFormSlugSubmissionsIdRouteImport } from './routes/dashboard/forms/$formSlug/submissions/$id'
+import { ServerRoute as ApiUploadthingServerRouteImport } from './routes/api/uploadthing'
+import { ServerRoute as ApiHealthServerRouteImport } from './routes/api/health'
+import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth.$'
+import { ServerRoute as ApiAtFormSlugServerRouteImport } from './routes/api/@/$formSlug'
+import { ServerRoute as ApiEmailsVerifyOrgIdTokenServerRouteImport } from './routes/api/emails.verify.$orgId.$token'
 
-// Create/Update Routes
+const rootServerRouteImport = createServerRootRoute()
 
-const SiteRoute = SiteImport.update({
+const SiteRoute = SiteRouteImport.update({
   id: '/_site',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const DashboardRouteRoute = DashboardRouteImport.update({
+const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const DashboardIndexRoute = DashboardIndexImport.update({
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-
-const SiteIndexRoute = SiteIndexImport.update({
+const SiteIndexRoute = SiteIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => SiteRoute,
 } as any)
-
-const FormSubmissionReceivedRoute = FormSubmissionReceivedImport.update({
+const FormSubmissionReceivedRoute = FormSubmissionReceivedRouteImport.update({
   id: '/form/submission-received',
   path: '/form/submission-received',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const DashboardProfileRoute = DashboardProfileImport.update({
+const DashboardProfileRoute = DashboardProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-
-const DashboardBillingRoute = DashboardBillingImport.update({
+const DashboardBillingRoute = DashboardBillingRouteImport.update({
   id: '/billing',
   path: '/billing',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-
-const SiteWaitlistRoute = SiteWaitlistImport.update({
+const SiteWaitlistRoute = SiteWaitlistRouteImport.update({
   id: '/waitlist',
   path: '/waitlist',
   getParentRoute: () => SiteRoute,
 } as any)
-
-const SiteTermsRoute = SiteTermsImport.update({
+const SiteTermsRoute = SiteTermsRouteImport.update({
   id: '/terms',
   path: '/terms',
   getParentRoute: () => SiteRoute,
 } as any)
-
-const SitePrivacyRoute = SitePrivacyImport.update({
+const SitePrivacyRoute = SitePrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
   getParentRoute: () => SiteRoute,
 } as any)
-
-const SitePricingRoute = SitePricingImport.update({
+const SitePricingRoute = SitePricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
   getParentRoute: () => SiteRoute,
 } as any)
-
-const SiteLogoutRoute = SiteLogoutImport.update({
+const SiteLogoutRoute = SiteLogoutRouteImport.update({
   id: '/logout',
   path: '/logout',
   getParentRoute: () => SiteRoute,
 } as any)
-
-const onboardingOnboardRoute = onboardingOnboardImport.update({
+const onboardingOnboardRoute = onboardingOnboardRouteImport.update({
   id: '/(onboarding)/onboard',
   path: '/onboard',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const SiteLoginRouteRoute = SiteLoginRouteImport.update({
+const SiteLoginRouteRoute = SiteLoginRouteRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => SiteRoute,
 } as any)
-
-const DashboardFormsIndexRoute = DashboardFormsIndexImport.update({
+const DashboardFormsIndexRoute = DashboardFormsIndexRouteImport.update({
   id: '/forms/',
   path: '/forms/',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-
-const DashboardEmailsIndexRoute = DashboardEmailsIndexImport.update({
+const DashboardEmailsIndexRoute = DashboardEmailsIndexRouteImport.update({
   id: '/emails/',
   path: '/emails/',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-
-const SiteLoginIndexRoute = SiteLoginIndexImport.update({
+const SiteLoginIndexRoute = SiteLoginIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => SiteLoginRouteRoute,
 } as any)
-
-const DashboardFormsCreateRoute = DashboardFormsCreateImport.update({
+const DashboardFormsCreateRoute = DashboardFormsCreateRouteImport.update({
   id: '/forms/create',
   path: '/forms/create',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-
-const DashboardEmailsCreateRoute = DashboardEmailsCreateImport.update({
+const DashboardEmailsCreateRoute = DashboardEmailsCreateRouteImport.update({
   id: '/emails/create',
   path: '/emails/create',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-
-const SiteLoginEmailRoute = SiteLoginEmailImport.update({
+const SiteLoginEmailRoute = SiteLoginEmailRouteImport.update({
   id: '/$email',
   path: '/$email',
   getParentRoute: () => SiteLoginRouteRoute,
 } as any)
-
 const DashboardFormsFormSlugRouteRoute =
-  DashboardFormsFormSlugRouteImport.update({
+  DashboardFormsFormSlugRouteRouteImport.update({
     id: '/forms/$formSlug',
     path: '/forms/$formSlug',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-
 const DashboardFormsFormSlugIndexRoute =
-  DashboardFormsFormSlugIndexImport.update({
+  DashboardFormsFormSlugIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => DashboardFormsFormSlugRouteRoute,
   } as any)
-
 const DashboardFormsFormSlugSettingsRoute =
-  DashboardFormsFormSlugSettingsImport.update({
+  DashboardFormsFormSlugSettingsRouteImport.update({
     id: '/settings',
     path: '/settings',
     getParentRoute: () => DashboardFormsFormSlugRouteRoute,
   } as any)
-
 const DashboardFormsFormSlugExampleRoute =
-  DashboardFormsFormSlugExampleImport.update({
+  DashboardFormsFormSlugExampleRouteImport.update({
     id: '/example',
     path: '/example',
     getParentRoute: () => DashboardFormsFormSlugRouteRoute,
   } as any)
-
 const DashboardEmailsVerificationSuccessEmailRoute =
-  DashboardEmailsVerificationSuccessEmailImport.update({
+  DashboardEmailsVerificationSuccessEmailRouteImport.update({
     id: '/emails/verification-success/$email',
     path: '/emails/verification-success/$email',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-
 const DashboardFormsFormSlugSubmissionsRouteRoute =
-  DashboardFormsFormSlugSubmissionsRouteImport.update({
+  DashboardFormsFormSlugSubmissionsRouteRouteImport.update({
     id: '/submissions',
     path: '/submissions',
     getParentRoute: () => DashboardFormsFormSlugRouteRoute,
   } as any)
-
 const DashboardFormsFormSlugSubmissionsIndexRoute =
-  DashboardFormsFormSlugSubmissionsIndexImport.update({
+  DashboardFormsFormSlugSubmissionsIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => DashboardFormsFormSlugSubmissionsRouteRoute,
   } as any)
-
 const DashboardFormsFormSlugSubmissionsIdRoute =
-  DashboardFormsFormSlugSubmissionsIdImport.update({
+  DashboardFormsFormSlugSubmissionsIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () => DashboardFormsFormSlugSubmissionsRouteRoute,
   } as any)
+const ApiUploadthingServerRoute = ApiUploadthingServerRouteImport.update({
+  id: '/api/uploadthing',
+  path: '/api/uploadthing',
+  getParentRoute: () => rootServerRouteImport,
+} as any)
+const ApiHealthServerRoute = ApiHealthServerRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
+  getParentRoute: () => rootServerRouteImport,
+} as any)
+const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootServerRouteImport,
+} as any)
+const ApiAtFormSlugServerRoute = ApiAtFormSlugServerRouteImport.update({
+  id: '/api/@/$formSlug',
+  path: '/api/@/$formSlug',
+  getParentRoute: () => rootServerRouteImport,
+} as any)
+const ApiEmailsVerifyOrgIdTokenServerRoute =
+  ApiEmailsVerifyOrgIdTokenServerRouteImport.update({
+    id: '/api/emails/verify/$orgId/$token',
+    path: '/api/emails/verify/$orgId/$token',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
 
-// Populate the FileRoutesByPath interface
+export interface FileRoutesByFullPath {
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/login': typeof SiteLoginRouteRouteWithChildren
+  '/onboard': typeof onboardingOnboardRoute
+  '/logout': typeof SiteLogoutRoute
+  '/pricing': typeof SitePricingRoute
+  '/privacy': typeof SitePrivacyRoute
+  '/terms': typeof SiteTermsRoute
+  '/waitlist': typeof SiteWaitlistRoute
+  '/dashboard/billing': typeof DashboardBillingRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/form/submission-received': typeof FormSubmissionReceivedRoute
+  '/': typeof SiteIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
+  '/login/$email': typeof SiteLoginEmailRoute
+  '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
+  '/dashboard/forms/create': typeof DashboardFormsCreateRoute
+  '/login/': typeof SiteLoginIndexRoute
+  '/dashboard/emails': typeof DashboardEmailsIndexRoute
+  '/dashboard/forms': typeof DashboardFormsIndexRoute
+  '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsRouteRouteWithChildren
+  '/dashboard/emails/verification-success/$email': typeof DashboardEmailsVerificationSuccessEmailRoute
+  '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
+  '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
+  '/dashboard/forms/$formSlug/': typeof DashboardFormsFormSlugIndexRoute
+  '/dashboard/forms/$formSlug/submissions/$id': typeof DashboardFormsFormSlugSubmissionsIdRoute
+  '/dashboard/forms/$formSlug/submissions/': typeof DashboardFormsFormSlugSubmissionsIndexRoute
+}
+export interface FileRoutesByTo {
+  '/onboard': typeof onboardingOnboardRoute
+  '/logout': typeof SiteLogoutRoute
+  '/pricing': typeof SitePricingRoute
+  '/privacy': typeof SitePrivacyRoute
+  '/terms': typeof SiteTermsRoute
+  '/waitlist': typeof SiteWaitlistRoute
+  '/dashboard/billing': typeof DashboardBillingRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/form/submission-received': typeof FormSubmissionReceivedRoute
+  '/': typeof SiteIndexRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/login/$email': typeof SiteLoginEmailRoute
+  '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
+  '/dashboard/forms/create': typeof DashboardFormsCreateRoute
+  '/login': typeof SiteLoginIndexRoute
+  '/dashboard/emails': typeof DashboardEmailsIndexRoute
+  '/dashboard/forms': typeof DashboardFormsIndexRoute
+  '/dashboard/emails/verification-success/$email': typeof DashboardEmailsVerificationSuccessEmailRoute
+  '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
+  '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
+  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugIndexRoute
+  '/dashboard/forms/$formSlug/submissions/$id': typeof DashboardFormsFormSlugSubmissionsIdRoute
+  '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsIndexRoute
+}
+export interface FileRoutesById {
+  __root__: typeof rootRouteImport
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/_site': typeof SiteRouteWithChildren
+  '/_site/login': typeof SiteLoginRouteRouteWithChildren
+  '/(onboarding)/onboard': typeof onboardingOnboardRoute
+  '/_site/logout': typeof SiteLogoutRoute
+  '/_site/pricing': typeof SitePricingRoute
+  '/_site/privacy': typeof SitePrivacyRoute
+  '/_site/terms': typeof SiteTermsRoute
+  '/_site/waitlist': typeof SiteWaitlistRoute
+  '/dashboard/billing': typeof DashboardBillingRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/form/submission-received': typeof FormSubmissionReceivedRoute
+  '/_site/': typeof SiteIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
+  '/_site/login/$email': typeof SiteLoginEmailRoute
+  '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
+  '/dashboard/forms/create': typeof DashboardFormsCreateRoute
+  '/_site/login/': typeof SiteLoginIndexRoute
+  '/dashboard/emails/': typeof DashboardEmailsIndexRoute
+  '/dashboard/forms/': typeof DashboardFormsIndexRoute
+  '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsRouteRouteWithChildren
+  '/dashboard/emails/verification-success/$email': typeof DashboardEmailsVerificationSuccessEmailRoute
+  '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
+  '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
+  '/dashboard/forms/$formSlug/': typeof DashboardFormsFormSlugIndexRoute
+  '/dashboard/forms/$formSlug/submissions/$id': typeof DashboardFormsFormSlugSubmissionsIdRoute
+  '/dashboard/forms/$formSlug/submissions/': typeof DashboardFormsFormSlugSubmissionsIndexRoute
+}
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/dashboard'
+    | '/login'
+    | '/onboard'
+    | '/logout'
+    | '/pricing'
+    | '/privacy'
+    | '/terms'
+    | '/waitlist'
+    | '/dashboard/billing'
+    | '/dashboard/profile'
+    | '/form/submission-received'
+    | '/'
+    | '/dashboard/'
+    | '/dashboard/forms/$formSlug'
+    | '/login/$email'
+    | '/dashboard/emails/create'
+    | '/dashboard/forms/create'
+    | '/login/'
+    | '/dashboard/emails'
+    | '/dashboard/forms'
+    | '/dashboard/forms/$formSlug/submissions'
+    | '/dashboard/emails/verification-success/$email'
+    | '/dashboard/forms/$formSlug/example'
+    | '/dashboard/forms/$formSlug/settings'
+    | '/dashboard/forms/$formSlug/'
+    | '/dashboard/forms/$formSlug/submissions/$id'
+    | '/dashboard/forms/$formSlug/submissions/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/onboard'
+    | '/logout'
+    | '/pricing'
+    | '/privacy'
+    | '/terms'
+    | '/waitlist'
+    | '/dashboard/billing'
+    | '/dashboard/profile'
+    | '/form/submission-received'
+    | '/'
+    | '/dashboard'
+    | '/login/$email'
+    | '/dashboard/emails/create'
+    | '/dashboard/forms/create'
+    | '/login'
+    | '/dashboard/emails'
+    | '/dashboard/forms'
+    | '/dashboard/emails/verification-success/$email'
+    | '/dashboard/forms/$formSlug/example'
+    | '/dashboard/forms/$formSlug/settings'
+    | '/dashboard/forms/$formSlug'
+    | '/dashboard/forms/$formSlug/submissions/$id'
+    | '/dashboard/forms/$formSlug/submissions'
+  id:
+    | '__root__'
+    | '/dashboard'
+    | '/_site'
+    | '/_site/login'
+    | '/(onboarding)/onboard'
+    | '/_site/logout'
+    | '/_site/pricing'
+    | '/_site/privacy'
+    | '/_site/terms'
+    | '/_site/waitlist'
+    | '/dashboard/billing'
+    | '/dashboard/profile'
+    | '/form/submission-received'
+    | '/_site/'
+    | '/dashboard/'
+    | '/dashboard/forms/$formSlug'
+    | '/_site/login/$email'
+    | '/dashboard/emails/create'
+    | '/dashboard/forms/create'
+    | '/_site/login/'
+    | '/dashboard/emails/'
+    | '/dashboard/forms/'
+    | '/dashboard/forms/$formSlug/submissions'
+    | '/dashboard/emails/verification-success/$email'
+    | '/dashboard/forms/$formSlug/example'
+    | '/dashboard/forms/$formSlug/settings'
+    | '/dashboard/forms/$formSlug/'
+    | '/dashboard/forms/$formSlug/submissions/$id'
+    | '/dashboard/forms/$formSlug/submissions/'
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
+  SiteRoute: typeof SiteRouteWithChildren
+  onboardingOnboardRoute: typeof onboardingOnboardRoute
+  FormSubmissionReceivedRoute: typeof FormSubmissionReceivedRoute
+}
+export interface FileServerRoutesByFullPath {
+  '/api/health': typeof ApiHealthServerRoute
+  '/api/uploadthing': typeof ApiUploadthingServerRoute
+  '/api/@/$formSlug': typeof ApiAtFormSlugServerRoute
+  '/api/auth/$': typeof ApiAuthSplatServerRoute
+  '/api/emails/verify/$orgId/$token': typeof ApiEmailsVerifyOrgIdTokenServerRoute
+}
+export interface FileServerRoutesByTo {
+  '/api/health': typeof ApiHealthServerRoute
+  '/api/uploadthing': typeof ApiUploadthingServerRoute
+  '/api/@/$formSlug': typeof ApiAtFormSlugServerRoute
+  '/api/auth/$': typeof ApiAuthSplatServerRoute
+  '/api/emails/verify/$orgId/$token': typeof ApiEmailsVerifyOrgIdTokenServerRoute
+}
+export interface FileServerRoutesById {
+  __root__: typeof rootServerRouteImport
+  '/api/health': typeof ApiHealthServerRoute
+  '/api/uploadthing': typeof ApiUploadthingServerRoute
+  '/api/@/$formSlug': typeof ApiAtFormSlugServerRoute
+  '/api/auth/$': typeof ApiAuthSplatServerRoute
+  '/api/emails/verify/$orgId/$token': typeof ApiEmailsVerifyOrgIdTokenServerRoute
+}
+export interface FileServerRouteTypes {
+  fileServerRoutesByFullPath: FileServerRoutesByFullPath
+  fullPaths:
+    | '/api/health'
+    | '/api/uploadthing'
+    | '/api/@/$formSlug'
+    | '/api/auth/$'
+    | '/api/emails/verify/$orgId/$token'
+  fileServerRoutesByTo: FileServerRoutesByTo
+  to:
+    | '/api/health'
+    | '/api/uploadthing'
+    | '/api/@/$formSlug'
+    | '/api/auth/$'
+    | '/api/emails/verify/$orgId/$token'
+  id:
+    | '__root__'
+    | '/api/health'
+    | '/api/uploadthing'
+    | '/api/@/$formSlug'
+    | '/api/auth/$'
+    | '/api/emails/verify/$orgId/$token'
+  fileServerRoutesById: FileServerRoutesById
+}
+export interface RootServerRouteChildren {
+  ApiHealthServerRoute: typeof ApiHealthServerRoute
+  ApiUploadthingServerRoute: typeof ApiUploadthingServerRoute
+  ApiAtFormSlugServerRoute: typeof ApiAtFormSlugServerRoute
+  ApiAuthSplatServerRoute: typeof ApiAuthSplatServerRoute
+  ApiEmailsVerifyOrgIdTokenServerRoute: typeof ApiEmailsVerifyOrgIdTokenServerRoute
+}
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRoute
-    }
     '/_site': {
       id: '/_site'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof SiteImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof SiteRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_site/login': {
-      id: '/_site/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof SiteLoginRouteImport
-      parentRoute: typeof SiteImport
-    }
-    '/(onboarding)/onboard': {
-      id: '/(onboarding)/onboard'
-      path: '/onboard'
-      fullPath: '/onboard'
-      preLoaderRoute: typeof onboardingOnboardImport
-      parentRoute: typeof rootRoute
-    }
-    '/_site/logout': {
-      id: '/_site/logout'
-      path: '/logout'
-      fullPath: '/logout'
-      preLoaderRoute: typeof SiteLogoutImport
-      parentRoute: typeof SiteImport
-    }
-    '/_site/pricing': {
-      id: '/_site/pricing'
-      path: '/pricing'
-      fullPath: '/pricing'
-      preLoaderRoute: typeof SitePricingImport
-      parentRoute: typeof SiteImport
-    }
-    '/_site/privacy': {
-      id: '/_site/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof SitePrivacyImport
-      parentRoute: typeof SiteImport
-    }
-    '/_site/terms': {
-      id: '/_site/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof SiteTermsImport
-      parentRoute: typeof SiteImport
-    }
-    '/_site/waitlist': {
-      id: '/_site/waitlist'
-      path: '/waitlist'
-      fullPath: '/waitlist'
-      preLoaderRoute: typeof SiteWaitlistImport
-      parentRoute: typeof SiteImport
-    }
-    '/dashboard/billing': {
-      id: '/dashboard/billing'
-      path: '/billing'
-      fullPath: '/dashboard/billing'
-      preLoaderRoute: typeof DashboardBillingImport
-      parentRoute: typeof DashboardRouteImport
-    }
-    '/dashboard/profile': {
-      id: '/dashboard/profile'
-      path: '/profile'
-      fullPath: '/dashboard/profile'
-      preLoaderRoute: typeof DashboardProfileImport
-      parentRoute: typeof DashboardRouteImport
-    }
-    '/form/submission-received': {
-      id: '/form/submission-received'
-      path: '/form/submission-received'
-      fullPath: '/form/submission-received'
-      preLoaderRoute: typeof FormSubmissionReceivedImport
-      parentRoute: typeof rootRoute
-    }
-    '/_site/': {
-      id: '/_site/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof SiteIndexImport
-      parentRoute: typeof SiteImport
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/dashboard/': {
       id: '/dashboard/'
       path: '/'
       fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexImport
-      parentRoute: typeof DashboardRouteImport
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/forms/$formSlug': {
-      id: '/dashboard/forms/$formSlug'
-      path: '/forms/$formSlug'
-      fullPath: '/dashboard/forms/$formSlug'
-      preLoaderRoute: typeof DashboardFormsFormSlugRouteImport
-      parentRoute: typeof DashboardRouteImport
-    }
-    '/_site/login/$email': {
-      id: '/_site/login/$email'
-      path: '/$email'
-      fullPath: '/login/$email'
-      preLoaderRoute: typeof SiteLoginEmailImport
-      parentRoute: typeof SiteLoginRouteImport
-    }
-    '/dashboard/emails/create': {
-      id: '/dashboard/emails/create'
-      path: '/emails/create'
-      fullPath: '/dashboard/emails/create'
-      preLoaderRoute: typeof DashboardEmailsCreateImport
-      parentRoute: typeof DashboardRouteImport
-    }
-    '/dashboard/forms/create': {
-      id: '/dashboard/forms/create'
-      path: '/forms/create'
-      fullPath: '/dashboard/forms/create'
-      preLoaderRoute: typeof DashboardFormsCreateImport
-      parentRoute: typeof DashboardRouteImport
-    }
-    '/_site/login/': {
-      id: '/_site/login/'
+    '/_site/': {
+      id: '/_site/'
       path: '/'
-      fullPath: '/login/'
-      preLoaderRoute: typeof SiteLoginIndexImport
-      parentRoute: typeof SiteLoginRouteImport
+      fullPath: '/'
+      preLoaderRoute: typeof SiteIndexRouteImport
+      parentRoute: typeof SiteRoute
     }
-    '/dashboard/emails/': {
-      id: '/dashboard/emails/'
-      path: '/emails'
-      fullPath: '/dashboard/emails'
-      preLoaderRoute: typeof DashboardEmailsIndexImport
-      parentRoute: typeof DashboardRouteImport
+    '/form/submission-received': {
+      id: '/form/submission-received'
+      path: '/form/submission-received'
+      fullPath: '/form/submission-received'
+      preLoaderRoute: typeof FormSubmissionReceivedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/profile': {
+      id: '/dashboard/profile'
+      path: '/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof DashboardProfileRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/billing': {
+      id: '/dashboard/billing'
+      path: '/billing'
+      fullPath: '/dashboard/billing'
+      preLoaderRoute: typeof DashboardBillingRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_site/waitlist': {
+      id: '/_site/waitlist'
+      path: '/waitlist'
+      fullPath: '/waitlist'
+      preLoaderRoute: typeof SiteWaitlistRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/terms': {
+      id: '/_site/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof SiteTermsRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/privacy': {
+      id: '/_site/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof SitePrivacyRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/pricing': {
+      id: '/_site/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof SitePricingRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/logout': {
+      id: '/_site/logout'
+      path: '/logout'
+      fullPath: '/logout'
+      preLoaderRoute: typeof SiteLogoutRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/(onboarding)/onboard': {
+      id: '/(onboarding)/onboard'
+      path: '/onboard'
+      fullPath: '/onboard'
+      preLoaderRoute: typeof onboardingOnboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_site/login': {
+      id: '/_site/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof SiteLoginRouteRouteImport
+      parentRoute: typeof SiteRoute
     }
     '/dashboard/forms/': {
       id: '/dashboard/forms/'
       path: '/forms'
       fullPath: '/dashboard/forms'
-      preLoaderRoute: typeof DashboardFormsIndexImport
-      parentRoute: typeof DashboardRouteImport
+      preLoaderRoute: typeof DashboardFormsIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/forms/$formSlug/submissions': {
-      id: '/dashboard/forms/$formSlug/submissions'
-      path: '/submissions'
-      fullPath: '/dashboard/forms/$formSlug/submissions'
-      preLoaderRoute: typeof DashboardFormsFormSlugSubmissionsRouteImport
-      parentRoute: typeof DashboardFormsFormSlugRouteImport
+    '/dashboard/emails/': {
+      id: '/dashboard/emails/'
+      path: '/emails'
+      fullPath: '/dashboard/emails'
+      preLoaderRoute: typeof DashboardEmailsIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/emails/verification-success/$email': {
-      id: '/dashboard/emails/verification-success/$email'
-      path: '/emails/verification-success/$email'
-      fullPath: '/dashboard/emails/verification-success/$email'
-      preLoaderRoute: typeof DashboardEmailsVerificationSuccessEmailImport
-      parentRoute: typeof DashboardRouteImport
+    '/_site/login/': {
+      id: '/_site/login/'
+      path: '/'
+      fullPath: '/login/'
+      preLoaderRoute: typeof SiteLoginIndexRouteImport
+      parentRoute: typeof SiteLoginRouteRoute
     }
-    '/dashboard/forms/$formSlug/example': {
-      id: '/dashboard/forms/$formSlug/example'
-      path: '/example'
-      fullPath: '/dashboard/forms/$formSlug/example'
-      preLoaderRoute: typeof DashboardFormsFormSlugExampleImport
-      parentRoute: typeof DashboardFormsFormSlugRouteImport
+    '/dashboard/forms/create': {
+      id: '/dashboard/forms/create'
+      path: '/forms/create'
+      fullPath: '/dashboard/forms/create'
+      preLoaderRoute: typeof DashboardFormsCreateRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/forms/$formSlug/settings': {
-      id: '/dashboard/forms/$formSlug/settings'
-      path: '/settings'
-      fullPath: '/dashboard/forms/$formSlug/settings'
-      preLoaderRoute: typeof DashboardFormsFormSlugSettingsImport
-      parentRoute: typeof DashboardFormsFormSlugRouteImport
+    '/dashboard/emails/create': {
+      id: '/dashboard/emails/create'
+      path: '/emails/create'
+      fullPath: '/dashboard/emails/create'
+      preLoaderRoute: typeof DashboardEmailsCreateRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_site/login/$email': {
+      id: '/_site/login/$email'
+      path: '/$email'
+      fullPath: '/login/$email'
+      preLoaderRoute: typeof SiteLoginEmailRouteImport
+      parentRoute: typeof SiteLoginRouteRoute
+    }
+    '/dashboard/forms/$formSlug': {
+      id: '/dashboard/forms/$formSlug'
+      path: '/forms/$formSlug'
+      fullPath: '/dashboard/forms/$formSlug'
+      preLoaderRoute: typeof DashboardFormsFormSlugRouteRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/forms/$formSlug/': {
       id: '/dashboard/forms/$formSlug/'
       path: '/'
       fullPath: '/dashboard/forms/$formSlug/'
-      preLoaderRoute: typeof DashboardFormsFormSlugIndexImport
-      parentRoute: typeof DashboardFormsFormSlugRouteImport
+      preLoaderRoute: typeof DashboardFormsFormSlugIndexRouteImport
+      parentRoute: typeof DashboardFormsFormSlugRouteRoute
     }
-    '/dashboard/forms/$formSlug/submissions/$id': {
-      id: '/dashboard/forms/$formSlug/submissions/$id'
-      path: '/$id'
-      fullPath: '/dashboard/forms/$formSlug/submissions/$id'
-      preLoaderRoute: typeof DashboardFormsFormSlugSubmissionsIdImport
-      parentRoute: typeof DashboardFormsFormSlugSubmissionsRouteImport
+    '/dashboard/forms/$formSlug/settings': {
+      id: '/dashboard/forms/$formSlug/settings'
+      path: '/settings'
+      fullPath: '/dashboard/forms/$formSlug/settings'
+      preLoaderRoute: typeof DashboardFormsFormSlugSettingsRouteImport
+      parentRoute: typeof DashboardFormsFormSlugRouteRoute
+    }
+    '/dashboard/forms/$formSlug/example': {
+      id: '/dashboard/forms/$formSlug/example'
+      path: '/example'
+      fullPath: '/dashboard/forms/$formSlug/example'
+      preLoaderRoute: typeof DashboardFormsFormSlugExampleRouteImport
+      parentRoute: typeof DashboardFormsFormSlugRouteRoute
+    }
+    '/dashboard/emails/verification-success/$email': {
+      id: '/dashboard/emails/verification-success/$email'
+      path: '/emails/verification-success/$email'
+      fullPath: '/dashboard/emails/verification-success/$email'
+      preLoaderRoute: typeof DashboardEmailsVerificationSuccessEmailRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/forms/$formSlug/submissions': {
+      id: '/dashboard/forms/$formSlug/submissions'
+      path: '/submissions'
+      fullPath: '/dashboard/forms/$formSlug/submissions'
+      preLoaderRoute: typeof DashboardFormsFormSlugSubmissionsRouteRouteImport
+      parentRoute: typeof DashboardFormsFormSlugRouteRoute
     }
     '/dashboard/forms/$formSlug/submissions/': {
       id: '/dashboard/forms/$formSlug/submissions/'
       path: '/'
       fullPath: '/dashboard/forms/$formSlug/submissions/'
-      preLoaderRoute: typeof DashboardFormsFormSlugSubmissionsIndexImport
-      parentRoute: typeof DashboardFormsFormSlugSubmissionsRouteImport
+      preLoaderRoute: typeof DashboardFormsFormSlugSubmissionsIndexRouteImport
+      parentRoute: typeof DashboardFormsFormSlugSubmissionsRouteRoute
+    }
+    '/dashboard/forms/$formSlug/submissions/$id': {
+      id: '/dashboard/forms/$formSlug/submissions/$id'
+      path: '/$id'
+      fullPath: '/dashboard/forms/$formSlug/submissions/$id'
+      preLoaderRoute: typeof DashboardFormsFormSlugSubmissionsIdRouteImport
+      parentRoute: typeof DashboardFormsFormSlugSubmissionsRouteRoute
     }
   }
 }
-
-// Create and export the route tree
+declare module '@tanstack/react-start/server' {
+  interface ServerFileRoutesByPath {
+    '/api/uploadthing': {
+      id: '/api/uploadthing'
+      path: '/api/uploadthing'
+      fullPath: '/api/uploadthing'
+      preLoaderRoute: typeof ApiUploadthingServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/@/$formSlug': {
+      id: '/api/@/$formSlug'
+      path: '/api/@/$formSlug'
+      fullPath: '/api/@/$formSlug'
+      preLoaderRoute: typeof ApiAtFormSlugServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/emails/verify/$orgId/$token': {
+      id: '/api/emails/verify/$orgId/$token'
+      path: '/api/emails/verify/$orgId/$token'
+      fullPath: '/api/emails/verify/$orgId/$token'
+      preLoaderRoute: typeof ApiEmailsVerifyOrgIdTokenServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+  }
+}
 
 interface DashboardFormsFormSlugSubmissionsRouteRouteChildren {
   DashboardFormsFormSlugSubmissionsIdRoute: typeof DashboardFormsFormSlugSubmissionsIdRoute
@@ -531,356 +802,22 @@ const SiteRouteChildren: SiteRouteChildren = {
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
-export interface FileRoutesByFullPath {
-  '/dashboard': typeof DashboardRouteRouteWithChildren
-  '': typeof SiteRouteWithChildren
-  '/login': typeof SiteLoginRouteRouteWithChildren
-  '/onboard': typeof onboardingOnboardRoute
-  '/logout': typeof SiteLogoutRoute
-  '/pricing': typeof SitePricingRoute
-  '/privacy': typeof SitePrivacyRoute
-  '/terms': typeof SiteTermsRoute
-  '/waitlist': typeof SiteWaitlistRoute
-  '/dashboard/billing': typeof DashboardBillingRoute
-  '/dashboard/profile': typeof DashboardProfileRoute
-  '/form/submission-received': typeof FormSubmissionReceivedRoute
-  '/': typeof SiteIndexRoute
-  '/dashboard/': typeof DashboardIndexRoute
-  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
-  '/login/$email': typeof SiteLoginEmailRoute
-  '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
-  '/dashboard/forms/create': typeof DashboardFormsCreateRoute
-  '/login/': typeof SiteLoginIndexRoute
-  '/dashboard/emails': typeof DashboardEmailsIndexRoute
-  '/dashboard/forms': typeof DashboardFormsIndexRoute
-  '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsRouteRouteWithChildren
-  '/dashboard/emails/verification-success/$email': typeof DashboardEmailsVerificationSuccessEmailRoute
-  '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
-  '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
-  '/dashboard/forms/$formSlug/': typeof DashboardFormsFormSlugIndexRoute
-  '/dashboard/forms/$formSlug/submissions/$id': typeof DashboardFormsFormSlugSubmissionsIdRoute
-  '/dashboard/forms/$formSlug/submissions/': typeof DashboardFormsFormSlugSubmissionsIndexRoute
-}
-
-export interface FileRoutesByTo {
-  '/onboard': typeof onboardingOnboardRoute
-  '/logout': typeof SiteLogoutRoute
-  '/pricing': typeof SitePricingRoute
-  '/privacy': typeof SitePrivacyRoute
-  '/terms': typeof SiteTermsRoute
-  '/waitlist': typeof SiteWaitlistRoute
-  '/dashboard/billing': typeof DashboardBillingRoute
-  '/dashboard/profile': typeof DashboardProfileRoute
-  '/form/submission-received': typeof FormSubmissionReceivedRoute
-  '/': typeof SiteIndexRoute
-  '/dashboard': typeof DashboardIndexRoute
-  '/login/$email': typeof SiteLoginEmailRoute
-  '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
-  '/dashboard/forms/create': typeof DashboardFormsCreateRoute
-  '/login': typeof SiteLoginIndexRoute
-  '/dashboard/emails': typeof DashboardEmailsIndexRoute
-  '/dashboard/forms': typeof DashboardFormsIndexRoute
-  '/dashboard/emails/verification-success/$email': typeof DashboardEmailsVerificationSuccessEmailRoute
-  '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
-  '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
-  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugIndexRoute
-  '/dashboard/forms/$formSlug/submissions/$id': typeof DashboardFormsFormSlugSubmissionsIdRoute
-  '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsIndexRoute
-}
-
-export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/_site': typeof SiteRouteWithChildren
-  '/_site/login': typeof SiteLoginRouteRouteWithChildren
-  '/(onboarding)/onboard': typeof onboardingOnboardRoute
-  '/_site/logout': typeof SiteLogoutRoute
-  '/_site/pricing': typeof SitePricingRoute
-  '/_site/privacy': typeof SitePrivacyRoute
-  '/_site/terms': typeof SiteTermsRoute
-  '/_site/waitlist': typeof SiteWaitlistRoute
-  '/dashboard/billing': typeof DashboardBillingRoute
-  '/dashboard/profile': typeof DashboardProfileRoute
-  '/form/submission-received': typeof FormSubmissionReceivedRoute
-  '/_site/': typeof SiteIndexRoute
-  '/dashboard/': typeof DashboardIndexRoute
-  '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
-  '/_site/login/$email': typeof SiteLoginEmailRoute
-  '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
-  '/dashboard/forms/create': typeof DashboardFormsCreateRoute
-  '/_site/login/': typeof SiteLoginIndexRoute
-  '/dashboard/emails/': typeof DashboardEmailsIndexRoute
-  '/dashboard/forms/': typeof DashboardFormsIndexRoute
-  '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsRouteRouteWithChildren
-  '/dashboard/emails/verification-success/$email': typeof DashboardEmailsVerificationSuccessEmailRoute
-  '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
-  '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
-  '/dashboard/forms/$formSlug/': typeof DashboardFormsFormSlugIndexRoute
-  '/dashboard/forms/$formSlug/submissions/$id': typeof DashboardFormsFormSlugSubmissionsIdRoute
-  '/dashboard/forms/$formSlug/submissions/': typeof DashboardFormsFormSlugSubmissionsIndexRoute
-}
-
-export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/dashboard'
-    | ''
-    | '/login'
-    | '/onboard'
-    | '/logout'
-    | '/pricing'
-    | '/privacy'
-    | '/terms'
-    | '/waitlist'
-    | '/dashboard/billing'
-    | '/dashboard/profile'
-    | '/form/submission-received'
-    | '/'
-    | '/dashboard/'
-    | '/dashboard/forms/$formSlug'
-    | '/login/$email'
-    | '/dashboard/emails/create'
-    | '/dashboard/forms/create'
-    | '/login/'
-    | '/dashboard/emails'
-    | '/dashboard/forms'
-    | '/dashboard/forms/$formSlug/submissions'
-    | '/dashboard/emails/verification-success/$email'
-    | '/dashboard/forms/$formSlug/example'
-    | '/dashboard/forms/$formSlug/settings'
-    | '/dashboard/forms/$formSlug/'
-    | '/dashboard/forms/$formSlug/submissions/$id'
-    | '/dashboard/forms/$formSlug/submissions/'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/onboard'
-    | '/logout'
-    | '/pricing'
-    | '/privacy'
-    | '/terms'
-    | '/waitlist'
-    | '/dashboard/billing'
-    | '/dashboard/profile'
-    | '/form/submission-received'
-    | '/'
-    | '/dashboard'
-    | '/login/$email'
-    | '/dashboard/emails/create'
-    | '/dashboard/forms/create'
-    | '/login'
-    | '/dashboard/emails'
-    | '/dashboard/forms'
-    | '/dashboard/emails/verification-success/$email'
-    | '/dashboard/forms/$formSlug/example'
-    | '/dashboard/forms/$formSlug/settings'
-    | '/dashboard/forms/$formSlug'
-    | '/dashboard/forms/$formSlug/submissions/$id'
-    | '/dashboard/forms/$formSlug/submissions'
-  id:
-    | '__root__'
-    | '/dashboard'
-    | '/_site'
-    | '/_site/login'
-    | '/(onboarding)/onboard'
-    | '/_site/logout'
-    | '/_site/pricing'
-    | '/_site/privacy'
-    | '/_site/terms'
-    | '/_site/waitlist'
-    | '/dashboard/billing'
-    | '/dashboard/profile'
-    | '/form/submission-received'
-    | '/_site/'
-    | '/dashboard/'
-    | '/dashboard/forms/$formSlug'
-    | '/_site/login/$email'
-    | '/dashboard/emails/create'
-    | '/dashboard/forms/create'
-    | '/_site/login/'
-    | '/dashboard/emails/'
-    | '/dashboard/forms/'
-    | '/dashboard/forms/$formSlug/submissions'
-    | '/dashboard/emails/verification-success/$email'
-    | '/dashboard/forms/$formSlug/example'
-    | '/dashboard/forms/$formSlug/settings'
-    | '/dashboard/forms/$formSlug/'
-    | '/dashboard/forms/$formSlug/submissions/$id'
-    | '/dashboard/forms/$formSlug/submissions/'
-  fileRoutesById: FileRoutesById
-}
-
-export interface RootRouteChildren {
-  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
-  SiteRoute: typeof SiteRouteWithChildren
-  onboardingOnboardRoute: typeof onboardingOnboardRoute
-  FormSubmissionReceivedRoute: typeof FormSubmissionReceivedRoute
-}
-
 const rootRouteChildren: RootRouteChildren = {
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   SiteRoute: SiteRouteWithChildren,
   onboardingOnboardRoute: onboardingOnboardRoute,
   FormSubmissionReceivedRoute: FormSubmissionReceivedRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/dashboard",
-        "/_site",
-        "/(onboarding)/onboard",
-        "/form/submission-received"
-      ]
-    },
-    "/dashboard": {
-      "filePath": "dashboard/route.tsx",
-      "children": [
-        "/dashboard/billing",
-        "/dashboard/profile",
-        "/dashboard/",
-        "/dashboard/forms/$formSlug",
-        "/dashboard/emails/create",
-        "/dashboard/forms/create",
-        "/dashboard/emails/",
-        "/dashboard/forms/",
-        "/dashboard/emails/verification-success/$email"
-      ]
-    },
-    "/_site": {
-      "filePath": "_site.tsx",
-      "children": [
-        "/_site/login",
-        "/_site/logout",
-        "/_site/pricing",
-        "/_site/privacy",
-        "/_site/terms",
-        "/_site/waitlist",
-        "/_site/"
-      ]
-    },
-    "/_site/login": {
-      "filePath": "_site/login/route.tsx",
-      "parent": "/_site",
-      "children": [
-        "/_site/login/$email",
-        "/_site/login/"
-      ]
-    },
-    "/(onboarding)/onboard": {
-      "filePath": "(onboarding)/onboard.tsx"
-    },
-    "/_site/logout": {
-      "filePath": "_site/logout.tsx",
-      "parent": "/_site"
-    },
-    "/_site/pricing": {
-      "filePath": "_site/pricing.tsx",
-      "parent": "/_site"
-    },
-    "/_site/privacy": {
-      "filePath": "_site/privacy.tsx",
-      "parent": "/_site"
-    },
-    "/_site/terms": {
-      "filePath": "_site/terms.tsx",
-      "parent": "/_site"
-    },
-    "/_site/waitlist": {
-      "filePath": "_site/waitlist.tsx",
-      "parent": "/_site"
-    },
-    "/dashboard/billing": {
-      "filePath": "dashboard/billing.tsx",
-      "parent": "/dashboard"
-    },
-    "/dashboard/profile": {
-      "filePath": "dashboard/profile.tsx",
-      "parent": "/dashboard"
-    },
-    "/form/submission-received": {
-      "filePath": "form/submission-received.tsx"
-    },
-    "/_site/": {
-      "filePath": "_site/index.tsx",
-      "parent": "/_site"
-    },
-    "/dashboard/": {
-      "filePath": "dashboard/index.tsx",
-      "parent": "/dashboard"
-    },
-    "/dashboard/forms/$formSlug": {
-      "filePath": "dashboard/forms/$formSlug/route.tsx",
-      "parent": "/dashboard",
-      "children": [
-        "/dashboard/forms/$formSlug/submissions",
-        "/dashboard/forms/$formSlug/example",
-        "/dashboard/forms/$formSlug/settings",
-        "/dashboard/forms/$formSlug/"
-      ]
-    },
-    "/_site/login/$email": {
-      "filePath": "_site/login/$email.tsx",
-      "parent": "/_site/login"
-    },
-    "/dashboard/emails/create": {
-      "filePath": "dashboard/emails/create.tsx",
-      "parent": "/dashboard"
-    },
-    "/dashboard/forms/create": {
-      "filePath": "dashboard/forms/create.tsx",
-      "parent": "/dashboard"
-    },
-    "/_site/login/": {
-      "filePath": "_site/login/index.tsx",
-      "parent": "/_site/login"
-    },
-    "/dashboard/emails/": {
-      "filePath": "dashboard/emails/index.tsx",
-      "parent": "/dashboard"
-    },
-    "/dashboard/forms/": {
-      "filePath": "dashboard/forms/index.tsx",
-      "parent": "/dashboard"
-    },
-    "/dashboard/forms/$formSlug/submissions": {
-      "filePath": "dashboard/forms/$formSlug/submissions/route.tsx",
-      "parent": "/dashboard/forms/$formSlug",
-      "children": [
-        "/dashboard/forms/$formSlug/submissions/$id",
-        "/dashboard/forms/$formSlug/submissions/"
-      ]
-    },
-    "/dashboard/emails/verification-success/$email": {
-      "filePath": "dashboard/emails/verification-success.$email.tsx",
-      "parent": "/dashboard"
-    },
-    "/dashboard/forms/$formSlug/example": {
-      "filePath": "dashboard/forms/$formSlug/example.tsx",
-      "parent": "/dashboard/forms/$formSlug"
-    },
-    "/dashboard/forms/$formSlug/settings": {
-      "filePath": "dashboard/forms/$formSlug/settings.tsx",
-      "parent": "/dashboard/forms/$formSlug"
-    },
-    "/dashboard/forms/$formSlug/": {
-      "filePath": "dashboard/forms/$formSlug/index.tsx",
-      "parent": "/dashboard/forms/$formSlug"
-    },
-    "/dashboard/forms/$formSlug/submissions/$id": {
-      "filePath": "dashboard/forms/$formSlug/submissions/$id.tsx",
-      "parent": "/dashboard/forms/$formSlug/submissions"
-    },
-    "/dashboard/forms/$formSlug/submissions/": {
-      "filePath": "dashboard/forms/$formSlug/submissions/index.tsx",
-      "parent": "/dashboard/forms/$formSlug/submissions"
-    }
-  }
+const rootServerRouteChildren: RootServerRouteChildren = {
+  ApiHealthServerRoute: ApiHealthServerRoute,
+  ApiUploadthingServerRoute: ApiUploadthingServerRoute,
+  ApiAtFormSlugServerRoute: ApiAtFormSlugServerRoute,
+  ApiAuthSplatServerRoute: ApiAuthSplatServerRoute,
+  ApiEmailsVerifyOrgIdTokenServerRoute: ApiEmailsVerifyOrgIdTokenServerRoute,
 }
-ROUTE_MANIFEST_END */
+export const serverRouteTree = rootServerRouteImport
+  ._addFileChildren(rootServerRouteChildren)
+  ._addFileTypes<FileServerRouteTypes>()

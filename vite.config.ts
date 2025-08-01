@@ -1,20 +1,36 @@
-/**
- * @description This file is used for tools that expect a `vite.config.ts`.
- * Tanstack Start uses `app.config.ts` so storybook and other tools cannot get the vite config.
- */
-
-import { sitemap } from "./src/lib/utils/sitemap";
 import tailwindcss from "@tailwindcss/vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import react from "@vitejs/plugin-react";
 import { generateSitemap } from "tanstack-router-sitemap";
-import type { UserConfig } from "vite";
+import { defineConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
+import { sitemap } from "./src/lib/utils/sitemap";
 
-export default {
+export default defineConfig({
   plugins: [
     tsConfigPaths({
       projects: ["./tsconfig.json"],
     }),
     tailwindcss(),
     generateSitemap(sitemap),
+    tanstackStart({
+      target: "vercel",
+      customViteReactPlugin: true,
+      prerender: {
+        enabled: true,
+        filter: ({ path }) =>
+          ["/", "/waitlist", "/terms", "/privacy", "/pricing"].includes(path),
+      },
+      tsr: {
+        routeTreeFileHeader: [
+          "/* eslint-disable */",
+          "// @ts-nocheck",
+          "// noinspection JSUnusedGlobalSymbols",
+          "// deno-lint-ignore-file",
+          "// deno-fmt-ignore-file",
+        ],
+      },
+    }),
+    react(),
   ],
-} satisfies UserConfig;
+});

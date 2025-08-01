@@ -1,8 +1,10 @@
 import { json } from "@tanstack/react-start";
-import { createAPIFileRoute } from "@tanstack/react-start/api";
-import { getRequestIP } from "@tanstack/react-start/server";
+import {
+  createServerFileRoute,
+  getRequestIP,
+} from "@tanstack/react-start/server";
 
-export const APIRoute = createAPIFileRoute("/api/health")({
+export const ServerRoute = createServerFileRoute("/api/health").methods({
   GET: () => {
     const ip = getRequestIP();
     const xForwardedFor = getRequestIP({ xForwardedFor: true });

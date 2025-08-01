@@ -1,4 +1,3 @@
-import { CloudLightning } from "lucide-react";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
@@ -7,6 +6,7 @@ export function SpinningPyramid() {
 
   useEffect(() => {
     if (!ref) return;
+    if (ref.current?.children.length) return;
 
     const width = 400;
     const height = 400;

@@ -6,10 +6,10 @@ import {
 } from "@/features/form_management/server_actions/submit_form";
 import type { LinkProps } from "@tanstack/react-router";
 import { json } from "@tanstack/react-start";
-import { createAPIFileRoute } from "@tanstack/react-start/api";
+import { createServerFileRoute } from "@tanstack/react-start/server";
 import { getRequestIP } from "@tanstack/react-start/server";
 
-export const APIRoute = createAPIFileRoute("/api/@/$formSlug")({
+export const ServerRoute = createServerFileRoute("/api/@/$formSlug").methods({
   POST: async ({ request, params }) => {
     const ip = getRequestIP({ xForwardedFor: true });
 

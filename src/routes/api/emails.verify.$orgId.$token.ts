@@ -1,11 +1,12 @@
 import { db } from "@/db/database";
 import { email, emailVerification } from "@/db/schema";
-import { createAPIFileRoute } from "@tanstack/react-start/api";
+import { createServerFileRoute } from "@tanstack/react-start/server";
+import { getHeaders } from "better-auth/react";
 import { and, eq } from "drizzle-orm";
 
-export const APIRoute = createAPIFileRoute(
+export const ServerRoute = createServerFileRoute(
   "/api/emails/verify/$orgId/$token",
-)({
+).methods({
   /** note: this is public endpoint, can be an attack vector */
   GET: async ({ params }) => {
     // todo: handle scenarios
