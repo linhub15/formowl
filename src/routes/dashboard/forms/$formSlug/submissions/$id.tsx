@@ -45,7 +45,7 @@ function RouteComponent() {
     );
   }
 
-  // todo: implement a nice format for the submission data
+  // todo(ux): implement a nice format for the submission data
   return (
     <Card className="w-full">
       <CardHeader>

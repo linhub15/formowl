@@ -1,5 +1,6 @@
 import { Container } from "@/components/layout/container";
 import { Heading } from "@/components/ui/heading";
+import { PLANS } from "@/features/billing/plans/plans.const";
 import {
   PricingCard,
   type PricingCardProps,
@@ -13,53 +14,18 @@ export const Route = createFileRoute("/_site/pricing")({
 
 const tiers: PricingCardProps[] = [
   {
-    id: "tier-freelancer",
-    name: "Freelancer",
+    id: "tier-free",
+    name: PLANS.free.label,
     to: "/waitlist",
-    price: "$5",
-    features: [
-      "Unlimited forms",
-      "Unlimited submissions",
-      "1000 email notifications",
-      "10 linked emails",
-      "Anti-spam honeypot",
-      "Cloudflare turnstile",
-      "Bring your own SMTP (coming soon)",
-      "Custom redirect (coming soon)",
-    ],
+    price: PLANS.free.monthlyPrice,
+    features: PLANS.free.features,
   },
   {
-    id: "tier-team",
-    name: "Team",
+    id: "tier-pro",
+    name: PLANS.pro.label,
     to: "/waitlist",
-    price: "$20",
-    features: [
-      "Unlimited forms",
-      "Unlimited submissions",
-      "4000 email notifications",
-      "100 linked emails",
-      "Anti-spam honeypot",
-      "Cloudflare turnstile",
-      "Bring your own SMTP (coming soon)",
-      "3 team members (coming soon)",
-      "API access (coming soon)",
-    ],
-  },
-  {
-    name: "Business",
-    id: "tier-business",
-    to: "/waitlist",
-    price: "$100",
-    features: [
-      "Unlimited forms",
-      "Unlimited submissions",
-      "25,000 email notifications",
-      "1000 linked emails",
-      "Anti-spam honeypot",
-      "Cloudflare turnstile",
-      "10+ team members (coming soon)",
-      "API access (coming soon)",
-    ],
+    price: PLANS.pro.monthlyPrice,
+    features: PLANS.pro.features,
   },
 ];
 

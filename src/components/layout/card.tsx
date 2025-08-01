@@ -10,7 +10,7 @@ export function Card({ children, className }: PropsWithChildren & Styleable) {
   return (
     <div
       className={cn(
-        "divide-y divide-zinc-950/15 dark:divide-white/15 overflow-hidden rounded-lg border border-zinc-950/15 dark:border-white/15",
+        "flex flex-col divide-y divide-zinc-950/15 dark:divide-white/15 overflow-hidden rounded-lg border border-zinc-950/15 dark:border-white/15",
         className,
       )}
     >
@@ -33,7 +33,7 @@ export function CardHeader({ children }: PropsWithChildren) {
 }
 
 export function CardBody({ children }: PropsWithChildren) {
-  return <div className="px-4 py-5 sm:p-6 overflow-auto">{children}</div>;
+  return <div className="grow px-4 py-5 sm:p-6 overflow-auto">{children}</div>;
 }
 
 export function CardFooter(

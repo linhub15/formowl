@@ -14,6 +14,10 @@ const envServerSchema = z.object({
   GITHUB_OAUTH_ID: z.string(),
   GITHUB_OAUTH_SECRET: z.string(),
 
+  STRIPE_WEBHOOK_SECRET: z.string(),
+  STRIPE_SECRET_KEY: z.string(),
+  STRIPE_PRICE_PRO_YEARLY: z.string(),
+
   // EMAIL
   SMTP_HOST: z.string(),
   SMTP_PORT: z.string().default("465"),

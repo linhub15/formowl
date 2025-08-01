@@ -96,7 +96,11 @@ export async function submitForm(args: Request): Promise<Response> {
 
     await db.insert(statistic).values({
       type: "honeypot",
-      meta: { ip: args.requestIpAddress, referer: args.requestReferer },
+      meta: {
+        ip: args.requestIpAddress,
+        referer: args.requestReferer,
+        value: honeyPot,
+      },
     });
 
     return "not_found";

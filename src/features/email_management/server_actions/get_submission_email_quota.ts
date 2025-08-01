@@ -1,11 +1,18 @@
 import { db } from "@/db/database";
+import { safeGetPlan } from "@/features/billing/plans/plans.const";
 
 type Args = {
   organizationId: string;
 };
 
 export async function getSubmissionEmailQuota(args: Args) {
-  const maxQuota = 50; // 50 emails for during Alpha
+  const subscription = await db.query.subscription.findFirst({
+    where: (subscription, { eq }) =>
+      eq(subscription.referenceId, args.organizationId),
+  });
+
+  const maxQuota =
+    safeGetPlan(subscription?.plan, "free").limits.monthlyEmailNotifications;
 
   const now = new Date();
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
