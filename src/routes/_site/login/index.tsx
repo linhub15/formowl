@@ -1,4 +1,9 @@
-import { Card, CardBody, CardFooter } from "@/components/layout/card";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+} from "@/components/layout/card";
 import { Divider } from "@/components/ui/divider";
 import { Heading } from "@/components/ui/heading";
 import { P, TextLink } from "@/components/ui/text";
@@ -21,8 +26,13 @@ function RouteComponent() {
 
   return (
     <Card>
+      <CardHeader>
+        <Heading className="text-center pb-4">{BRANDING.name}</Heading>
+        <P className="text-center">
+          No account? No problem, choose an option to get started.
+        </P>
+      </CardHeader>
       <CardBody>
-        <Heading className="text-center pb-8">{BRANDING.name}</Heading>
         <div className="space-y-6">
           <LoginEmailForm />
 

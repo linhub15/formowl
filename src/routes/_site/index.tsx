@@ -35,8 +35,7 @@ function RouteComponent() {
             </div>
 
             <div className="flex gap-4">
-              <Button to="/waitlist">Join the waitlist</Button>
-              <Button to="/dashboard" variant="outline">Try the Alpha</Button>
+              <Button to="/dashboard" variant="outline">Try for Free</Button>
             </div>
           </div>
         </section>

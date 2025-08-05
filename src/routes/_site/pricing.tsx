@@ -5,7 +5,6 @@ import {
   PricingCard,
   type PricingCardProps,
 } from "@/features/marketing_site/pricing_card";
-import { PricingCardAlpha } from "@/features/marketing_site/pricing_card_alpha";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_site/pricing")({
@@ -16,14 +15,14 @@ const tiers: PricingCardProps[] = [
   {
     id: "tier-free",
     name: PLANS.free.label,
-    to: "/waitlist",
+    to: "/dashboard",
     price: PLANS.free.monthlyPrice,
     features: PLANS.free.features,
   },
   {
     id: "tier-pro",
     name: PLANS.pro.label,
-    to: "/waitlist",
+    to: "/dashboard",
     price: PLANS.pro.monthlyPrice,
     features: PLANS.pro.features,
   },
@@ -35,10 +34,9 @@ function RouteComponent() {
       <section className="space-y-16">
         <Heading className="text-center">Pricing</Heading>
         <div className="max-w-md mx-auto">
-          <PricingCardAlpha />
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 mx-auto gap-8 blur-xs select-none flex-wrap">
+        <div className="max-w-screen-lg grid grid-cols-2 mx-auto gap-8 select-none flex-wrap">
           {tiers.map((tier) => <PricingCard key={tier.id} {...tier} />)}
         </div>
       </section>

@@ -27,7 +27,7 @@ export function PricingCard(
     features,
     to,
     href,
-    actionText = "Get started",
+    actionText = "Try for free",
   }: PricingCardProps,
 ) {
   return (

@@ -53,7 +53,7 @@ export const PLANS: Record<keyof typeof SUBSCRIPTION_PLAN, Plan> = {
     features: [
       "Unlimited forms",
       "Unlimited submissions",
-      "50 email notifications / month",
+      "500 email notifications / month",
       "Anti-spam honeypot",
       "Cloudflare turnstile",
       "Custom thank you page",
@@ -61,7 +61,7 @@ export const PLANS: Record<keyof typeof SUBSCRIPTION_PLAN, Plan> = {
     ],
     limits: {
       linkedEmails: 5,
-      monthlyEmailNotifications: 50,
+      monthlyEmailNotifications: 500,
     },
   },
   [SUBSCRIPTION_PLAN.pro]: {
@@ -72,7 +72,7 @@ export const PLANS: Record<keyof typeof SUBSCRIPTION_PLAN, Plan> = {
     features: [
       "Unlimited forms",
       "Unlimited submissions",
-      "50 email notifications / month",
+      "500 email notifications / month",
       "Anti-spam honeypot",
       "Cloudflare turnstile",
       "Custom thank you page",
@@ -80,17 +80,11 @@ export const PLANS: Record<keyof typeof SUBSCRIPTION_PLAN, Plan> = {
     ],
     limits: {
       linkedEmails: 5,
-      monthlyEmailNotifications: 50,
+      monthlyEmailNotifications: 500,
     },
   },
 } as const;
 
-// "Unlimited forms",
-// "Unlimited submissions",
-// "1000 email notifications",
-// "10 linked emails",
-// "Anti-spam honeypot",
-// "Cloudflare turnstile",
 // "Bring your own SMTP (coming soon)",
 // "Custom redirect (coming soon)",
 // "3 team members (coming soon)",

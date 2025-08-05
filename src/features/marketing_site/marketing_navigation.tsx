@@ -73,14 +73,24 @@ export function MarketingNav(props: Props) {
                         </Button>
                       )
                       : (
-                        <Button
-                          className="data-[current=true]:invisible"
-                          to="/login"
-                          variant="outline"
-                          data-current={pathname === "/login"}
-                        >
-                          Try the Alpha
-                        </Button>
+                        <>
+                          <Button
+                            className="data-[current=true]:invisible"
+                            to="/login"
+                            variant="plain"
+                            data-current={pathname === "/login"}
+                          >
+                            Login
+                          </Button>
+                          <Button
+                            className="data-[current=true]:invisible"
+                            to="/login"
+                            variant="outline"
+                            data-current={pathname === "/login"}
+                          >
+                            Sign Up
+                          </Button>
+                        </>
                       )
                   )}
                 </MatchRoute>
