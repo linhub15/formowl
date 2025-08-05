@@ -1,5 +1,5 @@
 import "../src/main.css";
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 
 const isDarkMode = globalThis
   ? globalThis.matchMedia("(prefers-color-scheme: dark)").matches
