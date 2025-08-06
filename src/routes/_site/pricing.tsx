@@ -36,7 +36,7 @@ function RouteComponent() {
         <div className="max-w-md mx-auto">
         </div>
 
-        <div className="max-w-screen-lg grid grid-cols-2 mx-auto gap-8 select-none flex-wrap">
+        <div className="max-w-screen-lg grid md:grid-cols-2 mx-auto gap-8 select-none flex-wrap">
           {tiers.map((tier) => <PricingCard key={tier.id} {...tier} />)}
         </div>
       </section>

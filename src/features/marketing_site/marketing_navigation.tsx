@@ -82,14 +82,16 @@ export function MarketingNav(props: Props) {
                           >
                             Login
                           </Button>
-                          <Button
-                            className="data-[current=true]:invisible"
-                            to="/login"
-                            variant="outline"
-                            data-current={pathname === "/login"}
-                          >
-                            Sign Up
-                          </Button>
+                          <div className="hidden sm:inline-block">
+                            <Button
+                              className="data-[current=true]:invisible"
+                              to="/login"
+                              variant="outline"
+                              data-current={pathname === "/login"}
+                            >
+                              Sign Up
+                            </Button>
+                          </div>
                         </>
                       )
                   )}
