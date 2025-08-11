@@ -1,4 +1,5 @@
 import { Card, CardBody, CardHeader } from "@/components/layout/card";
+import { Button } from "@/components/ui/button";
 import { CodeBlock } from "@/components/ui/code_block";
 import { Field, FieldGroup, Label } from "@/components/ui/fieldset";
 import { Subheading } from "@/components/ui/heading";
@@ -15,6 +16,7 @@ import { useFormActionUrl } from "@/features/form_management/hooks/use_form_acti
 import { useGetForm } from "@/features/form_management/hooks/use_get_form";
 import { useSession } from "@/lib/auth/hooks/use_session";
 import { createFileRoute } from "@tanstack/react-router";
+import { EditFormNameInput } from "@/features/form_management/rename_form/edit_form_name_input";
 
 export const Route = createFileRoute("/dashboard/forms/$formSlug/settings")({
   component: RouteComponent,
@@ -43,11 +45,30 @@ function RouteComponent() {
 
       <Card>
         <CardBody>
+          <div className="flex flex-col md:flex-row gap-6 justify-between">
+            <div className="space-y-2">
+              <Subheading>Name</Subheading>
+              <div>
+                <P>
+                  The name of the form is used on email subject lines and shows
+                  up in this dashboard.
+                </P>
+                <P>
+                  Changing the name won't affect submissions.
+                </P>
+              </div>
+            </div>
+            <div className="w-xs">
+              <EditFormNameInput formId={form.id} formName={form.name} />
+            </div>
+          </div>
+        </CardBody>
+        <CardBody>
           <div className="flex flex-col md:flex-row gap-6 justify-between md:items-center">
             <div className="space-y-2">
-              <Subheading>Submissions</Subheading>
+              <Subheading>Form Submissions</Subheading>
               <div>
-                <P>Pause to temporarily block all form submission.</P>
+                <P>Pause to temporarily block form submission.</P>
                 <P>Paused forms will respond with 404 not found.</P>
               </div>
             </div>
@@ -66,12 +87,12 @@ function RouteComponent() {
               <Subheading>Email notifications</Subheading>
               <div>
                 <P>
-                  Submissions will be sent to this email address. Your profile
-                  email address is used by default.
+                  When a submission is received, the submission will be sent to
+                  this email.
                 </P>
                 <P>
-                  You can pause email notifications and still receive form
-                  submissions.
+                  Form submission are still saved when email notifications are
+                  paused.
                 </P>
               </div>
             </div>

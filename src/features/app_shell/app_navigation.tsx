@@ -1,4 +1,3 @@
-import { FolderClosed, FolderOpen } from "lucide-react";
 import {
   Navbar,
   NavbarItem,
@@ -21,7 +20,8 @@ import {
   AtSymbolIcon,
   CreditCardIcon,
   DocumentTextIcon,
-  LightBulbIcon,
+  FolderIcon,
+  FolderOpenIcon,
   LinkIcon,
   PlusIcon,
 } from "@heroicons/react/20/solid";
@@ -172,18 +172,16 @@ export function AppNavigation(props: Props) {
 function FormsIcon(props: { open: boolean }) {
   return props.open
     ? (
-      <FolderOpen
-        size={20}
+      <FolderOpenIcon
         data-slot="icon"
-        strokeWidth="1px"
+        strokeWidth=".25px"
         className="dark:stroke-black stroke-white"
       />
     )
     : (
-      <FolderClosed
-        size={20}
+      <FolderIcon
         data-slot="icon"
-        strokeWidth="1px"
+        strokeWidth=".25px"
         className="dark:stroke-black stroke-white"
       />
     );

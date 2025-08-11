@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils/cn";
 import { LoaderCircle } from "lucide-react";
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 
 type Props = { className?: string } & ComponentProps<"svg">;
 

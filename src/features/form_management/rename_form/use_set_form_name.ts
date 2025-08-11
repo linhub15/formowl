@@ -3,10 +3,10 @@ import {
   setFormNameFn,
   type SetFormNameRequest,
   setFormNameRequest,
-} from "../functions/set_form_name.fn";
+} from "./set_form_name.fn";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { formKeys } from "./form_keys.factory";
+import { formKeys } from "../hooks/form_keys.factory";
 
 export function useSetFormName() {
   const setFormName = useServerFn(setFormNameFn);
