@@ -1,7 +1,6 @@
 import { db } from "@/db/database";
 import { email, emailVerification } from "@/db/schema";
 import { createServerFileRoute } from "@tanstack/react-start/server";
-import { getHeaders } from "better-auth/react";
 import { and, eq } from "drizzle-orm";
 
 export const ServerRoute = createServerFileRoute(

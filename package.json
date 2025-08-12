@@ -35,7 +35,6 @@
     "drizzle-orm": "^0.44.4",
     "drizzle-zod": "^0.8.2",
     "framer-motion": "^12.23.12",
-    "lucide-react": "^0.536.0",
     "nanoid": "^5.1.5",
     "neverthrow": "^8.2.0",
     "nodemailer": "^7.0.5",
