@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Field, FieldGroup, Label } from "@/components/ui/fieldset";
 import { InputPassword } from "@/components/ui/input_password";
-import { authClient } from "@/lib/auth/auth.client";
+import { authClient } from "@/lib/auth/auth_client";
 import { BETTERAUTH_PASSWORD } from "@/lib/auth/better_auth.const";
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
@@ -16,10 +16,12 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 const formSchema = z.object({
-  currentPassword: z.string()
+  currentPassword: z
+    .string()
     .min(8, "Password must be at least 8 characters")
     .max(32, "Password can't exceed 32 characters"),
-  newPassword: z.string()
+  newPassword: z
+    .string()
     .min(8, "Password must be at least 8 characters")
     .max(32, "Password can't exceed 32 characters"),
 });

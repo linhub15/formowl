@@ -16,12 +16,17 @@ export const setFormNameFn = createServerFn({
   method: "POST",
 })
   .middleware([authMiddleware])
-  .validator((data: SetFormNameRequest) => setFormNameRequest.parse(data))
+  .inputValidator((data: SetFormNameRequest) => setFormNameRequest.parse(data))
   .handler(async ({ context, data }) => {
-    await db.update(form).set({
-      name: data.name,
-    }).where(and(
-      eq(form.id, data.formId),
-      eq(form.organizationId, context.activeOrgId),
-    ));
+    await db
+      .update(form)
+      .set({
+        name: data.name,
+      })
+      .where(
+        and(
+          eq(form.id, data.formId),
+          eq(form.organizationId, context.activeOrgId),
+        ),
+      );
   });

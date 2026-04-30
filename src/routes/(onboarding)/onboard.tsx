@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/layout/card";
 import { Fieldset, Legend } from "@/components/ui/fieldset";
 import { P } from "@/components/ui/text";
-import { authClient } from "@/lib/auth/auth.client";
+import { authClient } from "@/lib/auth/auth_client";
+import { getSessionFn } from "@/lib/auth/get_session.fn";
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { BRANDING } from "@/lib/constants";
@@ -10,7 +11,8 @@ import { nanoid } from "@/lib/utils/nanoid";
 
 export const Route = createFileRoute("/(onboarding)/onboard")({
   beforeLoad: async ({ location }) => {
-    const session = await authClient.getSession();
+    const session = await getSessionFn();
+
     if (!session) {
       throw redirect({
         to: "/login",
@@ -18,7 +20,7 @@ export const Route = createFileRoute("/(onboarding)/onboard")({
       });
     }
 
-    if (session.data?.session.activeOrganizationId) {
+    if (session.session.activeOrganizationId) {
       throw redirect({
         to: "/dashboard",
       });
@@ -80,9 +82,7 @@ function RouteComponent() {
           </Fieldset>
 
           <div className="pt-8">
-            <Button onClick={() => onboard.mutateAsync()}>
-              Let's go!
-            </Button>
+            <Button onClick={() => onboard.mutateAsync()}>Let's go!</Button>
           </div>
         </CardBody>
       </Card>

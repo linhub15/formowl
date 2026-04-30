@@ -9,7 +9,7 @@ const request = z.object({
 type GetStripeSubscriptionRequest = z.infer<typeof request>;
 
 export const getStripeSubscriptionFn = createServerFn({ method: "GET" })
-  .validator((data: GetStripeSubscriptionRequest) => request.parse(data))
+  .inputValidator((data: GetStripeSubscriptionRequest) => request.parse(data))
   .handler(async ({ data }) => {
     /** https://docs.stripe.com/api/subscriptions/object?api-version=2025-04-30.basil */
     const response = await stripeClient.subscriptions.retrieve(

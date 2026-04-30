@@ -1,4 +1,4 @@
-import { authClient } from "@/lib/auth/auth.client";
+import { authClient } from "@/lib/auth/auth_client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useRestoreSubscription() {

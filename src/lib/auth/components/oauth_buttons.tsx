@@ -1,7 +1,7 @@
 import { GithubIcon } from "@/components/icons/github_icon";
 import { GoogleIcon } from "@/components/icons/google_icon";
 import { LoadingSpinner } from "@/components/ui/loading_spinner";
-import { authClient } from "@/lib/auth/auth.client";
+import { authClient } from "@/lib/auth/auth_client";
 import { cn } from "@/lib/utils/cn";
 import { useMutation } from "@tanstack/react-query";
 import type { LinkProps } from "@tanstack/react-router";
@@ -19,16 +19,18 @@ const oAuthStyle = cn([
   "ring-1 ring-gray-300 ring-inset hover:bg-gray-50 focus-visible:ring-transparent cursor-pointer",
 ]);
 
-export function GoogleOAuthButton(
-  { redirect, onStatusChange, disabled }: OAuthButtonProps,
-) {
+export function GoogleOAuthButton({
+  redirect,
+  onStatusChange,
+  disabled,
+}: OAuthButtonProps) {
   const [pending, setPending] = useState(false);
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async () => {
       await authClient.signIn.social({
         provider: BETTERAUTH.oauth.google,
-        callbackURL: redirect ?? "/dashboard" satisfies LinkProps["to"],
+        callbackURL: redirect ?? ("/dashboard" satisfies LinkProps["to"]),
         newUserCallbackURL: "/onboard" satisfies LinkProps["to"],
         scopes: [],
         fetchOptions: {
@@ -54,7 +56,9 @@ export function GoogleOAuthButton(
       onClick={() => mutateAsync()}
       disabled={isPendingOrNavigating || disabled}
     >
-      {isPendingOrNavigating ? <LoadingSpinner /> : (
+      {isPendingOrNavigating ? (
+        <LoadingSpinner />
+      ) : (
         <>
           <GoogleIcon />
           <span className="text-sm/6 font-semibold">Google</span>
@@ -64,16 +68,18 @@ export function GoogleOAuthButton(
   );
 }
 
-export function GithubOAuthButton(
-  { redirect, onStatusChange, disabled }: OAuthButtonProps,
-) {
+export function GithubOAuthButton({
+  redirect,
+  onStatusChange,
+  disabled,
+}: OAuthButtonProps) {
   const [pending, setPending] = useState(false);
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async () => {
       await authClient.signIn.social({
         provider: BETTERAUTH.oauth.github,
-        callbackURL: redirect ?? "/dashboard" satisfies LinkProps["to"],
+        callbackURL: redirect ?? ("/dashboard" satisfies LinkProps["to"]),
         newUserCallbackURL: "/onboard" satisfies LinkProps["to"],
         scopes: [],
         fetchOptions: {
@@ -99,7 +105,9 @@ export function GithubOAuthButton(
       onClick={() => mutateAsync()}
       disabled={isPendingOrNavigating || disabled}
     >
-      {isPendingOrNavigating ? <LoadingSpinner /> : (
+      {isPendingOrNavigating ? (
+        <LoadingSpinner />
+      ) : (
         <>
           <GithubIcon className="size-5 fill-[#24292F]" aria-hidden="true" />
           <span className="text-sm/6 font-semibold">GitHub</span>

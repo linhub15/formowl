@@ -14,9 +14,12 @@ export type SetEmailNotificationPausedRequest = z.infer<typeof request>;
 
 export const setEmailNotificationPausedFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .validator((data: SetEmailNotificationPausedRequest) => request.parse(data))
+  .inputValidator((data: SetEmailNotificationPausedRequest) =>
+    request.parse(data),
+  )
   .handler(async ({ context, data }) => {
-    await db.update(form)
+    await db
+      .update(form)
       .set({ isEmailNotificationsPaused: data.isPaused })
       .where(
         and(

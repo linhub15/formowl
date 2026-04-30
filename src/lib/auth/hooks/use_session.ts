@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { authClient } from "../auth.client";
+import { authClient } from "../auth_client";
 
 export function useSession() {
   return useQuery({

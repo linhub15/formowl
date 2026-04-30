@@ -13,12 +13,14 @@ export type DeleteSubmissionRequest = z.infer<typeof request>;
 
 export const deleteSubmissionFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .validator((data: DeleteSubmissionRequest) => request.parse(data))
+  .inputValidator((data: DeleteSubmissionRequest) => request.parse(data))
   .handler(async ({ context, data }) => {
-    await db.delete(formSubmission).where(
-      and(
-        eq(formSubmission.id, data.submissionId),
-        eq(formSubmission.organizationId, context.activeOrgId),
-      ),
-    );
+    await db
+      .delete(formSubmission)
+      .where(
+        and(
+          eq(formSubmission.id, data.submissionId),
+          eq(formSubmission.organizationId, context.activeOrgId),
+        ),
+      );
   });

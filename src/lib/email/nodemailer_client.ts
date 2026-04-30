@@ -24,7 +24,7 @@ export class NodeMailer implements Mailer {
       console.info("Message sent: %s", info.messageId);
 
       return ok();
-    } catch (error) {
+    } catch (_error) {
       return err("Failed to send email");
     }
   }

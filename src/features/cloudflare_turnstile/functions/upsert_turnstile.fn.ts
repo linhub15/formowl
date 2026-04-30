@@ -15,12 +15,13 @@ export type UpsertTurnstileRequest = z.infer<typeof upsertTurnstileRequest>;
 
 export const upsertTurnstileFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .validator((data: UpsertTurnstileRequest) =>
-    upsertTurnstileRequest.parse(data)
+  .inputValidator((data: UpsertTurnstileRequest) =>
+    upsertTurnstileRequest.parse(data),
   )
   .handler(async ({ context, data }) => {
     if (data.turnstileId) {
-      await db.update(cloudflareTurnstile)
+      await db
+        .update(cloudflareTurnstile)
         .set({
           siteKey: data.siteKey,
           secretKey: data.secretKey,
@@ -28,10 +29,7 @@ export const upsertTurnstileFn = createServerFn({ method: "POST" })
         .where(
           and(
             eq(cloudflareTurnstile.id, data.turnstileId),
-            eq(
-              cloudflareTurnstile.organizationId,
-              context.activeOrgId,
-            ),
+            eq(cloudflareTurnstile.organizationId, context.activeOrgId),
           ),
         );
       return;

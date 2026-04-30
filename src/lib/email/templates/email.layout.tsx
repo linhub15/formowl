@@ -7,7 +7,7 @@ import {
   Preview,
   Tailwind,
   Text,
-} from "@react-email/components";
+} from "react-email";
 import type { PropsWithChildren } from "react";
 
 type Props = {
@@ -38,9 +38,7 @@ export function EmailLayout({ heading, children }: Props) {
         <Body className="bg-offwhite text-base font-sans py-10">
           <Preview>{heading}</Preview>
           <Container className="bg-white p-45">
-            <Heading className="text-center my-0 leading-8">
-              {heading}
-            </Heading>
+            <Heading className="text-center my-0 leading-8">{heading}</Heading>
             {children}
           </Container>
 

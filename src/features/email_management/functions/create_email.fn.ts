@@ -9,16 +9,18 @@ import type { z } from "zod";
 import { requestEmailVerification } from "../server_actions/request_email_verification";
 import { getLinkedEmailQuota } from "../server_actions/get_linked_email_quota";
 
-const request = createInsertSchema(email).pick({
-  email: true,
-}).transform((data) => ({
-  email: data.email.toLowerCase().trim(),
-}));
+const request = createInsertSchema(email)
+  .pick({
+    email: true,
+  })
+  .transform((data) => ({
+    email: data.email.toLowerCase().trim(),
+  }));
 export type CreateEmailRequest = z.infer<typeof request>;
 
 export const createEmailFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .validator((data: CreateEmailRequest) => request.parse(data))
+  .inputValidator((data: CreateEmailRequest) => request.parse(data))
   .handler(async ({ context, data }) => {
     const quota = await getLinkedEmailQuota({
       organizationId: context.activeOrgId,
@@ -43,22 +45,29 @@ export const createEmailFn = createServerFn({ method: "POST" })
         return transaction.rollback();
       }
 
-      const userEmails = await transaction.select().from(member)
+      const userEmails = await transaction
+        .select()
+        .from(member)
         .innerJoin(user, eq(user.id, member.userId))
-        .where(and(
-          eq(member.organizationId, context.activeOrgId),
-          eq(user.email, data.email),
-        ));
+        .where(
+          and(
+            eq(member.organizationId, context.activeOrgId),
+            eq(user.email, data.email),
+          ),
+        );
 
       if (userEmails.length > 0) {
         console.info("Cannot add email; User with this email exists.");
         return transaction.rollback();
       }
 
-      const inserted = await transaction.insert(email).values({
-        email: data.email,
-        organizationId: context.activeOrgId,
-      }).returning({ id: email.id });
+      const inserted = await transaction
+        .insert(email)
+        .values({
+          email: data.email,
+          organizationId: context.activeOrgId,
+        })
+        .returning({ id: email.id });
 
       const emailId = inserted.at(0)?.id;
       if (!emailId) {

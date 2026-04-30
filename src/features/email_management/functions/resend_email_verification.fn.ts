@@ -12,7 +12,7 @@ export type ResendEmailVerificationRequest = z.infer<typeof request>;
 
 export const resendEmailVerificationFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .validator((data: ResendEmailVerificationRequest) => request.parse(data))
+  .inputValidator((data: ResendEmailVerificationRequest) => request.parse(data))
   .handler(async ({ context, data }) => {
     await db.transaction(async (transaction) => {
       const email = await transaction.query.email.findFirst({

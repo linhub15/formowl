@@ -11,7 +11,7 @@ type Request = z.infer<typeof request>;
 
 export const getFormIdBySlug = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
-  .validator((data: Request) => request.parse(data))
+  .inputValidator((data: Request) => request.parse(data))
   .handler(async ({ context, data }) => {
     const form = await db.query.form.findFirst({
       where: (form, { and, eq }) =>

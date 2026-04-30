@@ -3,25 +3,23 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
 import { generateSitemap } from "tanstack-router-sitemap";
 import { defineConfig } from "vite";
-import tsConfigPaths from "vite-tsconfig-paths";
 import { sitemap } from "./src/lib/utils/sitemap";
+import { nitro } from "nitro/vite";
 
 export default defineConfig({
+  resolve: {
+    tsconfigPaths: true,
+  },
   plugins: [
-    tsConfigPaths({
-      projects: ["./tsconfig.json"],
-    }),
     tailwindcss(),
     generateSitemap(sitemap),
     tanstackStart({
-      target: "vercel",
-      customViteReactPlugin: true,
       prerender: {
         enabled: true,
         filter: ({ path }) =>
           ["/", "/waitlist", "/terms", "/privacy", "/pricing"].includes(path),
       },
-      tsr: {
+      router: {
         routeTreeFileHeader: [
           "/* eslint-disable */",
           "// @ts-nocheck",
@@ -31,6 +29,7 @@ export default defineConfig({
         ],
       },
     }),
+    nitro(),
     react(),
   ],
 });

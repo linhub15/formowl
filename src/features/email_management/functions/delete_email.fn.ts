@@ -13,7 +13,7 @@ export type DeleteEmailRequest = z.infer<typeof request>;
 
 export const deleteEmailFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .validator((data: DeleteEmailRequest) => request.parse(data))
+  .inputValidator((data: DeleteEmailRequest) => request.parse(data))
   .handler(async ({ context, data }) => {
     const formIdUsingEmail = await db.query.form.findFirst({
       columns: { id: true },
@@ -30,10 +30,12 @@ export const deleteEmailFn = createServerFn({ method: "POST" })
       );
     }
 
-    await db.delete(email).where(
-      and(
-        eq(email.id, data.emailId),
-        eq(email.organizationId, context.activeOrgId),
-      ),
-    );
+    await db
+      .delete(email)
+      .where(
+        and(
+          eq(email.id, data.emailId),
+          eq(email.organizationId, context.activeOrgId),
+        ),
+      );
   });

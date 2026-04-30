@@ -1,5 +1,5 @@
-import { NodeMailer } from "./nodemailer.client";
-import { render } from "@react-email/components";
+import { NodeMailer } from "./nodemailer_client";
+import { render } from "react-email";
 import NewUserWelcomeEmail from "./templates/new_user_welcome.email";
 import FormSubmissionNotificationEmail from "./templates/form_submission_notification.email";
 import VerifyExternalEmail from "./templates/verify_external_email.email";
@@ -18,15 +18,13 @@ export const mailer = {
       ),
     });
   },
-  submissionNotification: async (
-    args: {
-      to: string;
-      formSubmissionUrl: URL;
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-      formData: Record<string, any>;
-      formName: string;
-    },
-  ) => {
+  submissionNotification: async (args: {
+    to: string;
+    formSubmissionUrl: URL;
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    formData: Record<string, any>;
+    formName: string;
+  }) => {
     return await nodeMailer.send({
       to: args.to,
       subject: `Form Owl: New submission for "${args.formName}"`,
@@ -39,10 +37,7 @@ export const mailer = {
       ),
     });
   },
-  verifyExternalEmail: async (args: {
-    to: string;
-    verifyUrl: URL;
-  }) => {
+  verifyExternalEmail: async (args: { to: string; verifyUrl: URL }) => {
     return await nodeMailer.send({
       to: args.to,
       subject: "Form Owl: verify your email",
@@ -51,16 +46,11 @@ export const mailer = {
       ),
     });
   },
-  verifyAccountEmail: async (args: {
-    to: string;
-    verifyUrl: string;
-  }) => {
+  verifyAccountEmail: async (args: { to: string; verifyUrl: string }) => {
     return await nodeMailer.send({
       to: args.to,
       subject: "Form Owl: verify your email",
-      html: await render(
-        <VerifyAccountEmail verifyUrl={args.verifyUrl} />,
-      ),
+      html: await render(<VerifyAccountEmail verifyUrl={args.verifyUrl} />),
     });
   },
 };

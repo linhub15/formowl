@@ -1,4 +1,4 @@
-import { Button, Row, Section, Text } from "@react-email/components";
+import { Button, Row, Section, Text } from "react-email";
 import { EmailLayout } from "./email.layout";
 
 type Props = {

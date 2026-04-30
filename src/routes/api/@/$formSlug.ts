@@ -5,47 +5,71 @@ import {
   submitFormRequest,
 } from "@/features/form_management/server_actions/submit_form";
 import type { LinkProps } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { json } from "@tanstack/react-start";
-import { createServerFileRoute } from "@tanstack/react-start/server";
 import { getRequestIP } from "@tanstack/react-start/server";
 
-export const ServerRoute = createServerFileRoute("/api/@/$formSlug").methods({
-  POST: async ({ request, params }) => {
-    const ip = getRequestIP({ xForwardedFor: true });
+export const Route = createFileRoute("/api/@/$formSlug")({
+  server: {
+    handlers: {
+      POST: async ({ request, params }) => {
+        const ip = getRequestIP({ xForwardedFor: true });
 
-    const req = submitFormRequest.parse({
-      formSlug: params.formSlug,
-      formData: await request.formData(),
-      requestIpAddress: ip,
-      requestReferer: request.headers.get("referer") || "",
-    });
+        const req = submitFormRequest.parse({
+          formSlug: params.formSlug,
+          formData: await request.formData(),
+          requestIpAddress: ip,
+          requestReferer: request.headers.get("referer") || "",
+        });
 
-    const successUrlOrPath = req.formData.get(ON_SUCCESS_REDIRECT_KEY);
-    req.formData.delete(ON_SUCCESS_REDIRECT_KEY);
+        const successUrlOrPath = req.formData.get(ON_SUCCESS_REDIRECT_KEY);
+        req.formData.delete(ON_SUCCESS_REDIRECT_KEY);
 
-    const response = await submitForm(req);
+        const response = await submitForm(req);
 
-    if (response === "not_found") {
-      return json({ message: "not found" }, { status: 404 });
-    }
+        if (response === "not_found") {
+          return json({ message: "not found" }, { status: 404 });
+        }
 
-    if (
-      response === "turnstile_failed" ||
-      response === "turnstile_missing_token"
-    ) {
-      return json({ message: response }, { status: 401 });
-    }
+        if (
+          response === "turnstile_failed" ||
+          response === "turnstile_missing_token"
+        ) {
+          return json({ message: response }, { status: 401 });
+        }
 
-    if (response === "ok") {
-      const hasCustomSuccessRedirect = !!successUrlOrPath;
+        if (response === "ok") {
+          const hasCustomSuccessRedirect = !!successUrlOrPath;
 
-      if (hasCustomSuccessRedirect) {
-        const location = buildCustomSuccessLocation(
-          successUrlOrPath?.toString(),
-          request.headers.get("origin") ?? undefined,
-        );
+          if (hasCustomSuccessRedirect) {
+            const location = buildCustomSuccessLocation(
+              successUrlOrPath?.toString(),
+              request.headers.get("origin") ?? undefined,
+            );
 
-        if (location) {
+            if (location) {
+              return new Response(null, {
+                status: 303,
+                headers: {
+                  Location: location.toString(),
+                  "Access-Control-Allow-Origin": "*",
+                },
+              });
+            }
+          }
+
+          // Default redirect
+          const location = new URL(
+            "/form/submission-received" satisfies LinkProps["to"],
+            env.VITE_APP_URL,
+          );
+
+          const referer = req.requestReferer;
+
+          if (referer) {
+            location.searchParams.set("referer", referer);
+          }
+
           return new Response(null, {
             status: 303,
             headers: {
@@ -54,30 +78,10 @@ export const ServerRoute = createServerFileRoute("/api/@/$formSlug").methods({
             },
           });
         }
-      }
 
-      // Default redirect
-      const location = new URL(
-        "/form/submission-received" satisfies LinkProps["to"],
-        env.VITE_APP_URL,
-      );
-
-      const referer = req.requestReferer;
-
-      if (referer) {
-        location.searchParams.set("referer", referer);
-      }
-
-      return new Response(null, {
-        status: 303,
-        headers: {
-          Location: location.toString(),
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-    }
-
-    return json({ message: "not found" }, { status: 404 });
+        return json({ message: "not found" }, { status: 404 });
+      },
+    },
   },
 });
 

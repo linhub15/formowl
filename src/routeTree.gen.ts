@@ -12,8 +12,6 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createServerRootRoute } from '@tanstack/react-start/server'
-
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
@@ -22,6 +20,8 @@ import { Route as SiteIndexRouteImport } from './routes/_site/index'
 import { Route as FormSubmissionReceivedRouteImport } from './routes/form/submission-received'
 import { Route as DashboardProfileRouteImport } from './routes/dashboard/profile'
 import { Route as DashboardBillingRouteImport } from './routes/dashboard/billing'
+import { Route as ApiUploadthingRouteImport } from './routes/api/uploadthing'
+import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as SiteWaitlistRouteImport } from './routes/_site/waitlist'
 import { Route as SiteTermsRouteImport } from './routes/_site/terms'
 import { Route as SitePrivacyRouteImport } from './routes/_site/privacy'
@@ -34,6 +34,8 @@ import { Route as DashboardEmailsIndexRouteImport } from './routes/dashboard/ema
 import { Route as SiteLoginIndexRouteImport } from './routes/_site/login/index'
 import { Route as DashboardFormsCreateRouteImport } from './routes/dashboard/forms/create'
 import { Route as DashboardEmailsCreateRouteImport } from './routes/dashboard/emails/create'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
+import { Route as ApiAtFormSlugRouteImport } from './routes/api/@/$formSlug'
 import { Route as SiteLoginEmailRouteImport } from './routes/_site/login/$email'
 import { Route as DashboardFormsFormSlugRouteRouteImport } from './routes/dashboard/forms/$formSlug/route'
 import { Route as DashboardFormsFormSlugIndexRouteImport } from './routes/dashboard/forms/$formSlug/index'
@@ -43,13 +45,7 @@ import { Route as DashboardEmailsVerificationSuccessEmailRouteImport } from './r
 import { Route as DashboardFormsFormSlugSubmissionsRouteRouteImport } from './routes/dashboard/forms/$formSlug/submissions/route'
 import { Route as DashboardFormsFormSlugSubmissionsIndexRouteImport } from './routes/dashboard/forms/$formSlug/submissions/index'
 import { Route as DashboardFormsFormSlugSubmissionsIdRouteImport } from './routes/dashboard/forms/$formSlug/submissions/$id'
-import { ServerRoute as ApiUploadthingServerRouteImport } from './routes/api/uploadthing'
-import { ServerRoute as ApiHealthServerRouteImport } from './routes/api/health'
-import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth.$'
-import { ServerRoute as ApiAtFormSlugServerRouteImport } from './routes/api/@/$formSlug'
-import { ServerRoute as ApiEmailsVerifyOrgIdTokenServerRouteImport } from './routes/api/emails.verify.$orgId.$token'
-
-const rootServerRouteImport = createServerRootRoute()
+import { Route as ApiEmailsVerifyOrgIdTokenRouteImport } from './routes/api/emails.verify.$orgId.$token'
 
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
@@ -84,6 +80,16 @@ const DashboardBillingRoute = DashboardBillingRouteImport.update({
   id: '/billing',
   path: '/billing',
   getParentRoute: () => DashboardRouteRoute,
+} as any)
+const ApiUploadthingRoute = ApiUploadthingRouteImport.update({
+  id: '/api/uploadthing',
+  path: '/api/uploadthing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const SiteWaitlistRoute = SiteWaitlistRouteImport.update({
   id: '/waitlist',
@@ -145,6 +151,16 @@ const DashboardEmailsCreateRoute = DashboardEmailsCreateRouteImport.update({
   path: '/emails/create',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAtFormSlugRoute = ApiAtFormSlugRouteImport.update({
+  id: '/api/@/$formSlug',
+  path: '/api/@/$formSlug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SiteLoginEmailRoute = SiteLoginEmailRouteImport.update({
   id: '/$email',
   path: '/$email',
@@ -198,35 +214,16 @@ const DashboardFormsFormSlugSubmissionsIdRoute =
     path: '/$id',
     getParentRoute: () => DashboardFormsFormSlugSubmissionsRouteRoute,
   } as any)
-const ApiUploadthingServerRoute = ApiUploadthingServerRouteImport.update({
-  id: '/api/uploadthing',
-  path: '/api/uploadthing',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
-const ApiHealthServerRoute = ApiHealthServerRouteImport.update({
-  id: '/api/health',
-  path: '/api/health',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
-const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
-const ApiAtFormSlugServerRoute = ApiAtFormSlugServerRouteImport.update({
-  id: '/api/@/$formSlug',
-  path: '/api/@/$formSlug',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
-const ApiEmailsVerifyOrgIdTokenServerRoute =
-  ApiEmailsVerifyOrgIdTokenServerRouteImport.update({
+const ApiEmailsVerifyOrgIdTokenRoute =
+  ApiEmailsVerifyOrgIdTokenRouteImport.update({
     id: '/api/emails/verify/$orgId/$token',
     path: '/api/emails/verify/$orgId/$token',
-    getParentRoute: () => rootServerRouteImport,
+    getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/': typeof SiteIndexRoute
   '/login': typeof SiteLoginRouteRouteWithChildren
   '/onboard': typeof onboardingOnboardRoute
   '/logout': typeof SiteLogoutRoute
@@ -234,23 +231,27 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof SitePrivacyRoute
   '/terms': typeof SiteTermsRoute
   '/waitlist': typeof SiteWaitlistRoute
+  '/api/health': typeof ApiHealthRoute
+  '/api/uploadthing': typeof ApiUploadthingRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/form/submission-received': typeof FormSubmissionReceivedRoute
-  '/': typeof SiteIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
   '/login/$email': typeof SiteLoginEmailRoute
+  '/api/@/$formSlug': typeof ApiAtFormSlugRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
   '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
   '/login/': typeof SiteLoginIndexRoute
-  '/dashboard/emails': typeof DashboardEmailsIndexRoute
-  '/dashboard/forms': typeof DashboardFormsIndexRoute
+  '/dashboard/emails/': typeof DashboardEmailsIndexRoute
+  '/dashboard/forms/': typeof DashboardFormsIndexRoute
   '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsRouteRouteWithChildren
   '/dashboard/emails/verification-success/$email': typeof DashboardEmailsVerificationSuccessEmailRoute
   '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
   '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
   '/dashboard/forms/$formSlug/': typeof DashboardFormsFormSlugIndexRoute
+  '/api/emails/verify/$orgId/$token': typeof ApiEmailsVerifyOrgIdTokenRoute
   '/dashboard/forms/$formSlug/submissions/$id': typeof DashboardFormsFormSlugSubmissionsIdRoute
   '/dashboard/forms/$formSlug/submissions/': typeof DashboardFormsFormSlugSubmissionsIndexRoute
 }
@@ -261,12 +262,16 @@ export interface FileRoutesByTo {
   '/privacy': typeof SitePrivacyRoute
   '/terms': typeof SiteTermsRoute
   '/waitlist': typeof SiteWaitlistRoute
+  '/api/health': typeof ApiHealthRoute
+  '/api/uploadthing': typeof ApiUploadthingRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/form/submission-received': typeof FormSubmissionReceivedRoute
   '/': typeof SiteIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/login/$email': typeof SiteLoginEmailRoute
+  '/api/@/$formSlug': typeof ApiAtFormSlugRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
   '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
   '/login': typeof SiteLoginIndexRoute
@@ -276,6 +281,7 @@ export interface FileRoutesByTo {
   '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
   '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
   '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugIndexRoute
+  '/api/emails/verify/$orgId/$token': typeof ApiEmailsVerifyOrgIdTokenRoute
   '/dashboard/forms/$formSlug/submissions/$id': typeof DashboardFormsFormSlugSubmissionsIdRoute
   '/dashboard/forms/$formSlug/submissions': typeof DashboardFormsFormSlugSubmissionsIndexRoute
 }
@@ -290,6 +296,8 @@ export interface FileRoutesById {
   '/_site/privacy': typeof SitePrivacyRoute
   '/_site/terms': typeof SiteTermsRoute
   '/_site/waitlist': typeof SiteWaitlistRoute
+  '/api/health': typeof ApiHealthRoute
+  '/api/uploadthing': typeof ApiUploadthingRoute
   '/dashboard/billing': typeof DashboardBillingRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/form/submission-received': typeof FormSubmissionReceivedRoute
@@ -297,6 +305,8 @@ export interface FileRoutesById {
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/forms/$formSlug': typeof DashboardFormsFormSlugRouteRouteWithChildren
   '/_site/login/$email': typeof SiteLoginEmailRoute
+  '/api/@/$formSlug': typeof ApiAtFormSlugRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
   '/dashboard/emails/create': typeof DashboardEmailsCreateRoute
   '/dashboard/forms/create': typeof DashboardFormsCreateRoute
   '/_site/login/': typeof SiteLoginIndexRoute
@@ -307,6 +317,7 @@ export interface FileRoutesById {
   '/dashboard/forms/$formSlug/example': typeof DashboardFormsFormSlugExampleRoute
   '/dashboard/forms/$formSlug/settings': typeof DashboardFormsFormSlugSettingsRoute
   '/dashboard/forms/$formSlug/': typeof DashboardFormsFormSlugIndexRoute
+  '/api/emails/verify/$orgId/$token': typeof ApiEmailsVerifyOrgIdTokenRoute
   '/dashboard/forms/$formSlug/submissions/$id': typeof DashboardFormsFormSlugSubmissionsIdRoute
   '/dashboard/forms/$formSlug/submissions/': typeof DashboardFormsFormSlugSubmissionsIndexRoute
 }
@@ -314,6 +325,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/dashboard'
+    | '/'
     | '/login'
     | '/onboard'
     | '/logout'
@@ -321,23 +333,27 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/terms'
     | '/waitlist'
+    | '/api/health'
+    | '/api/uploadthing'
     | '/dashboard/billing'
     | '/dashboard/profile'
     | '/form/submission-received'
-    | '/'
     | '/dashboard/'
     | '/dashboard/forms/$formSlug'
     | '/login/$email'
+    | '/api/@/$formSlug'
+    | '/api/auth/$'
     | '/dashboard/emails/create'
     | '/dashboard/forms/create'
     | '/login/'
-    | '/dashboard/emails'
-    | '/dashboard/forms'
+    | '/dashboard/emails/'
+    | '/dashboard/forms/'
     | '/dashboard/forms/$formSlug/submissions'
     | '/dashboard/emails/verification-success/$email'
     | '/dashboard/forms/$formSlug/example'
     | '/dashboard/forms/$formSlug/settings'
     | '/dashboard/forms/$formSlug/'
+    | '/api/emails/verify/$orgId/$token'
     | '/dashboard/forms/$formSlug/submissions/$id'
     | '/dashboard/forms/$formSlug/submissions/'
   fileRoutesByTo: FileRoutesByTo
@@ -348,12 +364,16 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/terms'
     | '/waitlist'
+    | '/api/health'
+    | '/api/uploadthing'
     | '/dashboard/billing'
     | '/dashboard/profile'
     | '/form/submission-received'
     | '/'
     | '/dashboard'
     | '/login/$email'
+    | '/api/@/$formSlug'
+    | '/api/auth/$'
     | '/dashboard/emails/create'
     | '/dashboard/forms/create'
     | '/login'
@@ -363,6 +383,7 @@ export interface FileRouteTypes {
     | '/dashboard/forms/$formSlug/example'
     | '/dashboard/forms/$formSlug/settings'
     | '/dashboard/forms/$formSlug'
+    | '/api/emails/verify/$orgId/$token'
     | '/dashboard/forms/$formSlug/submissions/$id'
     | '/dashboard/forms/$formSlug/submissions'
   id:
@@ -376,6 +397,8 @@ export interface FileRouteTypes {
     | '/_site/privacy'
     | '/_site/terms'
     | '/_site/waitlist'
+    | '/api/health'
+    | '/api/uploadthing'
     | '/dashboard/billing'
     | '/dashboard/profile'
     | '/form/submission-received'
@@ -383,6 +406,8 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/dashboard/forms/$formSlug'
     | '/_site/login/$email'
+    | '/api/@/$formSlug'
+    | '/api/auth/$'
     | '/dashboard/emails/create'
     | '/dashboard/forms/create'
     | '/_site/login/'
@@ -393,6 +418,7 @@ export interface FileRouteTypes {
     | '/dashboard/forms/$formSlug/example'
     | '/dashboard/forms/$formSlug/settings'
     | '/dashboard/forms/$formSlug/'
+    | '/api/emails/verify/$orgId/$token'
     | '/dashboard/forms/$formSlug/submissions/$id'
     | '/dashboard/forms/$formSlug/submissions/'
   fileRoutesById: FileRoutesById
@@ -401,60 +427,12 @@ export interface RootRouteChildren {
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   SiteRoute: typeof SiteRouteWithChildren
   onboardingOnboardRoute: typeof onboardingOnboardRoute
+  ApiHealthRoute: typeof ApiHealthRoute
+  ApiUploadthingRoute: typeof ApiUploadthingRoute
   FormSubmissionReceivedRoute: typeof FormSubmissionReceivedRoute
-}
-export interface FileServerRoutesByFullPath {
-  '/api/health': typeof ApiHealthServerRoute
-  '/api/uploadthing': typeof ApiUploadthingServerRoute
-  '/api/@/$formSlug': typeof ApiAtFormSlugServerRoute
-  '/api/auth/$': typeof ApiAuthSplatServerRoute
-  '/api/emails/verify/$orgId/$token': typeof ApiEmailsVerifyOrgIdTokenServerRoute
-}
-export interface FileServerRoutesByTo {
-  '/api/health': typeof ApiHealthServerRoute
-  '/api/uploadthing': typeof ApiUploadthingServerRoute
-  '/api/@/$formSlug': typeof ApiAtFormSlugServerRoute
-  '/api/auth/$': typeof ApiAuthSplatServerRoute
-  '/api/emails/verify/$orgId/$token': typeof ApiEmailsVerifyOrgIdTokenServerRoute
-}
-export interface FileServerRoutesById {
-  __root__: typeof rootServerRouteImport
-  '/api/health': typeof ApiHealthServerRoute
-  '/api/uploadthing': typeof ApiUploadthingServerRoute
-  '/api/@/$formSlug': typeof ApiAtFormSlugServerRoute
-  '/api/auth/$': typeof ApiAuthSplatServerRoute
-  '/api/emails/verify/$orgId/$token': typeof ApiEmailsVerifyOrgIdTokenServerRoute
-}
-export interface FileServerRouteTypes {
-  fileServerRoutesByFullPath: FileServerRoutesByFullPath
-  fullPaths:
-    | '/api/health'
-    | '/api/uploadthing'
-    | '/api/@/$formSlug'
-    | '/api/auth/$'
-    | '/api/emails/verify/$orgId/$token'
-  fileServerRoutesByTo: FileServerRoutesByTo
-  to:
-    | '/api/health'
-    | '/api/uploadthing'
-    | '/api/@/$formSlug'
-    | '/api/auth/$'
-    | '/api/emails/verify/$orgId/$token'
-  id:
-    | '__root__'
-    | '/api/health'
-    | '/api/uploadthing'
-    | '/api/@/$formSlug'
-    | '/api/auth/$'
-    | '/api/emails/verify/$orgId/$token'
-  fileServerRoutesById: FileServerRoutesById
-}
-export interface RootServerRouteChildren {
-  ApiHealthServerRoute: typeof ApiHealthServerRoute
-  ApiUploadthingServerRoute: typeof ApiUploadthingServerRoute
-  ApiAtFormSlugServerRoute: typeof ApiAtFormSlugServerRoute
-  ApiAuthSplatServerRoute: typeof ApiAuthSplatServerRoute
-  ApiEmailsVerifyOrgIdTokenServerRoute: typeof ApiEmailsVerifyOrgIdTokenServerRoute
+  ApiAtFormSlugRoute: typeof ApiAtFormSlugRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiEmailsVerifyOrgIdTokenRoute: typeof ApiEmailsVerifyOrgIdTokenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -462,7 +440,7 @@ declare module '@tanstack/react-router' {
     '/_site': {
       id: '/_site'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof SiteRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -507,6 +485,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/billing'
       preLoaderRoute: typeof DashboardBillingRouteImport
       parentRoute: typeof DashboardRouteRoute
+    }
+    '/api/uploadthing': {
+      id: '/api/uploadthing'
+      path: '/api/uploadthing'
+      fullPath: '/api/uploadthing'
+      preLoaderRoute: typeof ApiUploadthingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_site/waitlist': {
       id: '/_site/waitlist'
@@ -560,14 +552,14 @@ declare module '@tanstack/react-router' {
     '/dashboard/forms/': {
       id: '/dashboard/forms/'
       path: '/forms'
-      fullPath: '/dashboard/forms'
+      fullPath: '/dashboard/forms/'
       preLoaderRoute: typeof DashboardFormsIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/emails/': {
       id: '/dashboard/emails/'
       path: '/emails'
-      fullPath: '/dashboard/emails'
+      fullPath: '/dashboard/emails/'
       preLoaderRoute: typeof DashboardEmailsIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
@@ -591,6 +583,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/emails/create'
       preLoaderRoute: typeof DashboardEmailsCreateRouteImport
       parentRoute: typeof DashboardRouteRoute
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/@/$formSlug': {
+      id: '/api/@/$formSlug'
+      path: '/api/@/$formSlug'
+      fullPath: '/api/@/$formSlug'
+      preLoaderRoute: typeof ApiAtFormSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_site/login/$email': {
       id: '/_site/login/$email'
@@ -655,44 +661,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardFormsFormSlugSubmissionsIdRouteImport
       parentRoute: typeof DashboardFormsFormSlugSubmissionsRouteRoute
     }
-  }
-}
-declare module '@tanstack/react-start/server' {
-  interface ServerFileRoutesByPath {
-    '/api/uploadthing': {
-      id: '/api/uploadthing'
-      path: '/api/uploadthing'
-      fullPath: '/api/uploadthing'
-      preLoaderRoute: typeof ApiUploadthingServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
-    '/api/health': {
-      id: '/api/health'
-      path: '/api/health'
-      fullPath: '/api/health'
-      preLoaderRoute: typeof ApiHealthServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
-    '/api/@/$formSlug': {
-      id: '/api/@/$formSlug'
-      path: '/api/@/$formSlug'
-      fullPath: '/api/@/$formSlug'
-      preLoaderRoute: typeof ApiAtFormSlugServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
     '/api/emails/verify/$orgId/$token': {
       id: '/api/emails/verify/$orgId/$token'
       path: '/api/emails/verify/$orgId/$token'
       fullPath: '/api/emails/verify/$orgId/$token'
-      preLoaderRoute: typeof ApiEmailsVerifyOrgIdTokenServerRouteImport
-      parentRoute: typeof rootServerRouteImport
+      preLoaderRoute: typeof ApiEmailsVerifyOrgIdTokenRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -806,18 +780,22 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   SiteRoute: SiteRouteWithChildren,
   onboardingOnboardRoute: onboardingOnboardRoute,
+  ApiHealthRoute: ApiHealthRoute,
+  ApiUploadthingRoute: ApiUploadthingRoute,
   FormSubmissionReceivedRoute: FormSubmissionReceivedRoute,
+  ApiAtFormSlugRoute: ApiAtFormSlugRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiEmailsVerifyOrgIdTokenRoute: ApiEmailsVerifyOrgIdTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-const rootServerRouteChildren: RootServerRouteChildren = {
-  ApiHealthServerRoute: ApiHealthServerRoute,
-  ApiUploadthingServerRoute: ApiUploadthingServerRoute,
-  ApiAtFormSlugServerRoute: ApiAtFormSlugServerRoute,
-  ApiAuthSplatServerRoute: ApiAuthSplatServerRoute,
-  ApiEmailsVerifyOrgIdTokenServerRoute: ApiEmailsVerifyOrgIdTokenServerRoute,
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
 }
-export const serverRouteTree = rootServerRouteImport
-  ._addFileChildren(rootServerRouteChildren)
-  ._addFileTypes<FileServerRouteTypes>()

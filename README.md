@@ -37,7 +37,7 @@ Authorization callback URL: http://localhost:3000/api/auth/callback/github
 
 Using `maildev` for local SMTP server and `nodemailer` to send mail.
 
-- run local smtp server `pnpm dev:smtp`
+- run local smtp server `pnpm smtp`
 - set local smtp server into `.env`
 - preview email templates `pnpm dev:emails`
 

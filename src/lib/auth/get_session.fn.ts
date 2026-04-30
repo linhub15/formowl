@@ -1,11 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequest } from "@tanstack/react-start/server";
 import { auth } from "./better_auth";
-import { getWebRequest } from "@tanstack/react-start/server";
 
 export const getSessionFn = createServerFn({ method: "GET" })
   .handler(
     async () => {
-      const request = getWebRequest();
+      const request = getRequest();
 
       if (!request) return null;
 

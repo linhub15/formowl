@@ -12,15 +12,12 @@ export type ListSubmissionsRequest = z.infer<typeof request>;
 
 export const listSubmissionsFn = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
-  .validator((data: ListSubmissionsRequest) => request.parse(data))
+  .inputValidator((data: ListSubmissionsRequest) => request.parse(data))
   .handler(async ({ data, context }) => {
     const form = await db.query.form.findFirst({
       columns: { id: true },
       where: (f, { eq, and }) =>
-        and(
-          eq(f.id, data.formId),
-          eq(f.organizationId, context.activeOrgId),
-        ),
+        and(eq(f.id, data.formId), eq(f.organizationId, context.activeOrgId)),
     });
 
     if (!form) {

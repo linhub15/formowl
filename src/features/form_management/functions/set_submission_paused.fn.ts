@@ -14,9 +14,10 @@ export type SetSubmissionPausedRequest = z.infer<typeof request>;
 
 export const setSubmissionPausedFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .validator((data: SetSubmissionPausedRequest) => request.parse(data))
+  .inputValidator((data: SetSubmissionPausedRequest) => request.parse(data))
   .handler(async ({ context, data }) => {
-    await db.update(form)
+    await db
+      .update(form)
       .set({ isSubmissionsPaused: data.isPaused })
       .where(
         and(

@@ -1,6 +1,7 @@
 .env*
 !.env.example
 node_modules
+.postgresql
 
 # Tanstack Start
 .nitro

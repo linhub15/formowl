@@ -11,7 +11,7 @@ type GetSubmissionRequest = z.infer<typeof request>;
 
 export const getSubmissionFn = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
-  .validator((data: GetSubmissionRequest) => request.parse(data))
+  .inputValidator((data: GetSubmissionRequest) => request.parse(data))
   .handler(async ({ context, data }) => {
     const submission = await db.query.formSubmission.findFirst({
       where: (submission, { and, eq }) =>

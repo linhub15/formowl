@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { InputPassword } from "@/components/ui/input_password";
 import { LoadingSpinner } from "@/components/ui/loading_spinner";
 import { findUserFn } from "@/features/app_shell/functions/find_user.fn";
-import { authClient } from "@/lib/auth/auth.client";
+import { authClient } from "@/lib/auth/auth_client";
 import { BETTERAUTH_PASSWORD } from "@/lib/auth/better_auth.const";
 import {
   GithubOAuthButton,
@@ -32,16 +32,19 @@ export const Route = createFileRoute("/_site/login/$email")({
 });
 
 const loginSchema = z.object({
-  email: z.string({ required_error: "Email is required" })
+  email: z
+    .string({ required_error: "Email is required" })
     .email("Invalid email address"),
-  password: z.string()
+  password: z
+    .string()
     .min(8, "Password must be at least 8 characters")
     .max(32, "Password can't exceed 32 characters"),
 });
 
 const signupSchema = z.object({
   ...loginSchema.shape,
-  name: z.string()
+  name: z
+    .string()
     .min(3, "Name must be at least 3 characters")
     .max(100, "Sorry, I didn't expect a name to be this long."),
 });
@@ -64,10 +67,7 @@ function RouteComponent() {
           <div className="flex flex-col gap-6">
             <Field>
               <Label htmlFor="email">Email</Label>
-              <Input
-                value={email}
-                disabled
-              />
+              <Input value={email} disabled />
             </Field>
 
             <GoogleOAuthButton
@@ -84,7 +84,9 @@ function RouteComponent() {
         </CardBody>
 
         <CardFooter>
-          <Button to=".." variant="outline">Go back</Button>
+          <Button to=".." variant="outline">
+            Go back
+          </Button>
         </CardFooter>
       </Card>
     );
@@ -100,7 +102,9 @@ function RouteComponent() {
       </CardBody>
 
       <CardFooter>
-        <Button to=".." variant="outline">Go back</Button>
+        <Button to=".." variant="outline">
+          Go back
+        </Button>
       </CardFooter>
     </Card>
   );
@@ -182,16 +186,10 @@ function LoginForm({ email }: { email: string }) {
               />
               {field.state.meta.errors?.length > 0 && (
                 <ErrorMessage>
-                  {field.state.meta.errors.map((e) => e?.message).join(
-                    "; ",
-                  )}
+                  {field.state.meta.errors.map((e) => e?.message).join("; ")}
                 </ErrorMessage>
               )}
-              {formError && (
-                <ErrorMessage>
-                  {formError}
-                </ErrorMessage>
-              )}
+              {formError && <ErrorMessage>{formError}</ErrorMessage>}
             </Field>
           )}
         </form.Field>
@@ -262,9 +260,7 @@ function SignupForm({ email }: { email: string }) {
               />
               {field.state.meta.errors?.length > 0 && (
                 <ErrorMessage>
-                  {field.state.meta.errors.map((e) => e?.message).join(
-                    "; ",
-                  )}
+                  {field.state.meta.errors.map((e) => e?.message).join("; ")}
                 </ErrorMessage>
               )}
             </Field>
@@ -286,9 +282,7 @@ function SignupForm({ email }: { email: string }) {
               />
               {field.state.meta.errors?.length > 0 && (
                 <ErrorMessage>
-                  {field.state.meta.errors.map((e) => e?.message).join(
-                    "; ",
-                  )}
+                  {field.state.meta.errors.map((e) => e?.message).join("; ")}
                 </ErrorMessage>
               )}
             </Field>
@@ -311,9 +305,7 @@ function SignupForm({ email }: { email: string }) {
               />
               {field.state.meta.errors?.length > 0 && (
                 <ErrorMessage>
-                  {field.state.meta.errors.map((e) => e?.message).join(
-                    "; ",
-                  )}
+                  {field.state.meta.errors.map((e) => e?.message).join("; ")}
                 </ErrorMessage>
               )}
             </Field>

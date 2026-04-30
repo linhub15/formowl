@@ -1,4 +1,4 @@
-import { Heading, Row, Section, Text } from "@react-email/components";
+import { Heading, Row, Section, Text } from "react-email";
 import { EmailLayout } from "./email.layout";
 
 type Props = {
@@ -7,13 +7,11 @@ type Props = {
   formData: Record<string, any>;
   formName: string;
 };
-function FormSubmissionNotificationEmail(
-  {
-    formSubmissionUrl = "#",
-    formData = {},
-    formName = "",
-  }: Props,
-) {
+function FormSubmissionNotificationEmail({
+  formSubmissionUrl = "#",
+  formData = {},
+  formName = "",
+}: Props) {
   return (
     <EmailLayout heading={`New form submission for: ${formName}`}>
       <Section className="py-6">

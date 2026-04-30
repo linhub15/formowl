@@ -13,7 +13,7 @@ const request = z.object({
 export type ToggleFormTurnstileRequest = z.infer<typeof request>;
 export const toggleFormTurnstileFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .validator((data: ToggleFormTurnstileRequest) => request.parse(data))
+  .inputValidator((data: ToggleFormTurnstileRequest) => request.parse(data))
   .handler(async ({ context, data }) => {
     if (!data.cloudflareTurnstileId) {
       /// Disable form turnstile

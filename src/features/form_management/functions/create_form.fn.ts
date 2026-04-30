@@ -13,12 +13,15 @@ export type CreateFormRequest = z.infer<typeof request>;
 
 export const createFormFn = createServerFn({ method: "POST" })
   .middleware([authMiddleware])
-  .validator((data: CreateFormRequest) => request.parse(data))
+  .inputValidator((data: CreateFormRequest) => request.parse(data))
   .handler(async ({ context, data }) => {
-    const result = await db.insert(form).values({
-      ...data,
-      organizationId: context.activeOrgId,
-    }).returning();
+    const result = await db
+      .insert(form)
+      .values({
+        ...data,
+        organizationId: context.activeOrgId,
+      })
+      .returning();
 
     return result.at(0);
   });
