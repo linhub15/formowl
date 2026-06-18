@@ -1,29 +1,12 @@
 import { authClient } from "@/lib/auth/auth_client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { SUBSCRIPTION_PLAN } from "./plans/plans.const";
+import { upgradeToProSubscription } from "./upgrade_subscription";
 
 export function useUpgradeSubscription() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async () => {
-      const { data } = await authClient.getSession();
-      const orgId = data?.session?.activeOrganizationId;
-
-      if (!orgId) {
-        // missing org id
-        return;
-      }
-
-      await authClient.subscription.upgrade({
-        plan: SUBSCRIPTION_PLAN.pro,
-        successUrl: "/dashboard",
-        cancelUrl: "/dashboard/billing",
-        returnUrl: "",
-        annual: true,
-        referenceId: orgId,
-      });
-    },
+    mutationFn: () => upgradeToProSubscription(authClient),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["billing", "subscription"],

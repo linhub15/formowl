@@ -2,8 +2,10 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@11.0.8",
   "scripts": {
     "dev": "concurrently --names dev,smtp \"vite dev --port 3000\" \"pnpm smtp\"",
+    "test": "vitest run",
     "build": "vite build",
     "start": "vite start",
     "drizzle": "drizzle-kit",
@@ -24,6 +26,11 @@
     "@headlessui/react": "^2.2.10",
     "@heroicons/react": "^2.2.0",
     "@marsidev/react-turnstile": "^1.5.1",
+    "@opentelemetry/api-logs": "^0.219.0",
+    "@opentelemetry/exporter-logs-otlp-http": "^0.219.0",
+    "@opentelemetry/resources": "^2.8.0",
+    "@opentelemetry/sdk-logs": "^0.219.0",
+    "@opentelemetry/sdk-node": "^0.219.0",
     "@tanstack/react-form": "^1.29.1",
     "@tanstack/react-query": "^5.100.6",
     "@tanstack/react-router": "^1.168.26",
@@ -43,8 +50,6 @@
     "nitro": "3.0.260429-beta",
     "nodemailer": "^8.0.7",
     "postgres": "^3.4.9",
-    "posthog-js": "^1.372.5",
-    "posthog-node": "^5.31.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-syntax-highlighter": "^16.1.1",
@@ -75,7 +80,7 @@
     "tailwindcss": "^4.2.4",
     "tanstack-router-sitemap": "^1.0.13",
     "typescript": "^6.0.3",
-    "vite": "^8.0.10"
-  },
-  "packageManager": "pnpm@9.4.0+sha1.9217c800d4ab947a7aee520242a7b70d64fc7638"
+    "vite": "^8.0.10",
+    "vitest": "^4.1.9"
+  }
 }

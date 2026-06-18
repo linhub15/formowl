@@ -1,5 +1,6 @@
 import { db } from "@/db/database";
 import { authMiddleware } from "@/lib/auth/auth_middleware";
+import { emitPostHogLog } from "@/lib/posthog/posthog_logs.server";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requestEmailVerification } from "../server_actions/request_email_verification";
@@ -21,7 +22,16 @@ export const resendEmailVerificationFn = createServerFn({ method: "POST" })
       });
 
       if (!email) {
-        console.error("email not found, cannot resend verification");
+        emitPostHogLog({
+          severityText: "warn",
+          body: "email verification resend failed because email was not found",
+          attributes: {
+            posthogDistinctId: context.session.user.id,
+            user_id: context.session.user.id,
+            organization_id: context.activeOrgId,
+            email_id: data.emailId,
+          },
+        });
         return transaction.rollback();
       }
 

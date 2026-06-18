@@ -7,6 +7,7 @@ import { auth } from "../auth/better_auth";
 import { z } from "zod";
 import { db } from "@/db/database";
 import { blob } from "@/db/schema";
+import { emitPostHogErrorLog } from "../posthog/posthog_logs.server";
 
 const f = createUploadthing();
 
@@ -30,7 +31,12 @@ export const uploadRouter = {
       return { userId: session.user.id, input };
     })
     .onUploadError(({ error, fileKey }) => {
-      console.error("Error uploading file:", error, fileKey);
+      emitPostHogErrorLog(error, {
+        body: "uploadthing upload failed",
+        attributes: {
+          file_key: fileKey,
+        },
+      });
     })
     .onUploadComplete(async ({ file }) => {
       await db.transaction(async (t) => {

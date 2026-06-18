@@ -4,8 +4,15 @@ import { Fieldset, Legend } from "@/components/ui/fieldset";
 import { P } from "@/components/ui/text";
 import { authClient } from "@/lib/auth/auth_client";
 import { getSessionFn } from "@/lib/auth/get_session.fn";
+import { logClientErrorFn } from "@/lib/posthog/log_client_error.fn";
 import { useMutation } from "@tanstack/react-query";
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  redirect,
+  useLocation,
+  useNavigate,
+} from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { BRANDING } from "@/lib/constants";
 import { nanoid } from "@/lib/utils/nanoid";
 
@@ -32,6 +39,8 @@ export const Route = createFileRoute("/(onboarding)/onboard")({
 function RouteComponent() {
   const { data: session } = authClient.useSession();
   const navigate = useNavigate();
+  const location = useLocation();
+  const logClientError = useServerFn(logClientErrorFn);
 
   const onboard = useMutation({
     mutationFn: async () => {
@@ -52,8 +61,20 @@ function RouteComponent() {
     },
     onError: async (error) => {
       console.error("Something went wrong:", error);
+      try {
+        await logClientError({
+          data: {
+            source: "onboarding_create_organization",
+            pathname: location.pathname,
+            ...serializeClientError(error),
+          },
+        });
+      } catch (loggingError) {
+        console.error("Failed to report onboarding error:", loggingError);
+      }
+
       if (session?.session.token) {
-        await authClient.revokeSession({ token: session?.session.token });
+        await authClient.revokeSession({ token: session.session.token });
       }
     },
   });
@@ -88,4 +109,19 @@ function RouteComponent() {
       </Card>
     </div>
   );
+}
+
+function serializeClientError(error: unknown) {
+  if (error instanceof Error) {
+    return {
+      errorName: error.name,
+      errorMessage: error.message,
+      errorStack: error.stack,
+    };
+  }
+
+  return {
+    errorName: typeof error,
+    errorMessage: typeof error === "string" ? error : String(error),
+  };
 }

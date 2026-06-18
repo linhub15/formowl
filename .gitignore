@@ -2,6 +2,7 @@
 !.env.example
 node_modules
 .postgresql
+.pnpm-store
 
 # Tanstack Start
 .nitro

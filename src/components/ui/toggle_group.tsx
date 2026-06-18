@@ -37,8 +37,8 @@ const radioStyles = {
   ]),
 };
 
-export function ToggleGroup({ className, ...props }:
-  & RadioGroupProps
+export function ToggleGroup<TType = string>({ className, ...props }:
+  & RadioGroupProps<"div", TType>
   & PropsWithChildren) {
   return (
     <RadioGroup

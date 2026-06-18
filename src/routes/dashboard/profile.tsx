@@ -24,16 +24,17 @@ export const Route = createFileRoute("/dashboard/profile")({
 function RouteComponent() {
   const { data: session, isPending: isPendingSession } = useSession();
   const { data: accounts, isPending: isPendingAccounts } = useAccounts();
-  const user = { ...session?.user, accounts: accounts };
   const isPending = isPendingSession || isPendingAccounts;
-
-  if (!user) {
-    return null;
-  }
 
   if (isPending) {
     return <div>Loading...</div>;
   }
+
+  if (!session?.user) {
+    return null;
+  }
+
+  const user = { ...session.user, accounts };
 
   return (
     <section className="space-y-8">
@@ -72,16 +73,16 @@ function RouteComponent() {
         <CardFooter>
           <div className="space-y-2">
             {user.accounts?.map((a) => (
-              <div className="flex gap-2 items-center" key={a.provider}>
-                {a.provider === BETTERAUTH.oauth.google && <GoogleIcon />}
-                {a.provider === BETTERAUTH.oauth.google && <GithubIcon />}
+              <div className="flex gap-2 items-center" key={a.id}>
+                {a.providerId === BETTERAUTH.oauth.google && <GoogleIcon />}
+                {a.providerId === BETTERAUTH.oauth.github && <GithubIcon />}
                 <P>
                   <span className="capitalize">
-                    {a.provider}
+                    {a.providerId}
                   </span>
                   <span>&nbsp;account connected</span>
                 </P>
-                {a.provider === BETTERAUTH.credential && (
+                {a.providerId === BETTERAUTH.credential && (
                   <ChangePasswordFormDialog />
                 )}
               </div>

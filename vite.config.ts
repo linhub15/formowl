@@ -29,7 +29,9 @@ export default defineConfig({
         ],
       },
     }),
-    nitro(),
+    nitro({
+      plugins: ["./server/plugins/posthog_logs.ts"],
+    }),
     react(),
   ],
 });

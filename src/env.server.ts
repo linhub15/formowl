@@ -4,6 +4,8 @@ const envServerSchema = z.object({
   VITE_APP_URL: z.string(),
   VITE_POSTHOG_HOST: z.string().optional(),
   VITE_POSTHOG_PUBLIC_KEY: z.string().optional(),
+  POSTHOG_HOST: z.string().optional(),
+  POSTHOG_PROJECT_TOKEN: z.string().optional(),
 
   DATABASE_URL: z.string(),
   UPLOADTHING_TOKEN: z.string(),
@@ -16,7 +18,10 @@ const envServerSchema = z.object({
 
   STRIPE_WEBHOOK_SECRET: z.string(),
   STRIPE_SECRET_KEY: z.string(),
-  STRIPE_PRICE_PRO_YEARLY: z.string(),
+  STRIPE_PRICE_PRO_YEARLY: z.string().startsWith(
+    "price_",
+    "STRIPE_PRICE_PRO_YEARLY must be a Stripe Price ID, not a Product ID.",
+  ),
 
   // EMAIL
   SMTP_HOST: z.string(),

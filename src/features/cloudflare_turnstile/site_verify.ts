@@ -1,3 +1,5 @@
+import { emitPostHogLog } from "@/lib/posthog/posthog_logs.server";
+
 type Params = {
   token: string;
   ip: string;
@@ -36,7 +38,17 @@ export async function siteVerify(
   const json = await response.json() as Result;
 
   if (!json.success) {
-    console.error({ json: json, requestBody: formData });
+    emitPostHogLog({
+      severityText: "warn",
+      body: "cloudflare turnstile verification failed",
+      attributes: {
+        ip,
+        hostname: json.hostname,
+        action: json.action,
+        error_codes: json["error-codes"] ?? [],
+      },
+    });
+
     return;
   }
 

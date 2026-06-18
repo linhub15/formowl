@@ -1,7 +1,7 @@
 import { db } from "@/db/database";
 import { email, emailVerification } from "@/db/schema";
+import { emitPostHogErrorLog } from "@/lib/posthog/posthog_logs.server";
 import { createFileRoute } from "@tanstack/react-router";
-import { getHeaders } from "better-auth/react";
 import { and, eq } from "drizzle-orm";
 
 export const Route = createFileRoute("/api/emails/verify/$orgId/$token")({
@@ -27,7 +27,16 @@ export const Route = createFileRoute("/api/emails/verify/$orgId/$token")({
             .returning();
 
           if (deletedVerification.length > 1) {
-            console.error("REALY BAD: multiple email verifications deleted");
+            emitPostHogErrorLog(
+              new Error("multiple email verifications deleted"),
+              {
+                body: "email verification failed",
+                attributes: {
+                  organization_id: orgId,
+                  deleted_verification_count: deletedVerification.length,
+                },
+              },
+            );
             return transaction.rollback();
           }
 
@@ -35,7 +44,15 @@ export const Route = createFileRoute("/api/emails/verify/$orgId/$token")({
 
           if (!deleted) {
             // likely because it is already expired or deleted
-            console.error("failed to delete email verification");
+            emitPostHogErrorLog(
+              new Error("email verification token not found"),
+              {
+                body: "email verification failed",
+                attributes: {
+                  organization_id: orgId,
+                },
+              },
+            );
             return transaction.rollback();
           }
 
@@ -57,8 +74,17 @@ export const Route = createFileRoute("/api/emails/verify/$orgId/$token")({
           });
 
           if (!found) {
-            console.error(
-              "email not found after deleting verification. Expected email to exist.",
+            emitPostHogErrorLog(
+              new Error(
+                "email not found after deleting verification. Expected email to exist.",
+              ),
+              {
+                body: "email verification failed",
+                attributes: {
+                  organization_id: orgId,
+                  email_id: deleted.emailId,
+                },
+              },
             );
             return transaction.rollback();
           }

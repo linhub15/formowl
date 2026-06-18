@@ -1,4 +1,5 @@
 import { BRANDING } from "@/lib/constants";
+import { logClientErrorFn } from "@/lib/posthog/log_client_error.fn";
 import tailwind from "@/main.css?url";
 import dashboardScreenshot from "@/routes/dashboard_screenshot.png?url";
 import type { QueryClient } from "@tanstack/react-query";
@@ -8,9 +9,11 @@ import {
   createRootRouteWithContext,
   HeadContent,
   Outlet,
-  type ReactNode,
   Scripts,
+  useLocation,
 } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import type { ReactNode } from "react";
 import { Toaster } from "sonner";
 
 const imgeUrl = new URL(dashboardScreenshot, import.meta.env.VITE_APP_URL).href;
@@ -57,17 +60,58 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 );
 
 function RootComponent() {
+  const location = useLocation();
+  const logClientError = useServerFn(logClientErrorFn);
+
   return (
     <RootDocument>
       <Toaster theme="system" position="bottom-center" />
       <CatchBoundary
         getResetKey={() => "reset"}
-        onCatch={(error) => console.error(error)}
+        onCatch={(error) => {
+          console.error(error);
+          void logClientError({
+            data: {
+              source: "root_catch_boundary",
+              pathname: location.pathname,
+              ...serializeClientError(error),
+            },
+          }).catch((loggingError) => {
+            console.error("Failed to report root error:", loggingError);
+          });
+        }}
       >
         <Outlet />
       </CatchBoundary>
     </RootDocument>
   );
+}
+
+function serializeClientError(error: unknown) {
+  if (error instanceof Error) {
+    return {
+      errorName: error.name,
+      errorMessage: error.message,
+      errorStack: error.stack,
+    };
+  }
+
+  return {
+    errorName: typeof error,
+    errorMessage: stringifyClientError(error),
+  };
+}
+
+function stringifyClientError(error: unknown) {
+  if (typeof error === "string") {
+    return error;
+  }
+
+  try {
+    return JSON.stringify(error);
+  } catch {
+    return String(error);
+  }
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
