@@ -14,8 +14,8 @@ export async function getSubmissionEmailQuota(args: Args) {
       ),
   });
 
-  const maxQuota =
-    safeGetPlan(subscription?.plan, "free").limits.monthlyEmailNotifications;
+  const maxQuota = safeGetPlan(subscription?.plan, "free").limits
+    .monthlyEmailNotifications;
 
   const now = new Date();
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -23,7 +23,7 @@ export async function getSubmissionEmailQuota(args: Args) {
 
   const submissions = await db.query.submissionEmailQuota.findMany({
     columns: { id: true },
-    where: (quota, { and, eq, gte, lt, isNotNull }) =>
+    where: (quota, { and, eq, gte, lt }) =>
       and(
         eq(quota.organizationId, args.organizationId),
         gte(quota.createdAt, startOfMonth),

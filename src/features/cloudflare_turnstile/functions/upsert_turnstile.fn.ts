@@ -1,5 +1,5 @@
 import { db } from "@/db/database";
-import { cloudflareTurnstile, form } from "@/db/schema";
+import { cloudflareTurnstile } from "@/db/schema";
 import { authMiddleware } from "@/lib/auth/auth_middleware";
 import { createServerFn } from "@tanstack/react-start";
 import { and, eq } from "drizzle-orm";
@@ -36,7 +36,7 @@ export const upsertTurnstileFn = createServerFn({ method: "POST" })
     }
 
     await db.transaction(async (transaction) => {
-      const inserted = await transaction
+      await transaction
         .insert(cloudflareTurnstile)
         .values({
           id: data.turnstileId,

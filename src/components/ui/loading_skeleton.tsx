@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils/cn";
-import { cva } from "cva";
 
 type Props = {
   className?: string;

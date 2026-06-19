@@ -1,9 +1,6 @@
 import {
   ArrowRightStartOnRectangleIcon,
   ChevronUpIcon,
-  CreditCardIcon,
-  LightBulbIcon,
-  ShieldCheckIcon,
   UserIcon,
 } from "@heroicons/react/16/solid";
 import {

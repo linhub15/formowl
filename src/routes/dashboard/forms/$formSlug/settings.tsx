@@ -1,5 +1,4 @@
 import { Card, CardBody, CardHeader } from "@/components/layout/card";
-import { Button } from "@/components/ui/button";
 import { CodeBlock } from "@/components/ui/code_block";
 import { Field, FieldGroup, Label } from "@/components/ui/fieldset";
 import { Subheading } from "@/components/ui/heading";
@@ -53,9 +52,7 @@ function RouteComponent() {
                   The name of the form is used on email subject lines and shows
                   up in this dashboard.
                 </P>
-                <P>
-                  Changing the name won't affect submissions.
-                </P>
+                <P>Changing the name won't affect submissions.</P>
               </div>
             </div>
             <div className="w-xs">

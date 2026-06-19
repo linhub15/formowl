@@ -9,22 +9,21 @@ import { useEffect, useState } from "react";
 type SchemeOptions = "dark" | "light" | "no-preference";
 
 export function usePrefersColorScheme() {
-  const [preferredColorSchema, setPreferredColorSchema] = useState<
-    SchemeOptions
-  >(() => {
-    if (typeof window === "undefined") return "no-preference";
+  const [preferredColorSchema, setPreferredColorSchema] =
+    useState<SchemeOptions>(() => {
+      if (typeof window === "undefined") return "no-preference";
 
-    // since window.matchMedia is synchronous we can initialize the state with the right value
-    // preventing a flash of wrong theme on first render
-    const isDark = window.matchMedia("(prefers-color-scheme: dark)");
-    const isLight = window.matchMedia("(prefers-color-scheme: light)");
+      // since window.matchMedia is synchronous we can initialize the state with the right value
+      // preventing a flash of wrong theme on first render
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)");
+      const isLight = window.matchMedia("(prefers-color-scheme: light)");
 
-    return isDark.matches
-      ? "dark"
-      : isLight.matches
-      ? "light"
-      : "no-preference";
-  });
+      return isDark.matches
+        ? "dark"
+        : isLight.matches
+          ? "light"
+          : "no-preference";
+    });
 
   useEffect(() => {
     if (typeof window.matchMedia !== "function") return;
@@ -40,10 +39,14 @@ export function usePrefersColorScheme() {
       // In modern browsers MediaQueryList should subclass EventTarget
       // https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList
       const darkListener = ({ matches }: MediaQueryListEvent) => {
-        matches && setPreferredColorSchema("dark");
+        if (matches) {
+          setPreferredColorSchema("dark");
+        }
       };
       const lightListener = ({ matches }: MediaQueryListEvent) => {
-        matches && setPreferredColorSchema("light");
+        if (matches) {
+          setPreferredColorSchema("light");
+        }
       };
       isDark.addEventListener("change", darkListener);
       isLight.addEventListener("change", lightListener);

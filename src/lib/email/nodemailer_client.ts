@@ -1,4 +1,4 @@
-import { err, ok, type Result } from "neverthrow";
+import { ResultAsync, type Result } from "neverthrow";
 import type { Mailer, SendArgs } from "./mailer.types";
 import nodemailer from "nodemailer";
 import { env } from "@/env.server";
@@ -15,17 +15,22 @@ export class NodeMailer implements Mailer {
   });
 
   async send(args: SendArgs): Promise<Result<void, string>> {
-    try {
-      const info = await this.#transport.sendMail({
+    return await ResultAsync.fromPromise(
+      this.#transport.sendMail({
         from: env.EMAIL_FROM,
         ...args,
-      });
+      }),
+      (error) => {
+        console.error("Failed to send email", {
+          to: args.to,
+          subject: args.subject,
+          error,
+        });
 
+        return "Failed to send email";
+      },
+    ).map((info) => {
       console.info("Message sent: %s", info.messageId);
-
-      return ok();
-    } catch (_error) {
-      return err("Failed to send email");
-    }
+    });
   }
 }

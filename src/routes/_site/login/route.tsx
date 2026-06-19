@@ -1,4 +1,3 @@
-import { AppNavigation } from "@/features/app_shell/app_navigation";
 import { getSessionFn } from "@/lib/auth/get_session.fn";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { z } from "zod";

@@ -2,13 +2,10 @@ import { Heading, Row, Section, Text } from "react-email";
 import { EmailLayout } from "./email.layout";
 
 type Props = {
-  formSubmissionUrl: string;
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   formData: Record<string, any>;
   formName: string;
 };
 function FormSubmissionNotificationEmail({
-  formSubmissionUrl = "#",
   formData = {},
   formName = "",
 }: Props) {
