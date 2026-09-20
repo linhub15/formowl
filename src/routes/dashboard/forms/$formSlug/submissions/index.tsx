@@ -3,9 +3,10 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/forms/$formSlug/submissions/")(
   {
-    beforeLoad: async ({ params, context }) => {
-      const submissions = await listSubmissionsFn({
-        data: { formId: context.formId },
+    beforeLoad: async ({ params, context, search }) => {
+      const page = search.page ?? 1;
+      const { submissions } = await listSubmissionsFn({
+        data: { formId: context.formId, page },
       });
 
       const first = submissions?.at(0);
@@ -14,6 +15,7 @@ export const Route = createFileRoute("/dashboard/forms/$formSlug/submissions/")(
         throw redirect({
           to: "/dashboard/forms/$formSlug/submissions/$id",
           params: { formSlug: params.formSlug, id: first.id },
+          search: { page },
         });
       }
 

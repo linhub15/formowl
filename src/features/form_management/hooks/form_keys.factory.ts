@@ -7,6 +7,8 @@ export const formKeys = {
       [...formKeys.single(formId), "submissions"] as const,
     lists: (formId: string) =>
       [...formKeys.submissions.all(formId), "list"] as const,
+    list: (args: { formId: string; page: number }) =>
+      [...formKeys.submissions.lists(args.formId), args.page] as const,
     single: (args: { formId: string; submissionId: string }) =>
       [
         ...formKeys.submissions.all(args.formId),

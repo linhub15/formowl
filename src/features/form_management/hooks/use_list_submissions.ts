@@ -9,7 +9,7 @@ import { formKeys } from "./form_keys.factory";
 export function useListSubmissions(args: ListSubmissionsRequest) {
   const listSubmissions = useServerFn(listSubmissionsFn);
   return useQuery({
-    queryKey: formKeys.submissions.lists(args.formId),
+    queryKey: formKeys.submissions.list(args),
     queryFn: async () => {
       const submissions = await listSubmissions({ data: args });
       return submissions;
